@@ -1,3 +1,4 @@
 import { ThemeContext } from './theme/theme.context';
+import { AuthContext } from './auth/auth.context';
 
-export { ThemeContext };
+export { ThemeContext, AuthContext };
