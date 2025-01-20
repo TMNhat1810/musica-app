@@ -1,10 +1,13 @@
+import AuthProvider from './contexts/auth/auth.provider';
 import ThemeProvider from './contexts/theme/theme.provider';
-import MainLayout from './layouts/main/MainLayout';
+import MusicaRouter from './router';
 
 export default function App() {
   return (
     <ThemeProvider>
-      <MainLayout />
+      <AuthProvider>
+        <MusicaRouter />
+      </AuthProvider>
     </ThemeProvider>
   );
 }
