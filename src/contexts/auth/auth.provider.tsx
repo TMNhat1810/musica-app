@@ -43,7 +43,7 @@ export default function AuthProvider({ children }: AuthProviderPropType) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, signinUser, signoutUser }}>
+    <AuthContext.Provider value={{ user, signinUser, signoutUser, getUserProfile }}>
       {children}
     </AuthContext.Provider>
   );

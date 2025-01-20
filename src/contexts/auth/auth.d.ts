@@ -14,4 +14,5 @@ export interface AuthContextType {
   user: IUser | null;
   signinUser: (username: string, password: string) => Promise<void>;
   signoutUser: () => void;
+  getUserProfile: () => void;
 }

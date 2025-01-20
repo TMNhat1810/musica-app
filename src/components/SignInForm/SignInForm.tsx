@@ -41,7 +41,7 @@ export default function SignInForm() {
       <TextField
         label="username"
         variant="outlined"
-        slotProps={{ inputLabel: { sx: { color: 'white' } } }}
+        slotProps={{ inputLabel: { sx: { color: 'gray' } } }}
         sx={{
           color: 'white',
           '& .MuiOutlinedInput-root': {
@@ -59,7 +59,7 @@ export default function SignInForm() {
         label="password"
         variant="outlined"
         type="password"
-        slotProps={{ inputLabel: { sx: { color: 'white' } } }}
+        slotProps={{ inputLabel: { sx: { color: 'gray' } } }}
         sx={{
           color: 'white',
           '& .MuiOutlinedInput-root': {

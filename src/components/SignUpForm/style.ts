@@ -13,7 +13,7 @@ export const styles: SignInFormStyle = {
     display: 'flex',
     flexDirection: 'column',
     minWidth: '300px',
-    gap: '10px',
+    gap: '15px',
     padding: '10px',
     justifyContent: 'center',
     height: '100%',
