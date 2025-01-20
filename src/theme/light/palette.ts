@@ -9,6 +9,7 @@ export const palette: PaletteOptions = {
   },
   background: {
     default: '#121212',
+    paper: '#444444',
   },
   text: {
     primary: '#dedede',

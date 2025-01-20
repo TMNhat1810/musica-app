@@ -8,14 +8,14 @@ export const instances = axios.create({
 });
 
 instances.interceptors.response.use(
-  (response) => response.data,
+  (response) => response,
   async (error) => {
     const originalRequest = error.config;
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       try {
         const response = await axios.post(API.ENDPOINT + '/auth/refresh-token', {
-          token: localStorage.getItem('refresh_token'),
+          token: TokenUtils.getRefreshToken(),
         });
         const { access_token } = response.data;
         TokenUtils.setAccessToken(access_token);

@@ -1,0 +1,80 @@
+import { Box, Button, TextField, Typography } from '@mui/material';
+import { styles } from './style';
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { useAuth } from '../../hooks';
+
+export default function SignInForm() {
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [error, setError] = useState<string>('');
+
+  const { signinUser } = useAuth();
+
+  const handleSignIn = async () => {
+    try {
+      signinUser(username, password);
+    } catch {
+      setError('Username or password mismatched!');
+    }
+  };
+
+  return (
+    <Box sx={styles.container}>
+      <Typography
+        variant="h4"
+        sx={{ textAlign: 'center' }}
+        borderBottom="2px solid white"
+        marginBottom="5px"
+      >
+        MUSICA
+      </Typography>
+      <TextField
+        label="username"
+        variant="outlined"
+        slotProps={{ inputLabel: { sx: { color: 'white' } } }}
+        sx={{
+          color: 'white',
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+              borderColor: 'lightgray',
+            },
+          },
+        }}
+        onChange={(event) => {
+          setUsername(event.target.value);
+          setError('');
+        }}
+      />
+      <TextField
+        label="password"
+        variant="outlined"
+        type="password"
+        slotProps={{ inputLabel: { sx: { color: 'white' } } }}
+        sx={{
+          color: 'white',
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+              borderColor: 'lightgray',
+            },
+          },
+        }}
+        onChange={(event) => {
+          setPassword(event.target.value);
+          setError('');
+        }}
+      />
+      <Typography sx={{ fontSize: '13px', textAlign: 'center' }} color="error">
+        {error}
+      </Typography>
+      <Box sx={styles.buttonContainer}>
+        <Button variant="contained" sx={styles.button} onClick={handleSignIn}>
+          Sign In
+        </Button>
+      </Box>
+      <Typography sx={styles.bottomText}>
+        Don't have account? <Link to="/auth/sign-up">Sign up</Link>{' '}
+      </Typography>
+    </Box>
+  );
+}
