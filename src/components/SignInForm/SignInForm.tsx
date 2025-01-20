@@ -8,19 +8,28 @@ export default function SignInForm() {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
 
   const { signinUser } = useAuth();
 
   const handleSignIn = async () => {
     try {
+      setLoading(true);
       signinUser(username, password);
     } catch {
       setError('Username or password mismatched!');
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <Box sx={styles.container}>
+    <Box
+      sx={styles.container}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter') handleSignIn();
+      }}
+    >
       <Typography
         variant="h4"
         sx={{ textAlign: 'center' }}
@@ -68,7 +77,12 @@ export default function SignInForm() {
         {error}
       </Typography>
       <Box sx={styles.buttonContainer}>
-        <Button variant="contained" sx={styles.button} onClick={handleSignIn}>
+        <Button
+          variant="contained"
+          sx={styles.button}
+          onClick={handleSignIn}
+          disabled={loading}
+        >
           Sign In
         </Button>
       </Box>
