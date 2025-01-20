@@ -9,5 +9,7 @@ export const styles: HeaderStyle = {
     display: 'flex',
     width: '100vw',
     justifyContent: 'space-between',
+    padding: '0px 16px',
+    alignItems: 'center',
   },
 };
