@@ -125,7 +125,15 @@ export default function UploadForm() {
         );
       }
       default:
-        return <FinishForm />;
+        return (
+          <FinishForm
+            title={title}
+            description={description}
+            media={media}
+            thumbnail={thumbnail}
+            callback={setThumbnail}
+          />
+        );
     }
   }
 

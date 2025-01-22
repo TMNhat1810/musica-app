@@ -31,6 +31,7 @@ export default function MediaUpload({
           acceptedFiles={[...VideoMimetypes, ...AudioMimetypes]}
           filesLimit={1}
           dropzoneClass="mui-dropzone-container"
+          dropzoneText="Upload your media file here"
           clearOnUnmount={false}
           dropzoneProps={{ disabled: !!media }}
         />

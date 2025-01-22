@@ -10,6 +10,9 @@ export const styles: MediaUploadStyle = {
     paddingTop: '16px',
     '& .mui-dropzone-container': {
       borderColor: 'gray',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     display: 'flex',
     flexDirection: 'column',
