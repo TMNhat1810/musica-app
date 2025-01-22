@@ -5,19 +5,29 @@ import AuthPageLayout from '../layouts/AuthPage';
 import SignInForm from '../components/SignInForm';
 import SignUpForm from '../components/SignUpForm';
 import AuthProtectedRoute from './protected/auth.protect';
+import UploadPage from '../containers/UploadPage';
+import UnauthProtectedRoute from './protected/unauth.protect';
 
 export default function MusicaRoutes() {
   return (
     <Routes>
       <Route path="/" element={<MainLayout />}>
         <Route index path="" element={<HomePage />} />
+        <Route
+          path="upload"
+          element={
+            <AuthProtectedRoute>
+              <UploadPage />
+            </AuthProtectedRoute>
+          }
+        />
       </Route>
       <Route
         path="/auth"
         element={
-          <AuthProtectedRoute>
+          <UnauthProtectedRoute>
             <AuthPageLayout />
-          </AuthProtectedRoute>
+          </UnauthProtectedRoute>
         }
       >
         <Route index path="sign-in" element={<SignInForm />} />

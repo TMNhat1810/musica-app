@@ -13,5 +13,6 @@ export const palette: PaletteOptions = {
   },
   text: {
     primary: '#dedede',
+    disabled: 'gray',
   },
 };

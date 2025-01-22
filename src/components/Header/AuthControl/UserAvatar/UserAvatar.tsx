@@ -42,7 +42,7 @@ export default function UserAvatar({ user }: UserAvatarPropsType) {
         <IconButton
           onClick={handleClick}
           size="small"
-          sx={{ ml: 2 }}
+          sx={{ ml: 2, border: '2px solid white', padding: 0 }}
           aria-controls={open ? 'account-menu' : undefined}
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
