@@ -2,6 +2,7 @@ import { SxProps, Theme } from '@mui/material';
 
 interface MediaUploadStyle {
   container: SxProps<Theme>;
+  buttonContainer: SxProps<Theme>;
 }
 
 export const styles: MediaUploadStyle = {
@@ -10,5 +11,13 @@ export const styles: MediaUploadStyle = {
     '& .mui-dropzone-container': {
       borderColor: 'gray',
     },
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%',
+    justifyContent: 'space-between',
+  },
+  buttonContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
   },
 };

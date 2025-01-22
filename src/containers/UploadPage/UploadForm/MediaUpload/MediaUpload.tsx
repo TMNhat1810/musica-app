@@ -1,15 +1,23 @@
-import { Box, Chip, Divider, IconButton, Typography } from '@mui/material';
+import { Box, Button, Chip, Divider, IconButton, Typography } from '@mui/material';
 import { styles } from './style';
 import { DropzoneArea } from 'mui-file-dropzone';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { AudioMimetypes, VideoMimetypes } from '../../../../common/mimetypes';
+import { useNavigate } from 'react-router-dom';
 
 interface MediaUploadPropsType {
   media: File | null;
   callback: (file: File | null) => void;
+  setStep: (step: number) => void;
 }
 
-export default function MediaUpload({ media, callback }: MediaUploadPropsType) {
+export default function MediaUpload({
+  media,
+  callback,
+  setStep,
+}: MediaUploadPropsType) {
+  const navigate = useNavigate();
+
   return (
     <Box sx={styles.container}>
       {!media && (
@@ -78,6 +86,27 @@ export default function MediaUpload({ media, callback }: MediaUploadPropsType) {
           </Box>
         </Box>
       )}
+      <Box sx={styles.buttonContainer}>
+        <Button
+          onClick={() => navigate('/')}
+          sx={{
+            color: 'text.primary',
+          }}
+        >
+          Cancel
+        </Button>
+        <Button
+          onClick={() => setStep(1)}
+          disabled={!media}
+          sx={{
+            '&.Mui-disabled': {
+              color: 'text.disabled',
+            },
+          }}
+        >
+          Next
+        </Button>
+      </Box>
     </Box>
   );
 }
