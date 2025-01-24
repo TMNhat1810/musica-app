@@ -1,5 +1,15 @@
 import { AxiosInstance } from '../utils/axios';
 
+export const getMedias = async (page: number = 1, limit: number = 10) => {
+  const response = await AxiosInstance.get('/media', {
+    params: {
+      page,
+      limit,
+    },
+  });
+  return response.data;
+};
+
 export const uploadMedia = async (
   title: string,
   description: string,
