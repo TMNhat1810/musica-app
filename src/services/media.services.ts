@@ -10,6 +10,11 @@ export const getMedias = async (page: number = 1, limit: number = 10) => {
   return response.data;
 };
 
+export const getMediaById = async (id: string) => {
+  const response = await AxiosInstance.get('/media/' + id);
+  return response.data;
+};
+
 export const uploadMedia = async (
   title: string,
   description: string,

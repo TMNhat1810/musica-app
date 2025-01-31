@@ -2,13 +2,18 @@ import { Avatar, Box, IconButton, Tooltip, Typography } from '@mui/material';
 import { styles } from './style';
 import { Media } from '../../common/interfaces';
 import dayjs from 'dayjs';
+import { useNavigate } from 'react-router-dom';
 
 interface MediaDisplayPropsType {
   media: Media;
 }
 
 export default function MediaDisplay({ media }: MediaDisplayPropsType) {
-  const openMedia = () => {};
+  const navigate = useNavigate();
+
+  const openMedia = () => {
+    navigate('/w/' + media.id);
+  };
 
   const toOwnerProfile = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
