@@ -5,6 +5,7 @@ import MediaControl from '../../components/MediaControl';
 import { useEffect, useState } from 'react';
 import { Media } from '../../common/interfaces';
 import { MediaServices } from '../../services';
+import CommentContainer from '../../components/CommentContainer';
 
 export default function MediaViewPage() {
   const { id } = useParams<{ id: string }>();
@@ -20,11 +21,14 @@ export default function MediaViewPage() {
   return (
     <Box sx={styles.container}>
       {media && (
-        <MediaControl
-          type={media.type}
-          media_url={media.media_url}
-          thumbnail_url={media.thumbnail_url}
-        />
+        <Box>
+          <MediaControl
+            type={media.type}
+            media_url={media.media_url}
+            thumbnail_url={media.thumbnail_url}
+          />
+          <CommentContainer />
+        </Box>
       )}
     </Box>
   );

@@ -12,7 +12,7 @@ export default function AudioControl({
   return (
     <Box>
       <audio controls>
-        <source src={audio_url} type="audio/*" />
+        <source src={audio_url} type="audio/mp3" />
         Your browser does not support the audio element.
       </audio>
     </Box>
