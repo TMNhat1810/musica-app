@@ -39,6 +39,13 @@ export const uploadMedia = async (
 };
 
 export const getCommentsByMediaId = async (id: string) => {
-  const response = await AxiosInstance.get(`media/${id}/comment`);
+  const response = await AxiosInstance.get(`/media/${id}/comment`);
+  return response.data;
+};
+
+export const uploadComment = async (id: string, content: string) => {
+  const response = await AxiosInstance.post(`/media/${id}/comment`, {
+    content,
+  });
   return response.data;
 };
