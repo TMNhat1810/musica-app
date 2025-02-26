@@ -2,6 +2,7 @@ import { SxProps, Theme } from '@mui/material';
 
 interface MediaViewPageStyle {
   container: SxProps<Theme>;
+  contentContainer: SxProps<Theme>;
 }
 
 export const styles: MediaViewPageStyle = {
@@ -9,4 +10,5 @@ export const styles: MediaViewPageStyle = {
     display: 'flex',
     flex: 1,
   },
+  contentContainer: {},
 };

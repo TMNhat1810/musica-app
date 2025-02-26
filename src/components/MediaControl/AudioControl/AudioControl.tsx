@@ -11,6 +11,7 @@ export default function AudioControl({
 }: AudioControlPropsType) {
   return (
     <Box>
+      {thumbnail_url && <></>}
       <audio controls>
         <source src={audio_url} type="audio/mp3" />
         Your browser does not support the audio element.

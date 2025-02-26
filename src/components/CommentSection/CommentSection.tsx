@@ -14,9 +14,11 @@ export default function CommentSection({ data }: CommentSection) {
         variant="h5"
         sx={{ fontWeight: 'bold' }}
       >{`${data.length} comment${data.length > 1 ? 's' : ''}`}</Typography>
-      {data.map((comment) => (
-        <CommentDisplay key={comment.id} data={comment} />
-      ))}
+      <Box sx={styles.commentPannel}>
+        {data.map((comment) => (
+          <CommentDisplay key={comment.id} data={comment} />
+        ))}
+      </Box>
     </Box>
   );
 }

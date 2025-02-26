@@ -21,7 +21,7 @@ export default function MediaViewPage() {
   return (
     <Box sx={styles.container}>
       {media && (
-        <Box>
+        <Box sx={styles.contentContainer}>
           <MediaControl
             type={media.type}
             media_url={media.media_url}

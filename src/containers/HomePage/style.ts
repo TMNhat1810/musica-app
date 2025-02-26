@@ -11,6 +11,8 @@ export const styles: HomePageStyle = {
     flex: 1,
   },
   mediaPannel: {
-    
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: '20px',
   },
 };
