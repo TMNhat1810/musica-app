@@ -3,4 +3,5 @@ export interface User {
   username: string;
   display_name?: string;
   photo_url: string;
+  email?: string;
 }

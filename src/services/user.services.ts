@@ -1,4 +1,5 @@
 import { AxiosInstance } from '../utils/axios';
+import { UpdateCurrentUserProfileDto } from './dtos';
 
 export const register = async (
   username: string,
@@ -11,6 +12,29 @@ export const register = async (
     display_name,
     email,
     password,
+  });
+  return response.data;
+};
+
+export const getUserById = async (id: string) => {
+  const response = await AxiosInstance.get('/user/' + id);
+  return response.data;
+};
+
+export const updateCurrentUserProfile = async (
+  data: UpdateCurrentUserProfileDto,
+) => {
+  const response = await AxiosInstance.patch('/user/c/profile', data);
+  return response.data;
+};
+
+export const updateCurrentUserAvatar = async (file: File) => {
+  const formData = new FormData();
+  formData.append('file', file);
+  const response = await AxiosInstance.patch('/user/c/avatar', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
   });
   return response.data;
 };

@@ -8,7 +8,7 @@ import { MediaServices } from '../../services';
 import CommentContainer from '../../components/CommentContainer';
 
 export default function MediaViewPage() {
-  const { id } = useParams<{ id: string }>();
+    const { id } = useParams<{ id: string }>();
   const [media, setMedia] = useState<Media | null>(null);
 
   useEffect(() => {

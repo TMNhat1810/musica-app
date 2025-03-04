@@ -8,6 +8,7 @@ import AuthProtectedRoute from './protected/auth.protect';
 import UploadPage from '../containers/UploadPage';
 import UnauthProtectedRoute from './protected/unauth.protect';
 import MediaViewPage from '../containers/MediaViewPage';
+import ProfilePage from '../containers/ProfilePage';
 
 export default function MusicaRoutes() {
   return (
@@ -23,6 +24,7 @@ export default function MusicaRoutes() {
           }
         />
         <Route path="w/:id" element={<MediaViewPage />} />
+        <Route path="p/:id" element={<ProfilePage />} />
       </Route>
       <Route
         path="/auth"

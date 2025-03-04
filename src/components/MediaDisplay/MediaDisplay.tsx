@@ -3,6 +3,7 @@ import { styles } from './style';
 import { Media } from '../../common/interfaces';
 import dayjs from 'dayjs';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 interface MediaDisplayPropsType {
   media: Media;
@@ -32,7 +33,7 @@ export default function MediaDisplay({ media }: MediaDisplayPropsType) {
         />
       </Box>
       <Box sx={styles.mediaInfoContainer}>
-        <Box>
+        <Link to={`/p/${media.user.id}`} style={{ textDecoration: 'none' }}>
           <Tooltip title={media.user.display_name}>
             <IconButton
               sx={{ padding: 0, marginTop: '8px' }}
@@ -41,7 +42,7 @@ export default function MediaDisplay({ media }: MediaDisplayPropsType) {
               <Avatar src={media.user.photo_url} />
             </IconButton>
           </Tooltip>
-        </Box>
+        </Link>
         <Box>
           <Box>
             <Tooltip title={media.title}>

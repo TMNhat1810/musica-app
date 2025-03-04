@@ -13,6 +13,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { IUser } from '../../../../contexts/auth/auth';
 import { MouseEvent, useState } from 'react';
 import { useAuth } from '../../../../hooks';
+import { useNavigate } from 'react-router-dom';
 
 interface UserAvatarPropsType {
   user: IUser;
@@ -22,6 +23,8 @@ export default function UserAvatar({ user }: UserAvatarPropsType) {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const open = Boolean(anchorEl);
   const { signoutUser } = useAuth();
+
+  const navigate = useNavigate();
 
   const handlerSignout = async () => {
     signoutUser();
@@ -87,7 +90,7 @@ export default function UserAvatar({ user }: UserAvatarPropsType) {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={() => navigate(`/p/${user.id}`)}>
           <Avatar src={user.photo_url} />
           <Box>
             <Typography>{user.display_name}</Typography>
