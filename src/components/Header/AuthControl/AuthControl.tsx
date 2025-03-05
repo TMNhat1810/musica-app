@@ -13,7 +13,12 @@ export default function AuthControl() {
       {user ? (
         <Box sx={styles.signInContainer}>
           <Link to="/upload">
-            <IconButton sx={{ border: '2px solid white', padding: '5px' }}>
+            <IconButton
+              sx={{
+                border: '2px solid white',
+                padding: '5px',
+              }}
+            >
               <FileUploadIcon
                 sx={{
                   color: 'white',

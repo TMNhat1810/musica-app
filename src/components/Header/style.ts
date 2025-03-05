@@ -2,6 +2,7 @@ import { SxProps, Theme } from '@mui/material';
 
 interface HeaderStyle {
   container: SxProps<Theme>;
+  leftSideContainer: SxProps<Theme>;
 }
 
 export const styles: HeaderStyle = {
@@ -15,5 +16,10 @@ export const styles: HeaderStyle = {
     alignItems: 'center',
     zIndex: 100,
     backgroundColor: 'background.default',
+  },
+  leftSideContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
   },
 };
