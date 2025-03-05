@@ -8,6 +8,8 @@ interface MediaDisplayStyle {
 
 export const styles: MediaDisplayStyle = {
   container: {
+    display: 'flex',
+    flexDirection: 'column',
     width: '280px',
     ':hover': {
       cursor: 'pointer',

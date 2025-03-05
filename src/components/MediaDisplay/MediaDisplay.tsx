@@ -1,4 +1,4 @@
-import { Avatar, Box, IconButton, Tooltip, Typography } from '@mui/material';
+import { Avatar, Box, Button, IconButton, Tooltip, Typography } from '@mui/material';
 import { styles } from './style';
 import { Media } from '../../common/interfaces';
 import dayjs from 'dayjs';
@@ -7,9 +7,10 @@ import { Link } from 'react-router-dom';
 
 interface MediaDisplayPropsType {
   media: Media;
+  horizontal?: boolean;
 }
 
-export default function MediaDisplay({ media }: MediaDisplayPropsType) {
+export default function MediaDisplay({ media, horizontal }: MediaDisplayPropsType) {
   const navigate = useNavigate();
 
   const openMedia = () => {
@@ -21,28 +22,41 @@ export default function MediaDisplay({ media }: MediaDisplayPropsType) {
   };
 
   return (
-    <Box sx={styles.container} onClick={openMedia}>
+    <Box
+      sx={{
+        ...styles.container,
+        ...(horizontal && { flexDirection: 'row', width: '80%' }),
+      }}
+      onClick={openMedia}
+    >
       <Box sx={styles.imageContainer}>
         <img
           src={media.thumbnail_url}
           style={{
-            width: '280px',
-            height: '160px',
+            width: horizontal ? '200px' : '280px',
+            height: horizontal ? '120px' : '160px',
             objectFit: 'cover',
           }}
         />
       </Box>
-      <Box sx={styles.mediaInfoContainer}>
-        <Link to={`/p/${media.user.id}`} style={{ textDecoration: 'none' }}>
-          <Tooltip title={media.user.display_name}>
-            <IconButton
-              sx={{ padding: 0, marginTop: '8px' }}
-              onClick={toOwnerProfile}
-            >
-              <Avatar src={media.user.photo_url} />
-            </IconButton>
-          </Tooltip>
-        </Link>
+      <Box
+        sx={{
+          ...styles.mediaInfoContainer,
+          ...(horizontal && { paddingLeft: '8px' }),
+        }}
+      >
+        {!horizontal && (
+          <Link to={`/p/${media.user.id}`} style={{ textDecoration: 'none' }}>
+            <Tooltip title={media.user.display_name}>
+              <IconButton
+                sx={{ padding: 0, marginTop: '8px' }}
+                onClick={toOwnerProfile}
+              >
+                <Avatar src={media.user.photo_url} />
+              </IconButton>
+            </Tooltip>
+          </Link>
+        )}
         <Box>
           <Box>
             <Tooltip title={media.title}>
@@ -60,7 +74,25 @@ export default function MediaDisplay({ media }: MediaDisplayPropsType) {
               </Typography>
             </Tooltip>
           </Box>
-          <Typography variant="caption">@{media.user.username}</Typography>
+          <Link
+            to={`/p/${media.user.id}`}
+            style={{
+              textDecoration: 'none',
+              color: 'inherit',
+            }}
+          >
+            <Button
+              variant="text"
+              sx={{
+                textTransform: 'none',
+                color: 'inherit',
+                p: 0,
+                justifyContent: 'flex-start',
+              }}
+            >
+              <Typography variant="caption">@{media.user.username}</Typography>
+            </Button>
+          </Link>
           <Box>
             <Typography variant="caption" color="lightgray">
               {dayjs(media.created_at).fromNow()}
