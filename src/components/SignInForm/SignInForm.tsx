@@ -41,15 +41,6 @@ export default function SignInForm() {
       <TextField
         label="username"
         variant="outlined"
-        slotProps={{ inputLabel: { sx: { color: 'gray' } } }}
-        sx={{
-          color: 'white',
-          '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-              borderColor: 'lightgray',
-            },
-          },
-        }}
         onChange={(event) => {
           setUsername(event.target.value);
           setError('');
@@ -59,15 +50,6 @@ export default function SignInForm() {
         label="password"
         variant="outlined"
         type="password"
-        slotProps={{ inputLabel: { sx: { color: 'gray' } } }}
-        sx={{
-          color: 'white',
-          '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-              borderColor: 'lightgray',
-            },
-          },
-        }}
         onChange={(event) => {
           setPassword(event.target.value);
           setError('');

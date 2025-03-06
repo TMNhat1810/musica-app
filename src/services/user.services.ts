@@ -38,3 +38,14 @@ export const updateCurrentUserAvatar = async (file: File) => {
   });
   return response.data;
 };
+
+export const updateCurrentUserPassword = async (
+  currentPassword: string,
+  newPassword: string,
+) => {
+  const response = await AxiosInstance.patch('/user/c/password', {
+    currentPassword,
+    newPassword,
+  });
+  return response.data;
+};

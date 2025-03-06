@@ -60,15 +60,6 @@ export default function SignUpForm() {
       <TextField
         label="username"
         variant="outlined"
-        slotProps={{ inputLabel: { sx: { color: 'gray' } } }}
-        sx={{
-          color: 'white',
-          '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-              borderColor: 'white',
-            },
-          },
-        }}
         onChange={(event) => {
           setError('');
           setUsername(event.target.value);
@@ -77,15 +68,6 @@ export default function SignUpForm() {
       <TextField
         label="email"
         variant="outlined"
-        slotProps={{ inputLabel: { sx: { color: 'gray' } } }}
-        sx={{
-          color: 'white',
-          '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-              borderColor: 'white',
-            },
-          },
-        }}
         onChange={(event) => {
           setError('');
           setEmail(event.target.value);
@@ -95,15 +77,6 @@ export default function SignUpForm() {
         label="password"
         variant="outlined"
         type="password"
-        slotProps={{ inputLabel: { sx: { color: 'gray' } } }}
-        sx={{
-          color: 'white',
-          '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-              borderColor: 'white',
-            },
-          },
-        }}
         onChange={(event) => {
           setError('');
           setPassword(event.target.value);
@@ -113,15 +86,6 @@ export default function SignUpForm() {
         label="confirm password"
         variant="outlined"
         type="password"
-        slotProps={{ inputLabel: { sx: { color: 'gray' } } }}
-        sx={{
-          color: 'white',
-          '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-              borderColor: 'white',
-            },
-          },
-        }}
         onChange={(event) => {
           setError('');
           setConfirmPassword(event.target.value);

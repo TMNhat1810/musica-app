@@ -20,4 +20,19 @@ export const components:
       root: { color: 'lightgray' },
     },
   },
+  MuiTextField: {
+    styleOverrides: {
+      root: {
+        color: 'lightgray',
+        '& .MuiOutlinedInput-root': {
+          '& fieldset': {
+            borderColor: 'lightgray',
+          },
+        },
+      },
+    },
+    defaultProps: {
+      slotProps: { inputLabel: { sx: { color: 'gray' } } },
+    },
+  },
 };
