@@ -8,6 +8,7 @@ import {
 } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import LockIcon from '@mui/icons-material/Lock';
+import BadgeIcon from '@mui/icons-material/Badge';
 import { MouseEvent, useState } from 'react';
 import ChangeDisplayNameModal from './ChangeDisplayNameModal';
 import ChangePasswordModal from './ChangePasswordModal';
@@ -64,7 +65,9 @@ export default function ProfileSettingMenu() {
             handleCloseMenu();
           }}
         >
-          <ListItemIcon></ListItemIcon>
+          <ListItemIcon>
+            <BadgeIcon />
+          </ListItemIcon>
           <ListItemText>Change display name</ListItemText>
         </MenuItem>
         <MenuItem
