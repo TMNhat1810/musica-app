@@ -9,7 +9,8 @@ export const styles: MediaViewPageStyle = {
   container: {
     display: 'flex',
     flex: 1,
-    gap: '32px',
+    gap: 5,
+    pl: 5,
   },
   contentContainer: {},
 };

@@ -7,5 +7,7 @@ interface MediaViewStyle {
 export const styles: MediaViewStyle = {
   container: {
     flex: 2,
+    display: 'flex',
+    flexDirection: 'column',
   },
 };

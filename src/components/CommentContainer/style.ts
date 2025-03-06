@@ -5,5 +5,7 @@ interface CommentContainerStyle {
 }
 
 export const styles: CommentContainerStyle = {
-  container: {},
+  container: {
+    mt: 2,
+  },
 };

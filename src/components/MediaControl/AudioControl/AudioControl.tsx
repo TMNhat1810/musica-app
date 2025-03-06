@@ -11,8 +11,14 @@ export default function AudioControl({
 }: AudioControlPropsType) {
   return (
     <Box>
-      {thumbnail_url && <></>}
-      <audio controls>
+      {thumbnail_url && (
+        <img
+          src={thumbnail_url}
+          alt={thumbnail_url}
+          style={{ width: '100%', maxHeight: '360px', objectFit: 'contain' }}
+        />
+      )}
+      <audio controls style={{ width: '100%' }}>
         <source src={audio_url} type="audio/mp3" />
         Your browser does not support the audio element.
       </audio>

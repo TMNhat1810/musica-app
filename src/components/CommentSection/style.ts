@@ -8,6 +8,7 @@ interface CommentSectionStyle {
 export const styles: CommentSectionStyle = {
   container: {},
   commentPannel: {
+    mt: 1,
     display: 'flex',
     flexDirection: 'column',
     gap: '10px',

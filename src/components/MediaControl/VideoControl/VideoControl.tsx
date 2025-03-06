@@ -12,7 +12,12 @@ export default function VideoControl({
   return (
     <Box>
       {thumbnail_url && <></>}
-      <video width="640" height="360" controls>
+      <video
+        controls
+        style={{
+          width: '100%',
+        }}
+      >
         <source src={video_url} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
