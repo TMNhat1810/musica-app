@@ -3,6 +3,7 @@ import { styles } from './style';
 import AuthControl from './AuthControl';
 import { Link } from 'react-router-dom';
 import DrawerControl from './DrawerControl';
+import SearchBar from '../SearchBar';
 
 export default function Header() {
   return (
@@ -13,6 +14,7 @@ export default function Header() {
           Logo
         </Link>
       </Box>
+      <SearchBar />
       <AuthControl />
     </Box>
   );
