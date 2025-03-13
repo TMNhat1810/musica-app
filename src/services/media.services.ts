@@ -54,3 +54,8 @@ export const getSuggestMedia = async (id: string) => {
   const response = await AxiosInstance.get('/media', { params: { except: id } });
   return response.data;
 };
+
+export const searchMedia = async (query: string) => {
+  const response = await AxiosInstance.get('/media/search', { params: { query } });
+  return response.data;
+};
