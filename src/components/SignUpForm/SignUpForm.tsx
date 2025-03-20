@@ -18,12 +18,25 @@ export default function SignUpForm() {
   const { getUserProfile } = useAuth();
 
   const handleSignUp = async () => {
+    if (!username) {
+      setError('Empty username!');
+      return;
+    }
+    if (!password) {
+      setError('Empty password!');
+      return;
+    }
+    if (!confirmPassword) {
+      setError('Confirm password empty!');
+      return;
+    }
+    if (password !== confirmPassword) {
+      setError('Confirm password not matched!');
+      return;
+    }
     try {
       setLoading(true);
-      if (password !== confirmPassword) {
-        setError('Confirm password not matched!');
-        return;
-      }
+
       const tokens = await UserServices.register(
         username,
         username,
@@ -91,7 +104,7 @@ export default function SignUpForm() {
           setConfirmPassword(event.target.value);
         }}
       />
-      <Typography sx={{ fontSize: '13px', textAlign: 'center' }} color="error">
+      <Typography sx={{ fontSize: '13px' }} color="error">
         {error}
       </Typography>
       <Box sx={styles.buttonContainer}>

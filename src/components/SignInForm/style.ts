@@ -20,7 +20,7 @@ export const styles: SignInFormStyle = {
   },
   input: { color: 'white' },
   buttonContainer: {
-    padding: '0px 10px',
+    padding: 0,
   },
   button: {
     width: '100%',

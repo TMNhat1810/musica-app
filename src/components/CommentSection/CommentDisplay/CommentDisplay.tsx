@@ -6,6 +6,7 @@ import { useState } from 'react';
 import ReplyDisplay from './ReplyDisplay';
 import { CommentServices } from '../../../services';
 import CommentInput from '../CommentInput/CommentInput';
+import { useAuth } from '../../../hooks';
 
 interface CommentDisplayPropsType {
   data: Comment;
@@ -15,6 +16,8 @@ export default function CommentDisplay({ data }: CommentDisplayPropsType) {
   const [showReplies, setShowReplies] = useState<boolean>(false);
   const [replying, setReplying] = useState<boolean>(false);
   const [replies, setReplies] = useState<Comment[]>(data.replies || []);
+
+  const { user } = useAuth();
 
   const uploadReply = async (content: string) => {
     CommentServices.uploadReply(data.id, content)
@@ -49,7 +52,12 @@ export default function CommentDisplay({ data }: CommentDisplayPropsType) {
         </Box>
         <Box>
           {!replying && (
-            <Button variant="text" onClick={() => setReplying(true)}>
+            <Button
+              variant="text"
+              onClick={() => setReplying(true)}
+              sx={{ textTransform: 'none' }}
+              disabled={!user}
+            >
               Reply
             </Button>
           )}

@@ -13,14 +13,18 @@ export default function SignInForm() {
   const { signinUser } = useAuth();
 
   const handleSignIn = async () => {
-    try {
-      setLoading(true);
-      signinUser(username, password);
-    } catch {
-      setError('Username or password mismatched!');
-    } finally {
-      setLoading(false);
+    if (!username) {
+      setError('Empty username!');
+      return;
     }
+    if (!password) {
+      setError('Empty password!');
+      return;
+    }
+    setLoading(true);
+    signinUser(username, password)
+      .catch(() => setError('Username or password incorrect!'))
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -55,7 +59,7 @@ export default function SignInForm() {
           setError('');
         }}
       />
-      <Typography sx={{ fontSize: '13px', textAlign: 'center' }} color="error">
+      <Typography sx={{ fontSize: '13px' }} color="error">
         {error}
       </Typography>
       <Box sx={styles.buttonContainer}>

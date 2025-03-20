@@ -35,4 +35,13 @@ export const components:
       slotProps: { inputLabel: { sx: { color: 'gray' } } },
     },
   },
+  MuiButton: {
+    styleOverrides: {
+      root: {
+        '&.Mui-disabled': {
+          color: 'gray',
+        },
+      },
+    },
+  },
 };
