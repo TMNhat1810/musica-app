@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
+import ForumIcon from '@mui/icons-material/Forum';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -44,6 +45,15 @@ export default function DrawerControl() {
                   <HomeIcon />
                 </ListItemIcon>
                 <ListItemText>Home</ListItemText>
+              </ListItemButton>
+            </ListItem>
+            <Divider />
+            <ListItem>
+              <ListItemButton onClick={() => navigate('/forum')}>
+                <ListItemIcon>
+                  <ForumIcon />
+                </ListItemIcon>
+                <ListItemText>Forum</ListItemText>
               </ListItemButton>
             </ListItem>
             <Divider />

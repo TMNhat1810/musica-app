@@ -1,20 +1,25 @@
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { styles } from './style';
 import AuthControl from './AuthControl';
 import { Link } from 'react-router-dom';
 import DrawerControl from './DrawerControl';
 import SearchBar from '../SearchBar';
 
-export default function Header() {
+interface HeaderPropsType {
+  forumMode?: boolean;
+}
+
+export default function Header({ forumMode }: HeaderPropsType) {
   return (
     <Box sx={styles.container}>
       <Box sx={styles.leftSideContainer}>
         <DrawerControl />
         <Link to="/" style={{ textDecoration: 'none' }}>
-          Logo
+          MUSICA
         </Link>
+        {forumMode && <Typography>Forum</Typography>}
       </Box>
-      <SearchBar />
+      {!forumMode && <SearchBar />}
       <AuthControl />
     </Box>
   );

@@ -10,6 +10,10 @@ import UnauthProtectedRoute from './protected/unauth.protect';
 import MediaViewPage from '../containers/MediaViewPage';
 import ProfilePage from '../containers/ProfilePage';
 import SearchResultPage from '../containers/SearchResultPage';
+import PostViewPage from '../containers/Forum/PostViewPage';
+import Forum from '../containers/Forum';
+import ForumLayout from '../layouts/forum';
+import PostWritingPage from '../containers/Forum/PostWritingPage';
 
 export default function MusicaRoutes() {
   return (
@@ -27,6 +31,11 @@ export default function MusicaRoutes() {
         <Route path="w/:id" element={<MediaViewPage />} />
         <Route path="p/:id" element={<ProfilePage />} />
         <Route path="r" element={<SearchResultPage />} />
+      </Route>
+      <Route path="forum" element={<ForumLayout />}>
+        <Route index path="" element={<Forum />} />
+        <Route path="new" element={<PostWritingPage />} />
+        <Route path="post/:id" element={<PostViewPage />} />
       </Route>
       <Route
         path="/auth"
