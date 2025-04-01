@@ -1,6 +1,17 @@
-import { Box, Button, Chip, TextField, Tooltip, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Chip,
+  CircularProgress,
+  TextField,
+  Tooltip,
+  Typography,
+} from '@mui/material';
 import { styles } from './style';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import ImageUploader, { MultipleImageUploaderRef } from './ImageUploader';
+import { ForumServices } from '../../../services';
+import { useNavigate } from 'react-router-dom';
 
 const typeList = [
   {
@@ -44,6 +55,21 @@ export default function PostWritingPage() {
   const [title, setTitle] = useState<string>('');
   const [type, setType] = useState<string>('');
   const [content, setContent] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const imageRef = useRef<MultipleImageUploaderRef>(null);
+
+  const navigate = useNavigate();
+
+  const uploadPost = async () => {
+    setLoading(true);
+    ForumServices.uploadPost(title, type, content, imageRef.current?.images)
+      .then(() => {
+        navigate('/forum');
+      })
+      .finally(() => setLoading(false));
+  };
+
   return (
     <Box sx={styles.container}>
       <Box sx={styles.formContainer}>
@@ -103,10 +129,15 @@ export default function PostWritingPage() {
           />
         </Box>
         <Box>
-          <Typography>Attachments:</Typography>
+          <ImageUploader ref={imageRef} />
         </Box>
         <Box>
-          <Button variant="outlined">Upload</Button>
+          {!loading && (
+            <Button variant="outlined" onClick={uploadPost}>
+              Upload
+            </Button>
+          )}
+          {loading && <CircularProgress />}
         </Box>
       </Box>
     </Box>
