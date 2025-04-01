@@ -1,5 +1,10 @@
 import { AxiosInstance } from '../utils/axios';
 
+export const getPosts = async () => {
+  const response = await AxiosInstance.get('/forum/post');
+  return response.data;
+};
+
 export const uploadPost = async (
   title: string,
   type: string,
