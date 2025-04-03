@@ -8,7 +8,7 @@ import {
 import { ForumServices } from '../../../services';
 import PostSkeleton from '../../../components/Skeleton/Post';
 import ImagePreview from './ImagePreview';
-import CommentSection from './CommentSection/CommentSection';
+import CommentSection from './CommentSection';
 
 export default function PostViewPage() {
   const { id } = useParams();

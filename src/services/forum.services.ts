@@ -34,9 +34,24 @@ export const getPostById = async (id: string) => {
   return response.data;
 };
 
+export const getPostComments = async (id: string) => {
+  const response = await AxiosInstance.get(`/forum/post/${id}/comment`);
+  return response.data;
+};
+
 export const uploadPostComment = async (id: string, content: string) => {
   const response = await AxiosInstance.post(`/forum/post/${id}/comment`, {
     content,
   });
+  return response.data;
+};
+
+export const uploadCommentReply = async (comment_id: string, content: string) => {
+  const response = await AxiosInstance.post(
+    `/forum/post/comment/${comment_id}/reply`,
+    {
+      content,
+    },
+  );
   return response.data;
 };

@@ -6,6 +6,7 @@ interface CommentDisplayStyle {
 
 export const styles: CommentDisplayStyle = {
   container: {
+    width: '100%',
     display: 'flex',
     flexDirection: 'row',
     gap: '5px',

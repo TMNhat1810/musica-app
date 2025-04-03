@@ -1,26 +1,31 @@
 import { Avatar, Box, Button, Typography } from '@mui/material';
 import { styles } from './style';
-import { Comment } from '../../../common/interfaces';
+import { Comment, ForumComment } from '../../common/interfaces';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import ReplyDisplay from './ReplyDisplay';
-import { CommentServices } from '../../../services';
-import CommentInput from '../../CommentInput';
-import { useAuth } from '../../../hooks';
+import CommentInput from '../CommentInput';
+import { useAuth } from '../../hooks';
 
 interface CommentDisplayPropsType {
   data: Comment;
+  replyCallback: (content: string) => Promise<Comment | ForumComment>;
 }
 
-export default function CommentDisplay({ data }: CommentDisplayPropsType) {
+export default function CommentDisplay({
+  data,
+  replyCallback,
+}: CommentDisplayPropsType) {
   const [showReplies, setShowReplies] = useState<boolean>(false);
   const [replying, setReplying] = useState<boolean>(false);
-  const [replies, setReplies] = useState<Comment[]>(data.replies || []);
+  const [replies, setReplies] = useState<Comment[] | ForumComment[]>(
+    data.replies || [],
+  );
 
   const { user } = useAuth();
 
   const uploadReply = async (content: string) => {
-    CommentServices.uploadReply(data.id, content)
+    replyCallback(content.trim())
       .then((data) => {
         setReplies([...replies, data]);
         setReplying(false);
@@ -33,7 +38,7 @@ export default function CommentDisplay({ data }: CommentDisplayPropsType) {
       <Box>
         <Avatar src={data.user.photo_url} />
       </Box>
-      <Box>
+      <Box sx={{ flex: 1 }}>
         <Box sx={{ display: 'flex', flexDirection: 'row', gap: '5px' }}>
           <Typography>@{data.user.display_name}</Typography>
           <Typography
@@ -55,7 +60,7 @@ export default function CommentDisplay({ data }: CommentDisplayPropsType) {
             <Button
               variant="text"
               onClick={() => setReplying(true)}
-              sx={{ textTransform: 'none' }}
+              sx={{ textTransform: 'none', padding: 0, minWidth: 0 }}
               disabled={!user}
             >
               Reply

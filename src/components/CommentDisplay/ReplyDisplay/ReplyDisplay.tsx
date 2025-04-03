@@ -1,5 +1,5 @@
 import { Avatar, Box, Typography } from '@mui/material';
-import { Comment } from '../../../../common/interfaces';
+import { Comment } from '../../../common/interfaces';
 import dayjs from 'dayjs';
 import { styles } from './style';
 

@@ -1,10 +1,10 @@
 import { Box, Stack, Typography } from '@mui/material';
 import { ForumComment } from '../../../../common/interfaces/forum-comment.interface';
-import { useState } from 'react';
-import Comment from './Comment';
+import { useEffect, useState } from 'react';
 import CommentInput from '../../../../components/CommentInput';
 import { ForumServices } from '../../../../services';
 import { useParams } from 'react-router-dom';
+import CommentDisplay from '../../../../components/CommentDisplay/CommentDisplay';
 
 export default function CommentSection() {
   const { id } = useParams();
@@ -17,6 +17,13 @@ export default function CommentSection() {
         .catch();
   };
 
+  useEffect(() => {
+    if (id)
+      ForumServices.getPostComments(id)
+        .then((data) => setComments(data))
+        .catch();
+  }, [id]);
+
   return (
     <Box sx={{ mt: 4 }}>
       <Typography variant="h6">Comments</Typography>
@@ -24,7 +31,12 @@ export default function CommentSection() {
       {comments.length > 0 ? (
         <Stack spacing={2} sx={{ mt: 2 }}>
           {comments.map((comment) => (
-            <Comment key={comment.id} comment={comment} />
+            <CommentDisplay
+              data={comment}
+              replyCallback={async (content: string) =>
+                ForumServices.uploadCommentReply(comment.id, content)
+              }
+            />
           ))}
         </Stack>
       ) : (
