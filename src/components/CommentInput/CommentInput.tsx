@@ -1,6 +1,6 @@
 import { Avatar, Box, Button, TextField, Typography } from '@mui/material';
 import { styles } from './style';
-import { useAuth } from '../../../hooks';
+import { useAuth } from '../../hooks';
 import { useState } from 'react';
 
 interface CommentInputPropsType {

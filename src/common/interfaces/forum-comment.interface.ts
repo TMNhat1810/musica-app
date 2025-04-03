@@ -1,13 +1,13 @@
 import { User } from './user.interface';
 
-export interface Comment {
+export interface ForumComment {
   id: string;
   content: string;
   user_id: string;
-  media_id: string;
+  post_id: string;
   reply_to?: string;
   created_at: Date;
   updated_at: Date;
-  replies: Comment[];
+  replies: ForumComment[];
   user: User;
 }

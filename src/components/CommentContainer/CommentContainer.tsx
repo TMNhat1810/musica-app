@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import { styles } from './style';
-import CommentInput from '../CommentSection/CommentInput/CommentInput';
+import CommentInput from '../CommentInput/CommentInput';
 import CommentSection from '../CommentSection';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';

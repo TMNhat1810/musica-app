@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import { useState } from 'react';
 import ReplyDisplay from './ReplyDisplay';
 import { CommentServices } from '../../../services';
-import CommentInput from '../CommentInput/CommentInput';
+import CommentInput from '../../CommentInput';
 import { useAuth } from '../../../hooks';
 
 interface CommentDisplayPropsType {

@@ -28,3 +28,15 @@ export const uploadPost = async (
 
   return response.data;
 };
+
+export const getPostById = async (id: string) => {
+  const response = await AxiosInstance.get(`/forum/post/${id}`);
+  return response.data;
+};
+
+export const uploadPostComment = async (id: string, content: string) => {
+  const response = await AxiosInstance.post(`/forum/post/${id}/comment`, {
+    content,
+  });
+  return response.data;
+};

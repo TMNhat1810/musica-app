@@ -45,9 +45,11 @@ export default function ProfilePage() {
               <Typography variant="body1">{profile.email}</Typography>
             </Box>
           </Box>
-          <Box>
-            <ProfileSettingMenu />
-          </Box>
+          {editable && (
+            <Box>
+              <ProfileSettingMenu />
+            </Box>
+          )}
         </Box>
       )}
     </Box>
