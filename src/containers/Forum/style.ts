@@ -21,5 +21,7 @@ export const styles: ForumStyle = {
     display: '-webkit-box',
     WebkitLineClamp: 3,
     WebkitBoxOrient: 'vertical',
+    whiteSpace: 'pre-line',
+    mt: 1,
   },
 };

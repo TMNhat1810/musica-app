@@ -69,18 +69,11 @@ export default function Forum() {
                   />
                 </Tooltip>
                 <Typography
-                  variant="body1"
+                  variant="body2"
                   color="text.primary"
                   sx={styles.contentText}
                 >
-                  <Typography variant="body2" sx={{ marginTop: 1 }}>
-                    {post.content.split('\n').map((text, index) => (
-                      <span key={index}>
-                        {text}
-                        {index < post.content.split('\n').length - 1 && <br />}
-                      </span>
-                    ))}
-                  </Typography>
+                  {post.content}
                 </Typography>
                 <Typography variant="caption" color="text.primary">
                   Created at: {new Date(post.created_at).toLocaleString()}
