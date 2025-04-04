@@ -34,7 +34,14 @@ export default function MusicaRoutes() {
       </Route>
       <Route path="forum" element={<ForumLayout />}>
         <Route index path="" element={<Forum />} />
-        <Route path="new" element={<PostWritingPage />} />
+        <Route
+          path="new"
+          element={
+            <AuthProtectedRoute to="/forum">
+              <PostWritingPage />
+            </AuthProtectedRoute>
+          }
+        />
         <Route path="post/:id" element={<PostViewPage />} />
       </Route>
       <Route

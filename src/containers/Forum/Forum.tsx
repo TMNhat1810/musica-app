@@ -16,10 +16,13 @@ import { ForumPost } from '../../common/interfaces/forum-post.interface';
 import { ForumServices } from '../../services';
 import { Link } from 'react-router-dom';
 import { typeList } from './types';
+import { useAuth } from '../../hooks';
 
 export default function Forum() {
   const [posts, setPosts] = useState<ForumPost[]>([]);
   const navigate = useNavigate();
+
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
     ForumServices.getPosts()
@@ -35,6 +38,7 @@ export default function Forum() {
         onClick={() => {
           navigate('new');
         }}
+        disabled={!isAuthenticated}
       >
         <AddIcon />
         Add Post

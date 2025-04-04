@@ -11,10 +11,12 @@ interface AuthProviderPropType {
 
 export default function AuthProvider({ children }: AuthProviderPropType) {
   const [user, setUser] = useState<IUser | null>(null);
+  const [isAuthenticated, setAuthenticated] = useState<boolean>(false);
 
   const getUserProfile = async () => {
     const user = await AuthServices.getUserProfile();
     setUser(user);
+    setAuthenticated(true);
   };
 
   useEffect(() => {
@@ -39,11 +41,20 @@ export default function AuthProvider({ children }: AuthProviderPropType) {
   const signoutUser = () => {
     TokenUtils.clearTokens();
     setUser(null);
+    setAuthenticated(false);
     AuthServices.signout();
   };
 
   return (
-    <AuthContext.Provider value={{ user, signinUser, signoutUser, getUserProfile }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        signinUser,
+        signoutUser,
+        getUserProfile,
+        isAuthenticated,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

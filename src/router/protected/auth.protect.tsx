@@ -4,10 +4,14 @@ import { Navigate } from 'react-router-dom';
 
 interface AuthProtectedRouteProps {
   children: ReactNode;
+  to?: string;
 }
 
-export default function AuthProtectedRoute({ children }: AuthProtectedRouteProps) {
-  const { user } = useAuth();
-  if (!user) return <Navigate to="/" />;
+export default function AuthProtectedRoute({
+  children,
+  to = '/',
+}: AuthProtectedRouteProps) {
+  const { isAuthenticated } = useAuth();
+  if (!isAuthenticated) return <Navigate to={to} />;
   return children;
 }

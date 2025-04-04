@@ -15,4 +15,5 @@ export interface AuthContextType {
   signinUser: (username: string, password: string) => Promise<void>;
   signoutUser: () => void;
   getUserProfile: () => void;
+  isAuthenticated: boolean;
 }
