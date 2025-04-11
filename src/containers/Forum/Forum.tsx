@@ -4,6 +4,7 @@ import {
   Card,
   CardContent,
   Chip,
+  Container,
   Stack,
   Tooltip,
   Typography,
@@ -32,57 +33,66 @@ export default function Forum() {
 
   return (
     <Box sx={styles.container}>
-      <Button
-        variant="outlined"
-        sx={{}}
-        onClick={() => {
-          navigate('new');
-        }}
-        disabled={!isAuthenticated}
+      <Container
+        maxWidth="xl"
+        sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}
       >
-        <AddIcon />
-        Add Post
-      </Button>
-      <Stack direction="row" spacing={2} flexWrap="wrap">
-        {posts.map((post) => (
-          <Box
-            key={post.id}
-            sx={{ width: { xs: '100%', sm: '48%', md: '30%' }, marginBottom: 2 }}
+        <Box>
+          <Button
+            variant="outlined"
+            sx={{}}
+            onClick={() => {
+              navigate('new');
+            }}
+            disabled={!isAuthenticated}
           >
-            <Card sx={{ display: 'flex', flexDirection: 'column' }}>
-              <CardContent>
-                <Link to={`post/${post.id}`} style={{ color: 'inherit' }}>
-                  <Typography variant="h5" component="div" sx={styles.titleText}>
-                    {post.title}
+            <AddIcon />
+            Add Post
+          </Button>
+        </Box>
+        <Stack direction="row" spacing={2} flexWrap="wrap">
+          {posts.map((post) => (
+            <Box
+              key={post.id}
+              sx={{ width: { xs: '100%', sm: '48%', md: '30%' }, marginBottom: 2 }}
+            >
+              <Card sx={{ display: 'flex', flexDirection: 'column' }}>
+                <CardContent>
+                  <Link to={`post/${post.id}`} style={{ color: 'inherit' }}>
+                    <Typography variant="h5" component="div" sx={styles.titleText}>
+                      {post.title}
+                    </Typography>
+                  </Link>
+                  <Tooltip
+                    title={
+                      typeList.find((item) => item.value === post.type)?.description
+                    }
+                  >
+                    <Chip
+                      variant="outlined"
+                      size="small"
+                      label={
+                        typeList.find((item) => item.value === post.type)?.label
+                      }
+                      sx={{ color: 'primary.main', borderColor: 'primary.main' }}
+                    />
+                  </Tooltip>
+                  <Typography
+                    variant="body2"
+                    color="text.primary"
+                    sx={styles.contentText}
+                  >
+                    {post.content}
                   </Typography>
-                </Link>
-                <Tooltip
-                  title={
-                    typeList.find((item) => item.value === post.type)?.description
-                  }
-                >
-                  <Chip
-                    variant="outlined"
-                    size="small"
-                    label={typeList.find((item) => item.value === post.type)?.label}
-                    sx={{ color: 'primary.main', borderColor: 'primary.main' }}
-                  />
-                </Tooltip>
-                <Typography
-                  variant="body2"
-                  color="text.primary"
-                  sx={styles.contentText}
-                >
-                  {post.content}
-                </Typography>
-                <Typography variant="caption" color="text.primary">
-                  Created at: {new Date(post.created_at).toLocaleString()}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Box>
-        ))}
-      </Stack>
+                  <Typography variant="caption" color="text.primary">
+                    Created at: {new Date(post.created_at).toLocaleString()}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Box>
+          ))}
+        </Stack>
+      </Container>
     </Box>
   );
 }

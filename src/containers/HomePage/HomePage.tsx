@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import { styles } from './style';
 import { useEffect, useState } from 'react';
 import { Media } from '../../common/interfaces';
@@ -16,11 +16,13 @@ export default function HomePage() {
 
   return (
     <Box sx={styles.container}>
-      <Box sx={styles.mediaPannel}>
-        {medias.map((media) => (
-          <MediaDisplay key={media.id} media={media} />
-        ))}
-      </Box>
+      <Container maxWidth="xl">
+        <Box sx={styles.mediaPannel}>
+          {medias.map((media) => (
+            <MediaDisplay key={media.id} media={media} />
+          ))}
+        </Box>
+      </Container>
     </Box>
   );
 }
