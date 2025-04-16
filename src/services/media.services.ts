@@ -19,12 +19,14 @@ export const uploadMedia = async (
   title: string,
   description: string,
   media: File,
+  duration: number,
   thumbnail: File | null,
 ) => {
   const formData = new FormData();
   formData.append('title', title);
   formData.append('description', description);
   formData.append('media', media);
+  formData.append('duration', Math.round(duration).toString());
 
   if (thumbnail) {
     formData.append('thumbnail', thumbnail);

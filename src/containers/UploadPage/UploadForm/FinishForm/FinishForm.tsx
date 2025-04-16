@@ -2,8 +2,12 @@ import { Box, Button, CircularProgress, Typography } from '@mui/material';
 import { styles } from './style';
 import { useNavigate } from 'react-router-dom';
 import { DropzoneArea } from 'mui-file-dropzone';
-import { ImageMimetypes } from '../../../../common/mimetypes';
-import { useState } from 'react';
+import {
+  AudioMimetypes,
+  ImageMimetypes,
+  VideoMimetypes,
+} from '../../../../common/mimetypes';
+import { useRef, useState } from 'react';
 import { MediaServices } from '../../../../services';
 
 interface FinishFormPropsType {
@@ -22,13 +26,21 @@ export default function FinishForm({
   callback,
 }: FinishFormPropsType) {
   const [uploading, setUploading] = useState<boolean>(false);
+  const [ready, setReady] = useState<boolean>(false);
   const navigate = useNavigate();
+  const ref = useRef<HTMLMediaElement | null>(null);
 
   const handleUpload = async () => {
     setUploading(true);
     try {
-      if (!media) return;
-      await MediaServices.uploadMedia(title, description, media, thumbnail);
+      if (!media || !ref.current?.duration) return;
+      await MediaServices.uploadMedia(
+        title,
+        description,
+        media,
+        ref.current.duration,
+        thumbnail,
+      );
       navigate('/');
     } finally {
       setUploading(false);
@@ -38,6 +50,24 @@ export default function FinishForm({
   return (
     <Box sx={styles.container}>
       <Box sx={styles.previewContainer}>
+        {media && AudioMimetypes.includes(media.type) && (
+          <audio
+            ref={ref as React.RefObject<HTMLAudioElement>}
+            src={URL.createObjectURL(media)}
+            preload="metadata"
+            onLoadedMetadata={() => setReady(true)}
+            hidden
+          />
+        )}
+        {media && VideoMimetypes.includes(media.type) && (
+          <video
+            ref={ref as React.RefObject<HTMLVideoElement>}
+            src={URL.createObjectURL(media)}
+            preload="metadata"
+            onLoadedMetadata={() => setReady(true)}
+            hidden
+          />
+        )}
         <Box>
           {!thumbnail && (
             <DropzoneArea
@@ -81,7 +111,7 @@ export default function FinishForm({
         {!uploading && (
           <Button
             onClick={handleUpload}
-            disabled={uploading}
+            disabled={uploading || !ready}
             sx={{
               '&.Mui-disabled': {
                 color: 'text.disabled',
