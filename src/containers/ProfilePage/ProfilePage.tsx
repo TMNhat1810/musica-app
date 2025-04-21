@@ -7,6 +7,8 @@ import { UserServices } from '../../services';
 import { useAuth } from '../../hooks';
 import EditAvatarControl from './EditAvatarControl';
 import ProfileSettingMenu from './ProfileSettingMenu';
+import MediaPannel from './MediaPannel';
+import MediaTable from './MediaTable';
 
 export default function ProfilePage() {
   const { id } = useParams<{ id: string }>();
@@ -52,6 +54,7 @@ export default function ProfilePage() {
           )}
         </Box>
       )}
+      {editable ? <MediaTable /> : <MediaPannel />}
     </Box>
   );
 }

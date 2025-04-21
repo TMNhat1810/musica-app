@@ -8,6 +8,7 @@ export interface Media {
   media_url: string;
   thumbnail_url?: string;
   type: 'video' | 'audio';
+  duration: number;
   created_at: Date;
   user: User;
 }

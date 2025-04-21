@@ -61,3 +61,8 @@ export const searchMedia = async (query: string) => {
   const response = await AxiosInstance.get('/media/search', { params: { query } });
   return response.data;
 };
+
+export const deleteMedia = async (id: string) => {
+  const response = await AxiosInstance.delete(`/media/${id}`);
+  return response.data;
+};

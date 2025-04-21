@@ -4,6 +4,8 @@ import { Media } from '../../common/interfaces';
 import dayjs from 'dayjs';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { DEFAULT_THUMBNAIL_URL } from '../../constants';
+import { formatDuration } from '../../utils/datetime';
 
 interface MediaDisplayPropsType {
   media: Media;
@@ -31,13 +33,16 @@ export default function MediaDisplay({ media, horizontal }: MediaDisplayPropsTyp
     >
       <Box sx={styles.imageContainer}>
         <img
-          src={media.thumbnail_url}
+          src={media.thumbnail_url || DEFAULT_THUMBNAIL_URL}
           style={{
             width: horizontal ? '200px' : '280px',
             height: horizontal ? '120px' : '160px',
             objectFit: 'cover',
           }}
         />
+        <Box sx={styles.durationContainer}>
+          <Typography variant="caption">{formatDuration(media.duration)}</Typography>
+        </Box>
       </Box>
       <Box
         sx={{

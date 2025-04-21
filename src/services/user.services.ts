@@ -49,3 +49,14 @@ export const updateCurrentUserPassword = async (
   });
   return response.data;
 };
+
+export const getUserMedia = async (
+  id: string,
+  page: number = 1,
+  limit: number = 10,
+) => {
+  const response = await AxiosInstance.get(`/user/${id}/media`, {
+    params: { page, limit },
+  });
+  return response.data;
+};
