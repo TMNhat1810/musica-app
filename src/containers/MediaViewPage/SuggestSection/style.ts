@@ -9,5 +9,6 @@ export const styles: SuggestSectionStyle = {
     display: 'flex',
     flexDirection: 'column',
     flex: 1,
+    gap: 1,
   },
 };

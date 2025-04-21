@@ -11,10 +11,13 @@ export const styles: MediaDisplayStyle = {
   container: {
     display: 'flex',
     flexDirection: 'column',
-    width: '280px',
+    flex: '1 1',
+    maxWidth: '100%',
+    minWidth: '300px',
     ':hover': {
       cursor: 'pointer',
     },
+    gap: 1,
   },
   imageContainer: {
     position: 'relative',
@@ -28,7 +31,11 @@ export const styles: MediaDisplayStyle = {
   durationContainer: {
     position: 'absolute',
     bottom: 1,
-    right: 1,
+    right: 2,
     zIndex: 100,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    display: 'flex',
+    borderRadius: 5,
+    px: 0.5,
   },
 };

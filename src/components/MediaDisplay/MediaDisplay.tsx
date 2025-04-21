@@ -35,9 +35,11 @@ export default function MediaDisplay({ media, horizontal }: MediaDisplayPropsTyp
         <img
           src={media.thumbnail_url || DEFAULT_THUMBNAIL_URL}
           style={{
-            width: horizontal ? '200px' : '280px',
-            height: horizontal ? '120px' : '160px',
+            ...(horizontal ? { height: '120px' } : { width: '100%' }),
+            aspectRatio: '16/9',
             objectFit: 'cover',
+            display: 'block',
+            borderRadius: 5,
           }}
         />
         <Box sx={styles.durationContainer}>

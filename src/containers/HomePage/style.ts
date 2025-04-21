@@ -11,8 +11,10 @@ export const styles: HomePageStyle = {
     flex: 1,
   },
   mediaPannel: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    gap: '20px',
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+    gap: 1,
+    pt: 1,
+    justifyContent: 'space-around',
   },
 };
