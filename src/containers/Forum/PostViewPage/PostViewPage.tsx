@@ -9,6 +9,7 @@ import { ForumServices } from '../../../services';
 import PostSkeleton from '../../../components/Skeleton/Post';
 import ImagePreview from './ImagePreview';
 import CommentSection from './CommentSection';
+import AutoLinkText from '../../../components/AutoLinkText';
 
 export default function PostViewPage() {
   const { id } = useParams();
@@ -39,7 +40,7 @@ export default function PostViewPage() {
       <Typography variant="h4" fontWeight="bold" gutterBottom>
         {post.title}
       </Typography>
-      <Typography sx={{ whiteSpace: 'pre-line' }}>{post.content}</Typography>
+      <AutoLinkText text={post.content} />
       {post.images.length > 0 && (
         <Stack direction="row" spacing={1} mt={3}>
           {post.images.map((image: ForumImage, index: number) => (
