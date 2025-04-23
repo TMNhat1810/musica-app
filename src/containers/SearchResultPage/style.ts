@@ -7,12 +7,14 @@ interface SearchResultPageStyle {
 
 export const styles: SearchResultPageStyle = {
   container: {
-    display: 'flex',
     flex: 1,
+    px: 2,
   },
   mediaPannel: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    gap: '20px',
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+    gap: 1,
+    pt: 1,
+    justifyContent: 'space-around',
   },
 };
