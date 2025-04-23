@@ -30,12 +30,12 @@ export default function MediaTable() {
     <Box sx={styles.container}>
       <Container maxWidth="xl">
         <TableContainer component={Paper}>
-          <Table>
+          <Table size="small">
             <TableHead>
               <TableRow>
                 <TableCell></TableCell>
-                <TableCell></TableCell>
-                <TableCell></TableCell>
+                <TableCell>Title</TableCell>
+                <TableCell>Duration</TableCell>
                 <TableCell></TableCell>
                 <TableCell align="right"></TableCell>
               </TableRow>

@@ -21,7 +21,7 @@ export default function MediaPannel() {
     <Box sx={styles.container}>
       <Container maxWidth="xl">
         <Typography>Media</Typography>
-        <Box>
+        <Box sx={styles.mediaPannel}>
           {medias.map((media) => (
             <MediaDisplay key={media.id} media={media} />
           ))}

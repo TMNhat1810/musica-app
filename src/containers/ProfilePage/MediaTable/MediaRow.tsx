@@ -38,15 +38,15 @@ export default function MediaRow({ media }: MediaRowPropsType) {
         <img
           src={media.thumbnail_url || DEFAULT_THUMBNAIL_URL}
           style={{
-            width: '96px',
-            height: '64px',
+            width: '72px',
+            height: '48px',
           }}
         />
       </TableCell>
       <TableCell>{media.title}</TableCell>
       <TableCell>{formatDuration(media.duration)}</TableCell>
       <TableCell></TableCell>
-      <TableCell>
+      <TableCell align="right">
         <IconButton sx={{ backgroundColor: 'primary.main' }}>
           <EditIcon />
         </IconButton>
