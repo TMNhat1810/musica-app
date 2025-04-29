@@ -53,7 +53,9 @@ export const uploadComment = async (id: string, content: string) => {
 };
 
 export const getSuggestMedia = async (id: string) => {
-  const response = await AxiosInstance.get('/media', { params: { except: id } });
+  const response = await AxiosInstance.get('/media/recommend', {
+    params: { from_id: id },
+  });
   return response.data;
 };
 

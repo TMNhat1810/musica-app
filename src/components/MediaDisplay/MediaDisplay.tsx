@@ -16,7 +16,8 @@ export default function MediaDisplay({ media, horizontal }: MediaDisplayPropsTyp
   const navigate = useNavigate();
 
   const openMedia = () => {
-    navigate('/w/' + media.id);
+    navigate('/w/' + media.id, { replace: true });
+    window.location.reload();
   };
 
   const toOwnerProfile = (event: React.MouseEvent<HTMLButtonElement>) => {

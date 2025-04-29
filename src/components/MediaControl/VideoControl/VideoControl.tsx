@@ -16,6 +16,7 @@ export default function VideoControl({
         controls
         style={{
           width: '100%',
+          accentColor: 'cyan',
         }}
       >
         <source src={video_url} type="video/mp4" />
