@@ -55,3 +55,35 @@ export const uploadCommentReply = async (comment_id: string, content: string) =>
   );
   return response.data;
 };
+
+export const updatePost = async (
+  id: string,
+  title: string,
+  type: string,
+  content: string,
+  images?: File[],
+  deleteIds?: string[],
+) => {
+  const formData = new FormData();
+  formData.append('title', title);
+  formData.append('type', type);
+  formData.append('content', content);
+  formData.append('deleteIds', JSON.stringify(deleteIds));
+
+  images?.forEach((file) => {
+    formData.append('images', file);
+  });
+
+  const response = await AxiosInstance.put('/forum/post/' + id, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+
+  return response.data;
+};
+
+export const deletePost = async (id: string) => {
+  const response = await AxiosInstance.delete(`/forum/post/${id}`);
+  return response.data;
+};

@@ -14,6 +14,7 @@ import PostViewPage from '../containers/Forum/PostViewPage';
 import Forum from '../containers/Forum';
 import ForumLayout from '../layouts/forum';
 import PostWritingPage from '../containers/Forum/PostWritingPage';
+import PostEditPage from '../containers/Forum/PostEditPage';
 
 export default function MusicaRoutes() {
   return (
@@ -42,7 +43,10 @@ export default function MusicaRoutes() {
             </AuthProtectedRoute>
           }
         />
-        <Route path="post/:id" element={<PostViewPage />} />
+        <Route path="post/:id">
+          <Route index path="" element={<PostViewPage />} />
+          <Route path="edit" element={<PostEditPage />} />
+        </Route>
       </Route>
       <Route
         path="/auth"

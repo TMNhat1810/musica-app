@@ -33,13 +33,13 @@ export default function PostViewPage() {
     <PostSkeleton />
   ) : (
     <Box sx={{ maxWidth: 800, margin: 'auto', p: 3 }}>
+      <Typography variant="h4" fontWeight="bold" gutterBottom>
+        {post.title}
+      </Typography>
       <Stack direction="row" alignItems="center" spacing={2} mb={2}>
         <Avatar src={post.user.photo_url} alt={post.user.display_name} />
         <Typography variant="h6">{post.user.display_name}</Typography>
       </Stack>
-      <Typography variant="h4" fontWeight="bold" gutterBottom>
-        {post.title}
-      </Typography>
       <AutoLinkText text={post.content} />
       {post.images.length > 0 && (
         <Stack direction="row" spacing={1} mt={3}>

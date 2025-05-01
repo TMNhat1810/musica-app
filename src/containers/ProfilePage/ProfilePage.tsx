@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Container, Tab, Tabs, Typography } from '@mui/material';
 import { styles } from './style';
 import { useParams } from 'react-router-dom';
 import { User } from '../../common/interfaces';
@@ -9,13 +9,20 @@ import EditAvatarControl from './EditAvatarControl';
 import ProfileSettingMenu from './ProfileSettingMenu';
 import MediaPannel from './MediaPannel';
 import MediaTable from './MediaTable';
+import ForumPostTable from './ForumPostTable';
+import ForumPostPannel from './ForumPostPannel';
 
 export default function ProfilePage() {
   const { id } = useParams<{ id: string }>();
   const [profile, setProfile] = useState<User | null>(null);
+  const [tab, setTab] = useState<number>(0);
 
   const { user } = useAuth();
   const editable: boolean = user?.id === id;
+
+  const handleChange = (_: React.SyntheticEvent, newValue: number) => {
+    setTab(newValue);
+  };
 
   useEffect(() => {
     if (!id) return;
@@ -54,7 +61,16 @@ export default function ProfilePage() {
           )}
         </Box>
       )}
-      {editable ? <MediaTable /> : <MediaPannel />}
+      <Container maxWidth="xl">
+        <Tabs value={tab} onChange={handleChange}>
+          <Tab label="Media" sx={styles.tabLabel} />
+          <Tab label="Post" sx={styles.tabLabel} />
+        </Tabs>
+        <Box sx={styles.tabContent}>
+          {tab === 0 && (editable ? <MediaTable /> : <MediaPannel />)}
+          {tab === 1 && (editable ? <ForumPostTable /> : <ForumPostPannel />)}
+        </Box>
+      </Container>
     </Box>
   );
 }

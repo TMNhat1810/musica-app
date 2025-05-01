@@ -32,6 +32,7 @@ export default function CommentSection() {
         <Stack spacing={2} sx={{ mt: 2 }}>
           {comments.map((comment) => (
             <CommentDisplay
+              key={comment.id}
               data={comment}
               replyCallback={async (content: string) =>
                 ForumServices.uploadCommentReply(comment.id, content)

@@ -4,6 +4,7 @@ import {
   InputAdornment,
   Paper,
   Table,
+  TableBody,
   TableCell,
   TableContainer,
   TableHead,
@@ -13,20 +14,20 @@ import {
 import SearchIcon from '@mui/icons-material/Search';
 import { styles } from './style';
 import { useEffect, useState } from 'react';
-import { Media } from '../../../common/interfaces';
+import { ForumPost } from '../../../common/interfaces';
 import { UserServices } from '../../../services';
 import { useParams } from 'react-router-dom';
-import MediaRow from './MediaRow';
+import ForumPostTableRow from './ForumPostTableRow';
 
-export default function MediaTable() {
+export default function ForumPostTable() {
   const { id } = useParams();
-  const [medias, setMedias] = useState<Media[]>([]);
+  const [posts, setPosts] = useState<ForumPost[]>([]);
   const [query, setQuery] = useState<string>('');
 
   const handleSearch = () => {
     if (id)
-      UserServices.getUserMedia(id, query)
-        .then((data) => setMedias(data.medias))
+      UserServices.getUserForumPost(id, query)
+        .then((data) => setPosts(data.posts))
         .catch();
   };
 
@@ -36,8 +37,8 @@ export default function MediaTable() {
 
   useEffect(() => {
     if (id)
-      UserServices.getUserMedia(id)
-        .then((data) => setMedias(data.medias))
+      UserServices.getUserForumPost(id)
+        .then((data) => setPosts(data.posts))
         .catch();
   }, [id]);
 
@@ -68,18 +69,20 @@ export default function MediaTable() {
         <Table size="small">
           <TableHead>
             <TableRow>
-              <TableCell sx={{ fontWeight: 'bold' }}>Media</TableCell>
+              <TableCell sx={{ fontWeight: 'bold' }}>Post</TableCell>
               <TableCell sx={{ fontWeight: 'bold' }}>Title</TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}>Duration</TableCell>
+              <TableCell sx={{ fontWeight: 'bold' }}></TableCell>
               <TableCell sx={{ fontWeight: 'bold' }}></TableCell>
               <TableCell sx={{ fontWeight: 'bold' }} align="right">
                 Action
               </TableCell>
             </TableRow>
-            {medias.map((media) => (
-              <MediaRow key={media.id} media={media} />
-            ))}
           </TableHead>
+          <TableBody>
+            {posts.map((post) => (
+              <ForumPostTableRow key={post.id} post={post} />
+            ))}
+          </TableBody>
         </Table>
       </TableContainer>
     </Box>

@@ -1,9 +1,9 @@
 import { SxProps, Theme } from '@mui/material';
 
-interface MediaTableStyle {
+interface ForumPostPannelStyle {
   container: SxProps<Theme>;
 }
 
-export const styles: MediaTableStyle = {
+export const styles: ForumPostPannelStyle = {
   container: {},
 };

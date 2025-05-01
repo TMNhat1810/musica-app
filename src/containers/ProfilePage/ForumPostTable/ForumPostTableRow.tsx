@@ -7,27 +7,24 @@ import {
   TableCell,
   TableRow,
   Tooltip,
+  Typography,
 } from '@mui/material';
-import { Media } from '../../../common/interfaces';
-import { DEFAULT_THUMBNAIL_URL } from '../../../constants';
-import { formatDuration } from '../../../utils/datetime';
+import { ForumPost } from '../../../common/interfaces';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { MediaServices } from '../../../services';
+import { ForumServices } from '../../../services';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-interface MediaRowPropsType {
-  media: Media;
+interface ForumPostTableRowPropsType {
+  post: ForumPost;
 }
 
-export default function MediaRow({ media }: MediaRowPropsType) {
+export default function ForumPostTableRow({ post }: ForumPostTableRowPropsType) {
   const [open, setOpen] = useState<boolean>(false);
 
-  const navigate = useNavigate();
-
   const handleDelete = async () => {
-    MediaServices.deleteMedia(media.id)
+    ForumServices.deletePost(post.id)
       .then(() => {
         setOpen(false);
         window.location.reload();
@@ -43,32 +40,37 @@ export default function MediaRow({ media }: MediaRowPropsType) {
         },
       }}
     >
-      <TableCell>
-        <Button sx={{ p: 1 }} onClick={() => navigate(`/w/${media.id}`)}>
-          <img
-            src={media.thumbnail_url || DEFAULT_THUMBNAIL_URL}
-            style={{
-              width: '72px',
-              height: '48px',
+      <TableCell></TableCell>
+      <TableCell sx={{ maxWidth: '200px' }}>
+        <Link to={`/forum/post/${post.id}`}>
+          <Typography
+            sx={{
+              whiteSpace: 'nowrap',
+              WebkitLineClamp: 1,
+              textOverflow: 'ellipsis',
+              overflow: 'hidden',
             }}
-          />
-        </Button>
+          >
+            {post.title}
+          </Typography>
+        </Link>
       </TableCell>
-      <TableCell>{media.title}</TableCell>
-      <TableCell>{formatDuration(media.duration)}</TableCell>
+      <TableCell></TableCell>
       <TableCell></TableCell>
       <TableCell align="right">
         <Tooltip title="Edit">
-          <IconButton
-            sx={{
-              backgroundColor: 'primary.main',
-              borderRadius: 2,
-              px: 1.25,
-              py: 0.5,
-            }}
-          >
-            <EditIcon />
-          </IconButton>
+          <Link to={`/forum/post/${post.id}/edit`}>
+            <IconButton
+              sx={{
+                backgroundColor: 'primary.main',
+                borderRadius: 2,
+                px: 1.25,
+                py: 0.5,
+              }}
+            >
+              <EditIcon />
+            </IconButton>
+          </Link>
         </Tooltip>
         <Tooltip title="Delete">
           <IconButton

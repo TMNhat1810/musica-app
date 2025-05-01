@@ -4,6 +4,9 @@ interface ProfilePageStyle {
   container: SxProps<Theme>;
   headerContainer: SxProps<Theme>;
   profileContainer: SxProps<Theme>;
+  tabLabel: SxProps<Theme>;
+  tabContainer: SxProps<Theme>;
+  tabContent: SxProps<Theme>;
 }
 
 export const styles: ProfilePageStyle = {
@@ -17,5 +20,18 @@ export const styles: ProfilePageStyle = {
   profileContainer: {
     display: 'flex',
     gap: '16px',
+  },
+  tabLabel: {
+    '&:focus, &:active, &:hover': {
+      outline: 'none',
+      border: 'none',
+    },
+    color: 'text.primary',
+  },
+  tabContainer: {
+    px: 4,
+  },
+  tabContent: {
+    mt: 1,
   },
 };

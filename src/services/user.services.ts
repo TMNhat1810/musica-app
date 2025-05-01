@@ -62,3 +62,16 @@ export const getUserMedia = async (
   });
   return response.data;
 };
+
+export const getUserForumPost = async (
+  id: string,
+  query?: string,
+  page: number = 1,
+  limit: number = 10,
+) => {
+  const params = query ? { page, limit, query } : { page, limit };
+  const response = await AxiosInstance.get(`/user/${id}/post`, {
+    params,
+  });
+  return response.data;
+};

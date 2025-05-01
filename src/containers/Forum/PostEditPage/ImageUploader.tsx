@@ -1,19 +1,31 @@
 import React, { forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
+import { ForumImage } from '../../../common/interfaces';
 import AddIcon from '@mui/icons-material/Add';
+import ImageDeleteCheck from './ImageDeleteCheck';
 
 export interface MultipleImageUploaderRef {
+  deleteIds: string[];
   images: File[];
 }
 
-function ImageUploader(_: unknown, ref: React.Ref<MultipleImageUploaderRef>) {
+interface ImageUploaderPropsType {
+  orgImages?: ForumImage[];
+}
+
+function ImageUploader(
+  { orgImages }: ImageUploaderPropsType,
+  ref: React.Ref<MultipleImageUploaderRef>,
+) {
   const [images, setImages] = useState<File[]>([]);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const deleteIdsRef = useRef<string[]>([]);
 
   useImperativeHandle(ref, () => ({
     images,
+    deleteIds: deleteIdsRef.current,
   }));
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,6 +37,19 @@ function ImageUploader(_: unknown, ref: React.Ref<MultipleImageUploaderRef>) {
 
   const removeImage = (index: number) => {
     setImages(images.filter((_, i) => i !== index));
+  };
+
+  const handleDeleteOrgImage = (id: string, del: boolean) => {
+    if (del) {
+      if (!deleteIdsRef.current.includes(id)) {
+        deleteIdsRef.current.push(id);
+      }
+    } else {
+      const index = deleteIdsRef.current.indexOf(id);
+      if (index !== -1) {
+        deleteIdsRef.current.splice(index, 1);
+      }
+    }
   };
 
   return (
@@ -53,6 +78,14 @@ function ImageUploader(_: unknown, ref: React.Ref<MultipleImageUploaderRef>) {
         />
       </Button>
       <Box display="flex" flexWrap="wrap" gap={2} mt={2}>
+        {orgImages &&
+          orgImages.map((image, index) => (
+            <ImageDeleteCheck
+              key={index}
+              image={image}
+              callback={handleDeleteOrgImage}
+            />
+          ))}
         {images.map((file, index) => {
           const imageUrl = URL.createObjectURL(file);
           return (
@@ -107,4 +140,6 @@ function ImageUploader(_: unknown, ref: React.Ref<MultipleImageUploaderRef>) {
   );
 }
 
-export default forwardRef(ImageUploader);
+export default forwardRef<MultipleImageUploaderRef, ImageUploaderPropsType>(
+  ImageUploader,
+);
