@@ -1,6 +1,6 @@
 import { Box, Container, Tab, Tabs, Typography } from '@mui/material';
 import { styles } from './style';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { User } from '../../common/interfaces';
 import { useEffect, useState } from 'react';
 import { UserServices } from '../../services';
@@ -13,9 +13,11 @@ import ForumPostTable from './ForumPostTable';
 import ForumPostPannel from './ForumPostPannel';
 
 export default function ProfilePage() {
+  const [searchParams] = useSearchParams();
   const { id } = useParams<{ id: string }>();
+
   const [profile, setProfile] = useState<User | null>(null);
-  const [tab, setTab] = useState<number>(0);
+  const [tab, setTab] = useState<number>(searchParams.get('tab') === 'post' ? 1 : 0);
 
   const { user } = useAuth();
   const editable: boolean = user?.id === id;

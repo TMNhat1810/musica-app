@@ -11,7 +11,6 @@ import {
 import { Media } from '../../../common/interfaces';
 import { DEFAULT_THUMBNAIL_URL } from '../../../constants';
 import { formatDuration } from '../../../utils/datetime';
-import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { MediaServices } from '../../../services';
 import { useState } from 'react';
@@ -58,18 +57,6 @@ export default function MediaRow({ media }: MediaRowPropsType) {
       <TableCell>{formatDuration(media.duration)}</TableCell>
       <TableCell></TableCell>
       <TableCell align="right">
-        <Tooltip title="Edit">
-          <IconButton
-            sx={{
-              backgroundColor: 'primary.main',
-              borderRadius: 2,
-              px: 1.25,
-              py: 0.5,
-            }}
-          >
-            <EditIcon />
-          </IconButton>
-        </Tooltip>
         <Tooltip title="Delete">
           <IconButton
             sx={{
