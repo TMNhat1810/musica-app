@@ -15,6 +15,7 @@ import Forum from '../containers/Forum';
 import ForumLayout from '../layouts/forum';
 import PostWritingPage from '../containers/Forum/PostWritingPage';
 import PostEditPage from '../containers/Forum/PostEditPage';
+import NotFoundPage from '../containers/NotFoundPage';
 
 export default function MusicaRoutes() {
   return (
@@ -32,6 +33,7 @@ export default function MusicaRoutes() {
         <Route path="w/:id" element={<MediaViewPage />} />
         <Route path="p/:id" element={<ProfilePage />} />
         <Route path="r" element={<SearchResultPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
       <Route path="forum" element={<ForumLayout />}>
         <Route index path="" element={<Forum />} />
@@ -47,6 +49,7 @@ export default function MusicaRoutes() {
           <Route index path="" element={<PostViewPage />} />
           <Route path="edit" element={<PostEditPage />} />
         </Route>
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
       <Route
         path="/auth"
@@ -58,7 +61,9 @@ export default function MusicaRoutes() {
       >
         <Route index path="sign-in" element={<SignInForm />} />
         <Route path="sign-up" element={<SignUpForm />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 }
