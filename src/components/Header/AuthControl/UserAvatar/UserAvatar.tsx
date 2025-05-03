@@ -35,6 +35,7 @@ export default function UserAvatar({ user }: UserAvatarPropsType) {
   const handleClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
+  
   const handleClose = () => {
     setAnchorEl(null);
   };

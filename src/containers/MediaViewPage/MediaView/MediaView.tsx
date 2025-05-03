@@ -1,12 +1,12 @@
 import { Box } from '@mui/material';
 import { Fragment, useEffect, useState } from 'react';
 import MediaControl from '../../../components/MediaControl';
-import CommentContainer from '../../../components/CommentContainer';
 import { MediaServices } from '../../../services';
 import { useParams } from 'react-router-dom';
 import { Media } from '../../../common/interfaces';
 import { styles } from './style';
 import MediaDescription from './MediaDescription';
+import CommentSection from '../../../components/CommentSection';
 
 export default function MediaView() {
   const { id } = useParams<{ id: string }>();
@@ -33,10 +33,9 @@ export default function MediaView() {
             title={media.title}
             description={media.description || ''}
           />
+          <CommentSection mediaOwnerId={media.user_id} />
         </Fragment>
       )}
-
-      <CommentContainer />
     </Box>
   );
 }

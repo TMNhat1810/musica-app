@@ -2,9 +2,9 @@ import { Box, Stack, Typography } from '@mui/material';
 import { ForumComment } from '../../../../common/interfaces/forum-comment.interface';
 import { useEffect, useState } from 'react';
 import CommentInput from '../../../../components/CommentInput';
-import { ForumServices } from '../../../../services';
+import { CommentServices, ForumServices } from '../../../../services';
 import { useParams } from 'react-router-dom';
-import CommentDisplay from '../../../../components/CommentDisplay/CommentDisplay';
+import CommentDisplay from '../../../../components/CommentDisplay';
 
 export default function CommentSection() {
   const { id } = useParams();
@@ -36,6 +36,13 @@ export default function CommentSection() {
               data={comment}
               replyCallback={async (content: string) =>
                 ForumServices.uploadCommentReply(comment.id, content)
+              }
+              editCallback={async (content: string) =>
+                CommentServices.editForumComment(comment.id, content).then(
+                  (data) => {
+                    return data;
+                  },
+                )
               }
             />
           ))}

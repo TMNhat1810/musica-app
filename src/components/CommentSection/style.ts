@@ -6,7 +6,9 @@ interface CommentSectionStyle {
 }
 
 export const styles: CommentSectionStyle = {
-  container: {},
+  container: {
+    mt: 2,
+  },
   commentPannel: {
     mt: 1,
     display: 'flex',
