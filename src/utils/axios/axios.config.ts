@@ -4,6 +4,9 @@ import { TokenUtils } from '../token';
 
 export const instances = axios.create({
   baseURL: API.ENDPOINT,
+  headers: {
+    'ngrok-skip-browser-warning': true,
+  },
   timeout: 30000,
 });
 
