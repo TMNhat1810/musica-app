@@ -6,6 +6,7 @@ import { CommentServices, MediaServices } from '../../services';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import CommentInput from '../CommentInput';
+import { socket } from '../../socket';
 
 interface CommentSectionPropsType {
   mediaOwnerId: string;
@@ -29,6 +30,20 @@ export default function CommentSection({ mediaOwnerId }: CommentSectionPropsType
     MediaServices.getCommentsByMediaId(id)
       .then((data) => setComments(data))
       .catch();
+  }, [id]);
+
+  useEffect(() => {
+    if (!id) return;
+
+    socket.connect();
+    socket.on('connect', () => {
+      socket.emit('join', { room: id });
+    });
+
+    return () => {
+      socket.emit('leave', { room: id });
+      socket.disconnect();
+    };
   }, [id]);
 
   return (
