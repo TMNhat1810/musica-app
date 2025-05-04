@@ -18,11 +18,7 @@ export default function CommentSection({ mediaOwnerId }: CommentSectionPropsType
 
   const uploadComment = async (content: string) => {
     if (!id || !content) return;
-    MediaServices.uploadComment(id, content)
-      .then((data) => {
-        setComments([...comments, data]);
-      })
-      .catch();
+    MediaServices.uploadComment(id, content).catch();
   };
 
   useEffect(() => {
@@ -38,10 +34,59 @@ export default function CommentSection({ mediaOwnerId }: CommentSectionPropsType
     socket.connect();
     socket.on('connect', () => {
       socket.emit('join', { room: id });
+
+      socket.on('comment:new', (data) => {
+        setComments((prev) => [...prev, data]);
+      });
+
+      socket.on('comment:update', (data) => {
+        setComments((prev) =>
+          prev.map((comment) =>
+            comment.id === data.id ? { ...comment, content: data.content } : comment,
+          ),
+        );
+      });
+
+      socket.on('comment:delete', (data) => {
+        setComments((prev) => prev.filter((comment) => comment.id !== data.id));
+      });
+
+      socket.on('reply:new', (data) => {
+        setComments((prev) =>
+          prev.map((comment) =>
+            comment.id === data.reply_to
+              ? { ...comment, replies: [...comment.replies, data] }
+              : comment,
+          ),
+        );
+      });
+
+      socket.on('reply:update', (data) => {
+        setComments((prev) => {
+          const parent = prev.filter((comment) => comment.id === data.reply_to)[0];
+          parent.replies = parent.replies.map((reply) =>
+            reply.id === data.id ? { ...reply, content: data.content } : reply,
+          );
+          return prev.map((comment) =>
+            comment.id === parent.id ? parent : comment,
+          );
+        });
+      });
+
+      socket.on('reply:delete', (data) => {
+        setComments((prev) => {
+          const parent = prev.filter((comment) => comment.id === data.reply_to)[0];
+          parent.replies = parent.replies.filter((reply) => reply.id !== data.id);
+          return prev.map((comment) =>
+            comment.id === parent.id ? parent : comment,
+          );
+        });
+      });
     });
 
     return () => {
       socket.emit('leave', { room: id });
+      socket.offAny();
       socket.disconnect();
     };
   }, [id]);

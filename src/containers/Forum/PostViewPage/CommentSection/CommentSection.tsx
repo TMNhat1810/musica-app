@@ -5,6 +5,7 @@ import CommentInput from '../../../../components/CommentInput';
 import { CommentServices, ForumServices } from '../../../../services';
 import { useParams } from 'react-router-dom';
 import CommentDisplay from '../../../../components/CommentDisplay';
+import { socket } from '../../../../socket';
 
 export default function CommentSection() {
   const { id } = useParams();
@@ -12,9 +13,7 @@ export default function CommentSection() {
 
   const handleSubmit = (content: string) => {
     if (content.trim() && id)
-      ForumServices.uploadPostComment(id, content.trim())
-        .then((data) => setComments([...comments, data]))
-        .catch();
+      ForumServices.uploadPostComment(id, content.trim()).catch();
   };
 
   useEffect(() => {
@@ -22,6 +21,69 @@ export default function CommentSection() {
       ForumServices.getPostComments(id)
         .then((data) => setComments(data))
         .catch();
+  }, [id]);
+
+  useEffect(() => {
+    if (!id) return;
+
+    socket.connect();
+    socket.on('connect', () => {
+      socket.emit('join', { room: id });
+
+      socket.on('comment:new', (data) => {
+        setComments((prev) => [...prev, data]);
+      });
+
+      socket.on('comment:update', (data) => {
+        setComments((prev) =>
+          prev.map((comment) =>
+            comment.id === data.id ? { ...comment, content: data.content } : comment,
+          ),
+        );
+      });
+
+      socket.on('comment:delete', (data) => {
+        setComments((prev) => prev.filter((comment) => comment.id !== data.id));
+      });
+
+      socket.on('reply:new', (data) => {
+        setComments((prev) =>
+          prev.map((comment) =>
+            comment.id === data.reply_to
+              ? { ...comment, replies: [...comment.replies, data] }
+              : comment,
+          ),
+        );
+      });
+
+      socket.on('reply:update', (data) => {
+        setComments((prev) => {
+          const parent = prev.filter((comment) => comment.id === data.reply_to)[0];
+          parent.replies = parent.replies.map((reply) =>
+            reply.id === data.id ? { ...reply, content: data.content } : reply,
+          );
+          return prev.map((comment) =>
+            comment.id === parent.id ? parent : comment,
+          );
+        });
+      });
+
+      socket.on('reply:delete', (data) => {
+        setComments((prev) => {
+          const parent = prev.filter((comment) => comment.id === data.reply_to)[0];
+          parent.replies = parent.replies.filter((reply) => reply.id !== data.id);
+          return prev.map((comment) =>
+            comment.id === parent.id ? parent : comment,
+          );
+        });
+      });
+    });
+
+    return () => {
+      socket.emit('leave', { room: id });
+      socket.offAny();
+      socket.disconnect();
+    };
   }, [id]);
 
   return (
@@ -32,6 +94,7 @@ export default function CommentSection() {
         <Stack spacing={2} sx={{ mt: 2 }}>
           {comments.map((comment) => (
             <CommentDisplay
+              forum
               key={comment.id}
               data={comment}
               replyCallback={async (content: string) =>

@@ -1,9 +1,11 @@
-export interface ServerToClientEvents {
-  'comment:new': (data: { id: string; content: string }) => void;
-  'comment:update': (data: { id: string; content: string }) => void;
-  'comment:delete': (data: { id: string; content: string }) => void;
+import { Comment, ForumComment } from '../../common/interfaces';
 
-  'reply:new': (data: { id: string; content: string }) => void;
-  'reply:update': (data: { id: string; content: string }) => void;
-  'reply:delete': (data: { id: string; content: string }) => void;
+export interface ServerToClientEvents {
+  'comment:new': (data: Comment | ForumComment) => void;
+  'comment:update': (data: Comment | ForumComment) => void;
+  'comment:delete': (data: Comment | ForumComment) => void;
+
+  'reply:new': (data: Comment | ForumComment) => void;
+  'reply:update': (data: Comment | ForumComment) => void;
+  'reply:delete': (data: Comment | ForumComment) => void;
 }

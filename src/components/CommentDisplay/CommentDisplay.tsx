@@ -22,6 +22,7 @@ import DoneIcon from '@mui/icons-material/Done';
 interface CommentDisplayPropsType {
   data: Comment;
   isOwner?: boolean;
+  forum?: boolean;
   replyCallback: (content: string) => Promise<Comment | ForumComment>;
   editCallback: (content: string) => Promise<Comment | ForumComment>;
 }
@@ -29,14 +30,12 @@ interface CommentDisplayPropsType {
 export default function CommentDisplay({
   data,
   isOwner = false,
+  forum = false,
   replyCallback,
   editCallback,
 }: CommentDisplayPropsType) {
   const [showReplies, setShowReplies] = useState<boolean>(false);
   const [replying, setReplying] = useState<boolean>(false);
-  const [replies, setReplies] = useState<Comment[] | ForumComment[]>(
-    data.replies || [],
-  );
   const [editing, setEditing] = useState<boolean>(false);
   const [editContent, setEditContent] = useState<string>(data.content);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
@@ -54,8 +53,7 @@ export default function CommentDisplay({
 
   const uploadReply = async (content: string) => {
     replyCallback(content.trim())
-      .then((data) => {
-        setReplies([...replies, data]);
+      .then(() => {
         setReplying(false);
       })
       .catch();
@@ -199,15 +197,15 @@ export default function CommentDisplay({
         </Box>
       </Box>
       <Box sx={{ mt: '5px', pl: 5 }}>
-        {replies.length > 0 && !showReplies && (
+        {data.replies.length > 0 && !showReplies && (
           <Button variant="text" onClick={() => setShowReplies(true)}>
-            {replies.length} Replies
+            {data.replies.length} Replies
           </Button>
         )}
         {showReplies && (
           <Box>
-            {replies.map((reply) => (
-              <ReplyDisplay key={reply.id} data={reply} />
+            {data.replies.map((reply) => (
+              <ReplyDisplay key={reply.id} data={reply} forum={forum} />
             ))}
           </Box>
         )}
