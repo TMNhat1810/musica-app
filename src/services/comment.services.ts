@@ -22,3 +22,17 @@ export const editForumComment = async (comment_id: string, content: string) => {
   });
   return response.data;
 };
+
+export const deleteMediaComment = async (id: string) => {
+  const response = await AxiosInstance.delete(`/comment/${id}`, {
+    params: { forum: false },
+  });
+  return response.data;
+};
+
+export const deleteForumComment = async (id: string) => {
+  const response = await AxiosInstance.delete(`/comment/${id}`, {
+    params: { forum: true },
+  });
+  return response.data;
+};

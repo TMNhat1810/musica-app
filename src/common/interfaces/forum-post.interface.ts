@@ -15,4 +15,7 @@ export interface ForumPost {
   user: User;
   created_at: string;
   updated_at: string;
+  _count?: {
+    ForumComment: number;
+  };
 }

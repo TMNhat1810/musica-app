@@ -117,8 +117,13 @@ export default function PostViewPage() {
       </Box>
       <Typography variant="caption">{dayjs(post.created_at).fromNow()}</Typography>
       <Stack direction="row" alignItems="center" spacing={2} mt={2} mb={2}>
-        <Avatar src={post.user.photo_url} alt={post.user.display_name} />
-        <Typography variant="h6">{post.user.display_name}</Typography>
+        <Link
+          to={`/p/${post.user.id}`}
+          style={{ display: 'flex', flexDirection: 'row', gap: 4, color: 'inherit' }}
+        >
+          <Avatar src={post.user.photo_url} alt={post.user.display_name} />
+          <Typography variant="h6">{post.user.display_name}</Typography>
+        </Link>
       </Stack>
       <AutoLinkText text={post.content} />
       {post.images.length > 0 && (

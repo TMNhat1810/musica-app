@@ -5,5 +5,10 @@ interface ForumPostPannelStyle {
 }
 
 export const styles: ForumPostPannelStyle = {
-  container: {},
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: 3,
+  },
 };
