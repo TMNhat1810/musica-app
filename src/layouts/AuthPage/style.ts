@@ -17,11 +17,15 @@ export const styles: AuthPageLayoutStyle = {
   },
   contentContainer: {
     display: 'flex',
-    minWidth: '600px',
     backgroundColor: 'background.paper',
     borderRadius: '10px 10px 10px 10px',
     gap: '20px',
   },
-  sidePanel: {},
-  formContainer: {},
+  sidePanel: {
+    display: { xs: 'none', sm: 'none', md: 'block' },
+  },
+  formContainer: {
+    px: 2,
+    py: 12,
+  },
 };

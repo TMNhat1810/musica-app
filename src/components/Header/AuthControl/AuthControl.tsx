@@ -11,7 +11,7 @@ export default function AuthControl() {
   return (
     <Box sx={styles.container}>
       {user ? (
-        <Box sx={styles.signInContainer}>
+        <Box sx={styles.authContainer}>
           <Link to="/upload">
             <IconButton
               sx={{
@@ -31,9 +31,28 @@ export default function AuthControl() {
           <UserAvatar user={user} />
         </Box>
       ) : (
-        <Link to="/auth/sign-in">
-          <Button>Sign in</Button>
-        </Link>
+        <Box sx={styles.buttonContainer}>
+          <Link to="/auth/sign-up">
+            <Button sx={{ textTransform: 'none', fontWeight: 'bold', py: 0.5 }}>
+              Sign up
+            </Button>
+          </Link>
+          <Link to="/auth/sign-in">
+            <Button
+              sx={{
+                textTransform: 'none',
+                fontWeight: 'bold',
+                backgroundColor: 'primary.main',
+                py: 0.5,
+                px: 1.5,
+                color: 'black',
+                borderRadius: 5,
+              }}
+            >
+              Log in
+            </Button>
+          </Link>
+        </Box>
       )}
     </Box>
   );

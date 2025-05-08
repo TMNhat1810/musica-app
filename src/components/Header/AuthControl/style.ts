@@ -2,7 +2,8 @@ import { SxProps, Theme } from '@mui/material';
 
 interface AuthControlStyle {
   container: SxProps<Theme>;
-  signInContainer: SxProps<Theme>;
+  authContainer: SxProps<Theme>;
+  buttonContainer: SxProps<Theme>;
 }
 
 export const styles: AuthControlStyle = {
@@ -11,8 +12,13 @@ export const styles: AuthControlStyle = {
     display: 'flex',
     alignItems: 'center',
   },
-  signInContainer: {
+  authContainer: {
     display: 'flex',
     alignItems: 'center',
+  },
+  buttonContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 1
   },
 };

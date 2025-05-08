@@ -15,7 +15,7 @@ export default function Header({ forumMode }: HeaderPropsType) {
       <Box sx={styles.leftSideContainer}>
         <DrawerControl />
         <Link to="/" style={{ textDecoration: 'none' }}>
-          MUSICA
+          <Typography sx={{ fontWeight: 'bold' }}>MUSICA</Typography>
         </Link>
         {forumMode && <Typography>Forum</Typography>}
       </Box>
