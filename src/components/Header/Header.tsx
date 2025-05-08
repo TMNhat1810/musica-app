@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { AppBar, Box, Typography } from '@mui/material';
 import { styles } from './style';
 import AuthControl from './AuthControl';
 import { Link } from 'react-router-dom';
@@ -11,7 +11,7 @@ interface HeaderPropsType {
 
 export default function Header({ forumMode }: HeaderPropsType) {
   return (
-    <Box sx={styles.container}>
+    <AppBar sx={styles.container}>
       <Box sx={styles.leftSideContainer}>
         <DrawerControl />
         <Link to="/" style={{ textDecoration: 'none' }}>
@@ -21,6 +21,6 @@ export default function Header({ forumMode }: HeaderPropsType) {
       </Box>
       {!forumMode && <SearchBar />}
       <AuthControl />
-    </Box>
+    </AppBar>
   );
 }

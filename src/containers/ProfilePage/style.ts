@@ -27,6 +27,9 @@ export const styles: ProfilePageStyle = {
       border: 'none',
     },
     color: 'text.primary',
+    textTransform: 'none',
+    fontWeight: 'bold',
+    fontSize: 16,
   },
   tabContainer: {
     px: 4,

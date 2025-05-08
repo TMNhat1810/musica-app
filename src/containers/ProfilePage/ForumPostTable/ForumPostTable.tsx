@@ -2,6 +2,7 @@ import {
   Box,
   IconButton,
   InputAdornment,
+  Pagination,
   Paper,
   Table,
   TableBody,
@@ -23,23 +24,50 @@ export default function ForumPostTable() {
   const { id } = useParams();
   const [posts, setPosts] = useState<ForumPost[]>([]);
   const [query, setQuery] = useState<string>('');
+  const [page, setPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(1);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleSearch = () => {
-    if (id)
-      UserServices.getUserForumPost(id, query)
-        .then((data) => setPosts(data.posts))
-        .catch();
+    if (!id) return;
+    setLoading(true);
+    UserServices.getUserForumPost(id, query)
+      .then((data) => {
+        setPosts(data.posts);
+        setTotalPages(data.totalPages);
+        setLoading(false);
+      })
+      .catch();
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === 'Enter') handleSearch();
   };
 
+  const handlePageChange = (_: React.ChangeEvent<unknown>, value: number) => {
+    if (loading) return;
+    if (!id) return;
+    if (value > totalPages || value < 0) return;
+    setLoading(true);
+    setPage(value);
+    UserServices.getUserForumPost(id, undefined, value)
+      .then((data) => {
+        setLoading(false);
+        setPosts(data.posts);
+      })
+      .catch();
+  };
+
   useEffect(() => {
-    if (id)
-      UserServices.getUserForumPost(id)
-        .then((data) => setPosts(data.posts))
-        .catch();
+    if (!id) return;
+    setLoading(true);
+    UserServices.getUserForumPost(id)
+      .then((data) => {
+        setPosts(data.posts);
+        setTotalPages(data.totalPages);
+        setLoading(false);
+      })
+      .catch();
   }, [id]);
 
   return (
@@ -65,7 +93,7 @@ export default function ForumPostTable() {
           }}
         />
       </Box>
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} sx={{ py: 1 }}>
         <Table size="small">
           <TableHead>
             <TableRow>
@@ -84,6 +112,16 @@ export default function ForumPostTable() {
             ))}
           </TableBody>
         </Table>
+        <Pagination
+          variant="outlined"
+          color="primary"
+          showFirstButton
+          showLastButton
+          count={totalPages}
+          page={page}
+          onChange={handlePageChange}
+          sx={{ justifySelf: 'center' }}
+        />
       </TableContainer>
     </Box>
   );

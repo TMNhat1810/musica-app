@@ -12,7 +12,6 @@ export const styles: MediaDisplayStyle = {
     display: 'flex',
     flexDirection: 'column',
     flex: '1 1',
-    maxWidth: '100%',
     minWidth: '300px',
     ':hover': {
       cursor: 'pointer',
@@ -34,7 +33,6 @@ export const styles: MediaDisplayStyle = {
     right: 2,
     zIndex: 100,
     backgroundColor: 'rgba(0,0,0,0.5)',
-    display: 'flex',
     borderRadius: 5,
     px: 0.5,
   },

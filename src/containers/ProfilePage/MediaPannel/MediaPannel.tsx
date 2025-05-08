@@ -1,4 +1,4 @@
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import { styles } from './style';
 import { useEffect, useState } from 'react';
 import { UserServices } from '../../../services';
@@ -20,7 +20,6 @@ export default function MediaPannel() {
   return (
     <Box sx={styles.container}>
       <Container maxWidth="xl">
-        <Typography>Media</Typography>
         <Box sx={styles.mediaPannel}>
           {medias.map((media) => (
             <MediaDisplay key={media.id} media={media} />

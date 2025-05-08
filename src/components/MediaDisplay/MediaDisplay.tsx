@@ -28,7 +28,11 @@ export default function MediaDisplay({ media, horizontal }: MediaDisplayPropsTyp
     <Box
       sx={{
         ...styles.container,
-        ...(horizontal && { flexDirection: 'row', width: '80%' }),
+        ...(horizontal && {
+          flexDirection: 'row',
+          width: '100%',
+          maxHeight: '120px',
+        }),
       }}
       onClick={openMedia}
     >
@@ -76,6 +80,7 @@ export default function MediaDisplay({ media, horizontal }: MediaDisplayPropsTyp
                   WebkitBoxOrient: 'vertical',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
+                  fontWeight: 'bold',
                 }}
               >
                 {media.title}
@@ -97,6 +102,7 @@ export default function MediaDisplay({ media, horizontal }: MediaDisplayPropsTyp
                 p: 0,
                 justifyContent: 'flex-start',
               }}
+              onClick={toOwnerProfile}
             >
               <Typography variant="caption">@{media.user.username}</Typography>
             </Button>

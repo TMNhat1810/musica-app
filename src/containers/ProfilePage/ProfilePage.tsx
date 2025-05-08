@@ -13,7 +13,7 @@ import ForumPostTable from './ForumPostTable';
 import ForumPostPannel from './ForumPostPannel';
 
 export default function ProfilePage() {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { id } = useParams<{ id: string }>();
 
   const [profile, setProfile] = useState<User | null>(null);
@@ -24,6 +24,10 @@ export default function ProfilePage() {
 
   const handleChange = (_: React.SyntheticEvent, newValue: number) => {
     setTab(newValue);
+    setSearchParams((params) => {
+      params.set('tab', newValue === 1 ? 'post' : 'media');
+      return params;
+    });
   };
 
   useEffect(() => {

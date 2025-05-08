@@ -13,6 +13,7 @@ import dayjs from 'dayjs';
 import { ForumPost } from '../../../../common/interfaces';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import { Link } from 'react-router-dom';
+import AutoLinkText from '../../../../components/AutoLinkText';
 
 interface PostPreviewPropsType {
   post: ForumPost;
@@ -34,14 +35,10 @@ export default function PostPreview({ post }: PostPreviewPropsType) {
           </Box>
         </Stack>
         <Box mt={2}>
-          <Typography variant="h6">{post.title}</Typography>
-          <Typography
-            variant="body2"
-            color="text.primary"
-            sx={{ whiteSpace: 'pre-line', mt: 1 }}
-          >
-            {post.content}
+          <Typography variant="h6" mb={1}>
+            {post.title}
           </Typography>
+          <AutoLinkText text={post.content} />
         </Box>
         {post.images?.length > 0 && (
           <Stack direction="row" spacing={1} flexWrap="wrap" mt={2}>
