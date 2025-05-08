@@ -1,18 +1,36 @@
-import { Box, Container } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import { styles } from './style';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Media } from '../../common/interfaces';
 import MediaDisplay from '../../components/MediaDisplay';
 import { MediaServices } from '../../services';
 
 export default function HomePage() {
   const [medias, setMedias] = useState<Media[]>([]);
+  const [page, setPage] = useState<number>(1);
+  const [theEnd, setTheEnd] = useState<boolean>(false);
+
+  const endRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    MediaServices.getMedias()
-      .then((data) => setMedias(data.medias))
-      .catch();
-  }, []);
+    if (!endRef.current || theEnd) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && !theEnd) {
+        MediaServices.getMedias(page)
+          .then((data) => {
+            setMedias((media) => [...media, ...data.medias]);
+            setPage((page) => page + 1);
+            if (page + 1 > data.totalPages) setTheEnd(true);
+          })
+          .catch();
+      }
+    });
+
+    observer.observe(endRef.current);
+
+    return () => observer.disconnect();
+  }, [page, theEnd]);
 
   return (
     <Box sx={styles.container}>
@@ -21,6 +39,10 @@ export default function HomePage() {
           {medias.map((media) => (
             <MediaDisplay key={media.id} media={media} />
           ))}
+        </Box>
+        <Box ref={endRef} sx={{ height: '1px' }}></Box>
+        <Box sx={{ display: theEnd ? 'block' : 'none', justifySelf: 'center' }}>
+          <Typography>There's no more media for you now! x_x</Typography>
         </Box>
       </Container>
     </Box>
