@@ -2,6 +2,7 @@ import {
   Avatar,
   Box,
   Button,
+  Divider,
   IconButton,
   InputAdornment,
   Menu,
@@ -25,6 +26,7 @@ interface CommentDisplayPropsType {
   forum?: boolean;
   replyCallback: (content: string) => Promise<Comment | ForumComment>;
   editCallback: (content: string) => Promise<Comment | ForumComment>;
+  deleteCallback: () => Promise<void>;
 }
 
 export default function CommentDisplay({
@@ -33,6 +35,7 @@ export default function CommentDisplay({
   forum = false,
   replyCallback,
   editCallback,
+  deleteCallback,
 }: CommentDisplayPropsType) {
   const [showReplies, setShowReplies] = useState<boolean>(false);
   const [replying, setReplying] = useState<boolean>(false);
@@ -40,6 +43,7 @@ export default function CommentDisplay({
   const [editContent, setEditContent] = useState<string>(data.content);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const menuOpen = Boolean(anchorEl);
+  const [deleting, setDeleting] = useState<boolean>(false);
 
   const { user } = useAuth();
 
@@ -61,9 +65,14 @@ export default function CommentDisplay({
 
   const handleEdit = async () => {
     editCallback(editContent.trim())
-      .then(() => {
-        setEditing(false);
-      })
+      .then(() => setEditing(false))
+      .catch();
+  };
+
+  const handleDelete = async () => {
+    setDeleting(true);
+    deleteCallback()
+      .then(() => setDeleting(false))
       .catch();
   };
 
@@ -192,6 +201,14 @@ export default function CommentDisplay({
               onClick={() => setEditing(true)}
             >
               Edit comment
+            </MenuItem>
+            <Divider />
+            <MenuItem
+              disabled={!deleting && data.user_id !== user?.id}
+              onClick={handleDelete}
+              sx={{ color: 'red' }}
+            >
+              Delete comment
             </MenuItem>
           </Menu>
         </Box>

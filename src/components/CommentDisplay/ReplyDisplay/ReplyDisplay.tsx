@@ -1,6 +1,7 @@
 import {
   Avatar,
   Box,
+  Divider,
   IconButton,
   InputAdornment,
   Menu,
@@ -26,6 +27,7 @@ export default function ReplyDisplay({ data, forum }: ReplyDisplayPropsType) {
   const [editing, setEditing] = useState<boolean>(false);
   const [editContent, setEditContent] = useState<string>(data.content);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const [deleting, setDeleting] = useState<boolean>(false);
   const menuOpen = Boolean(anchorEl);
 
   const handleOpenMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -45,6 +47,13 @@ export default function ReplyDisplay({ data, forum }: ReplyDisplayPropsType) {
       CommentServices.editForumComment(data.id, editContent.trim())
         .then(() => setEditing(false))
         .catch();
+  };
+
+  const handleDelete = async () => {
+    setDeleting(true);
+    if (!forum) await CommentServices.deleteMediaComment(data.id);
+    else await CommentServices.deleteForumComment(data.id);
+    setDeleting(false);
   };
 
   const { user } = useAuth();
@@ -146,6 +155,14 @@ export default function ReplyDisplay({ data, forum }: ReplyDisplayPropsType) {
             onClick={() => setEditing(true)}
           >
             Edit Reply
+          </MenuItem>
+          <Divider />
+          <MenuItem
+            disabled={!deleting && data.user_id !== user?.id}
+            onClick={handleDelete}
+            sx={{ color: 'red' }}
+          >
+            Delete Reply
           </MenuItem>
         </Menu>
       </Box>

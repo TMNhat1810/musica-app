@@ -101,11 +101,10 @@ export default function CommentSection() {
                 ForumServices.uploadCommentReply(comment.id, content)
               }
               editCallback={async (content: string) =>
-                CommentServices.editForumComment(comment.id, content).then(
-                  (data) => {
-                    return data;
-                  },
-                )
+                CommentServices.editForumComment(comment.id, content)
+              }
+              deleteCallback={async () =>
+                CommentServices.deleteForumComment(comment.id)
               }
             />
           ))}

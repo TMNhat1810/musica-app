@@ -107,13 +107,12 @@ export default function CommentSection({ mediaOwnerId }: CommentSectionPropsType
             replyCallback={async (content: string) =>
               CommentServices.uploadReply(comment.id, content)
             }
-            editCallback={async (content: string) => {
-              return CommentServices.editMediaComment(comment.id, content).then(
-                (data) => {
-                  return data;
-                },
-              );
-            }}
+            editCallback={async (content: string) =>
+              CommentServices.editMediaComment(comment.id, content)
+            }
+            deleteCallback={async () =>
+              CommentServices.deleteMediaComment(comment.id)
+            }
           />
         ))}
       </Box>
