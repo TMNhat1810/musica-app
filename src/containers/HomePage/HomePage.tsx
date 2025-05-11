@@ -40,7 +40,7 @@ export default function HomePage() {
             <MediaDisplay key={media.id} media={media} />
           ))}
         </Box>
-        <Box ref={endRef} sx={{ height: '1px' }}></Box>
+        {!theEnd && <Box ref={endRef} sx={{ height: '1px' }} />}
         <Box sx={{ display: theEnd ? 'block' : 'none', justifySelf: 'center' }}>
           <Typography>There's no more media for you now! x_x</Typography>
         </Box>

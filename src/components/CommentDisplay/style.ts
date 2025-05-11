@@ -3,6 +3,7 @@ import { SxProps, Theme } from '@mui/material';
 interface CommentDisplayStyle {
   container: SxProps<Theme>;
   contentContainer: SxProps<Theme>;
+  replyContainer: SxProps<Theme>;
 }
 
 export const styles: CommentDisplayStyle = {
@@ -15,6 +16,11 @@ export const styles: CommentDisplayStyle = {
   contentContainer: {
     display: 'flex',
     flexDirection: 'row',
+    gap: 1,
+  },
+  replyContainer: {
+    display: 'flex',
+    flexDirection: 'column',
     gap: 1,
   },
 };

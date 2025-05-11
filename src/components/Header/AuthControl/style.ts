@@ -19,6 +19,6 @@ export const styles: AuthControlStyle = {
   buttonContainer: {
     display: 'flex',
     flexDirection: 'row',
-    gap: 1
+    gap: 1,
   },
 };

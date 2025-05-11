@@ -24,10 +24,13 @@ export default function ProfilePage() {
 
   const handleChange = (_: React.SyntheticEvent, newValue: number) => {
     setTab(newValue);
-    setSearchParams((params) => {
-      params.set('tab', newValue === 1 ? 'post' : 'media');
-      return params;
-    });
+    setSearchParams(
+      (params) => {
+        params.set('tab', newValue === 1 ? 'post' : 'media');
+        return params;
+      },
+      { replace: true },
+    );
   };
 
   useEffect(() => {

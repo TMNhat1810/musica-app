@@ -13,7 +13,7 @@ export const styles: CommentSectionStyle = {
     mt: 1,
     display: 'flex',
     flexDirection: 'column',
-    gap: '10px',
+    gap: 1,
     flex: 1,
   },
 };

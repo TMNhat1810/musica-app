@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import { styles } from './style';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ForumPost } from '../../../common/interfaces';
 import { useParams } from 'react-router-dom';
 import { UserServices } from '../../../services';
@@ -10,20 +10,37 @@ export default function ForumPostPannel() {
   const { id } = useParams();
 
   const [posts, setPosts] = useState<ForumPost[]>([]);
+  const [page, setPage] = useState<number>(1);
+  const [theEnd, setTheEnd] = useState<boolean>(false);
+
+  const endRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (!id) return;
+    if (!endRef.current || theEnd || !id) return;
 
-    UserServices.getUserForumPost(id)
-      .then((data) => setPosts(data.posts))
-      .catch();
-  }, [id]);
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && !theEnd) {
+        UserServices.getUserForumPost(id, undefined, page)
+          .then((data) => {
+            setPosts((posts) => [...posts, ...data.posts]);
+            setPage((page) => page + 1);
+            if (page + 1 > data.totalPages) setTheEnd(true);
+          })
+          .catch();
+      }
+    });
+
+    observer.observe(endRef.current);
+
+    return () => observer.disconnect();
+  }, [id, page, theEnd]);
 
   return (
     <Box sx={styles.container}>
       {posts.map((post) => (
         <PostPreview key={post.id} post={post} />
       ))}
+      {!theEnd && <Box ref={endRef} sx={{ height: '1px' }} />}
     </Box>
   );
 }

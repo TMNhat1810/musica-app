@@ -19,6 +19,8 @@ import CommentInput from '../CommentInput';
 import { useAuth } from '../../hooks';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import DoneIcon from '@mui/icons-material/Done';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 
 interface CommentDisplayPropsType {
   data: Comment;
@@ -213,14 +215,19 @@ export default function CommentDisplay({
           </Menu>
         </Box>
       </Box>
-      <Box sx={{ mt: '5px', pl: 5 }}>
-        {data.replies.length > 0 && !showReplies && (
-          <Button variant="text" onClick={() => setShowReplies(true)}>
-            {data.replies.length} Replies
+      <Box sx={{ pl: 5 }}>
+        {data.replies.length > 0 && (
+          <Button
+            variant="text"
+            onClick={() => setShowReplies((state) => !state)}
+            sx={{ textTransform: 'none' }}
+          >
+            {showReplies ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+            {showReplies ? 'Hide' : 'Show ' + data.replies.length} replies
           </Button>
         )}
         {showReplies && (
-          <Box>
+          <Box sx={styles.replyContainer}>
             {data.replies.map((reply) => (
               <ReplyDisplay key={reply.id} data={reply} forum={forum} />
             ))}

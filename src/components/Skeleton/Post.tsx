@@ -1,6 +1,6 @@
 import { Skeleton, Stack, Card } from '@mui/material';
 
-const PostSkeleton = () => {
+export default function PostSkeleton() {
   return (
     <Card sx={{ padding: 2, maxWidth: 800, margin: 'auto' }}>
       <Stack direction="row" spacing={2} alignItems="center" mb={2}>
@@ -16,6 +16,4 @@ const PostSkeleton = () => {
       </Stack>
     </Card>
   );
-};
-
-export default PostSkeleton;
+}
