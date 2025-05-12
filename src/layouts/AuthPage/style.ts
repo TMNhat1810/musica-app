@@ -26,6 +26,5 @@ export const styles: AuthPageLayoutStyle = {
   },
   formContainer: {
     px: 2,
-    py: 12,
   },
 };

@@ -17,6 +17,7 @@ export const styles: SignInFormStyle = {
     padding: '10px',
     justifyContent: 'center',
     height: '100%',
+    py: 12,
   },
   input: { color: 'white' },
   buttonContainer: {
