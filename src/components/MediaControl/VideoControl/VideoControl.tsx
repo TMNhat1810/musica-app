@@ -1,5 +1,8 @@
 import { Box } from '@mui/material';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { LogServices } from '../../../services';
+import { useParams } from 'react-router-dom';
+import { useAuth } from '../../../hooks';
 
 interface VideoControlPropsType {
   video_url: string;
@@ -15,20 +18,24 @@ export default function VideoControl({
   const [logged, setLogged] = useState<boolean>(false);
   const [playing, setPlaying] = useState<boolean>(false);
 
+  const { id } = useParams();
+  const { isAuthenticated } = useAuth();
+
   const handleLoaded = () => {
     if (!mediaRef.current) return;
-
-    mediaRef.current.muted = true;
     mediaRef.current.play().catch();
   };
 
   const handleLogUserView = useCallback(() => {
-    if (logged) return;
-    setLogged(true);
-  }, [logged]);
+    if (logged || !id) return;
+
+    LogServices.logViewMedia(id)
+      .then(() => setLogged(true))
+      .catch();
+  }, [id, logged]);
 
   useEffect(() => {
-    if (!mediaRef.current || !playing) return;
+    if (!mediaRef.current || !playing || !isAuthenticated) return;
     if (logged) return;
 
     const interval = setInterval(() => {
@@ -41,7 +48,7 @@ export default function VideoControl({
     return () => {
       clearInterval(interval);
     };
-  }, [playing, logged, handleLogUserView]);
+  }, [playing, logged, handleLogUserView, isAuthenticated]);
 
   return (
     <Box>
