@@ -20,8 +20,8 @@ export default function HomePage() {
         MediaServices.getMedias(page)
           .then((data) => {
             setMedias((media) => [...media, ...data.medias]);
-            setPage((page) => page + 1);
             if (page + 1 > data.totalPages) setTheEnd(true);
+            else setPage((page) => page + 1);
           })
           .catch();
       }

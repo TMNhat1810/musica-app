@@ -23,8 +23,8 @@ export default function ForumPostPannel() {
         UserServices.getUserForumPost(id, undefined, page)
           .then((data) => {
             setPosts((posts) => [...posts, ...data.posts]);
-            setPage((page) => page + 1);
             if (page + 1 > data.totalPages) setTheEnd(true);
+            else setPage((page) => page + 1);
           })
           .catch();
       }

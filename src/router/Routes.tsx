@@ -16,6 +16,7 @@ import ForumLayout from '../layouts/forum';
 import PostWritingPage from '../containers/Forum/PostWritingPage';
 import PostEditPage from '../containers/Forum/PostEditPage';
 import NotFoundPage from '../containers/NotFoundPage';
+import HistoryPage from '../containers/HistoryPage';
 
 export default function MusicaRoutes() {
   return (
@@ -33,6 +34,14 @@ export default function MusicaRoutes() {
         <Route path="w/:id" element={<MediaViewPage />} />
         <Route path="p/:id" element={<ProfilePage />} />
         <Route path="r" element={<SearchResultPage />} />
+        <Route
+          path="history"
+          element={
+            <AuthProtectedRoute>
+              <HistoryPage />
+            </AuthProtectedRoute>
+          }
+        />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
       <Route path="forum" element={<ForumLayout />}>

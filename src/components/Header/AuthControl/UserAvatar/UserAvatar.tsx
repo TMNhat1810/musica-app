@@ -10,6 +10,7 @@ import {
   Typography,
 } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
+import HistoryIcon from '@mui/icons-material/History';
 import { IUser } from '../../../../contexts/auth/auth';
 import { MouseEvent, useState } from 'react';
 import { useAuth } from '../../../../hooks';
@@ -98,10 +99,17 @@ export default function UserAvatar({ user }: UserAvatarPropsType) {
             <Typography>@{user.username}</Typography>
           </Box>
         </MenuItem>
-        <Divider />
+        <Divider sx={{ m: 0 }} />
+        <MenuItem onClick={() => navigate('/history')} sx={{ textAlign: 'left' }}>
+          <ListItemIcon>
+            <HistoryIcon sx={{ color: 'text.primary' }} />
+          </ListItemIcon>
+          History
+        </MenuItem>
+        <Divider sx={{ m: 0 }} />
         <MenuItem onClick={handlerSignout}>
           <ListItemIcon>
-            <LogoutIcon fontSize="small" sx={{ color: 'white' }} />
+            <LogoutIcon fontSize="small" sx={{ color: 'text.primary' }} />
           </ListItemIcon>
           Sign Out
         </MenuItem>
