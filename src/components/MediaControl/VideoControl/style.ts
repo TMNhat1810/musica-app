@@ -6,7 +6,7 @@ interface VideoControlStyle {
 
 export const styles: VideoControlStyle = {
   container: {
-    display: 'flex',
-    flex: 1,
+    position: 'relative',
+    backgroundColor: 'background.default',
   },
 };

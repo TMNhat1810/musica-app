@@ -3,7 +3,9 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { LogServices } from '../../../services';
 import { useParams } from 'react-router-dom';
 import { useAuth } from '../../../hooks';
-import { Video, VideoPlayerRef } from 'reactjs-media';
+import { styles } from './style';
+import VideoPlayer, { VideoPlayerRef } from './VideoPlayer';
+import { DEFAULT_THUMBNAIL_URL } from '../../../constants';
 
 interface VideoControlPropsType {
   video_url: string;
@@ -22,11 +24,6 @@ export default function VideoControl({
   const { id } = useParams();
   const { isAuthenticated } = useAuth();
 
-  const handleLoaded = () => {
-    if (!mediaRef.current) return;
-    mediaRef.current.play();
-  };
-
   const handleLogUserView = useCallback(() => {
     if (logged || !id) return;
 
@@ -35,8 +32,16 @@ export default function VideoControl({
       .catch();
   }, [id, logged]);
 
+  const handlePlay = useCallback(() => {
+    if (!logged) setPlaying(true);
+  }, [logged]);
+
+  const handlePause = useCallback(() => {
+    if (!logged) setPlaying(false);
+  }, [logged]);
+
   useEffect(() => {
-    if (!mediaRef.current || !playing || !isAuthenticated) return;
+    if (!playing || !isAuthenticated) return;
     if (logged) return;
 
     const interval = setInterval(() => {
@@ -49,22 +54,17 @@ export default function VideoControl({
     return () => {
       clearInterval(interval);
     };
-  }, [playing, logged, handleLogUserView, isAuthenticated]);
+  }, [logged, handleLogUserView, isAuthenticated, playing]);
 
   return (
-    <Box>
-      <Video
-        controls
-        onLoadedData={handleLoaded}
-        onPlay={() => setPlaying(true)}
-        onPause={() => setPlaying(false)}
-        onEnded={handleLogUserView}
+    <Box sx={styles.container}>
+      <VideoPlayer
         ref={mediaRef}
         src={video_url}
-        poster={thumbnail_url}
-        width="100%"
-        height="100%"
-        seekPreview
+        poster={thumbnail_url || DEFAULT_THUMBNAIL_URL}
+        autoplay
+        onPlay={handlePlay}
+        onPause={handlePause}
       />
     </Box>
   );
