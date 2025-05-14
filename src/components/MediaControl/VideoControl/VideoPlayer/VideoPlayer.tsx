@@ -6,25 +6,20 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { Box, IconButton, Slider, Tooltip, Typography } from '@mui/material';
+import { Box, Fade, IconButton, Slider, Tooltip, Typography } from '@mui/material';
 import { styles } from './style';
 import { formatDuration } from '../../../../utils/datetime';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
-import VolumeUpIcon from '@mui/icons-material/VolumeUp';
-import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import PictureInPictureAltIcon from '@mui/icons-material/PictureInPictureAlt';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import { Volume } from './components';
 
 export type VideoPlayerRef = {
   play: () => void;
   pause: () => void;
-  toggleFullscreen: () => void;
-  togglePip: () => void;
-  toggleMute: () => void;
-  togglePlay: () => void;
   playing: boolean;
 };
 
@@ -43,14 +38,14 @@ function VideoPlayer(
   const mediaRef = useRef<HTMLVideoElement | null>(null);
   const containerRef = useRef<HTMLElement | null>(null);
   const hideTimeoutRef = useRef<number | null>(null);
+  const preSlidePlayState = useRef<boolean>(false);
 
   const [started, setStarted] = useState<boolean>(false);
   const [playing, setPlaying] = useState<boolean>(false);
-  const [muted, setMuted] = useState<boolean>(false);
   const [progress, setProgress] = useState<number>(0);
   const [fullscreen, setFullscreen] = useState<boolean>(false);
   const [PiP, setPiP] = useState<boolean>(false);
-  const [showControls, setShowControls] = useState<boolean>(false);
+  const [showControls, setShowControls] = useState<boolean>(true);
 
   const togglePlay = useCallback(() => {
     if (!mediaRef.current) return;
@@ -104,21 +99,25 @@ function VideoPlayer(
     }
   }, []);
 
-  const toggleMute = useCallback(() => {
-    if (!mediaRef.current) return;
-    mediaRef.current.muted = !muted;
-    setMuted(!muted);
-  }, [mediaRef, muted]);
+  const handleStartSeek = useCallback(() => {
+    preSlidePlayState.current = playing;
+    mediaRef.current?.pause();
+    setPlaying(false);
+  }, [playing]);
 
-  const handleSeek = useCallback(
-    (_: Event, newValue: number | number[]) => {
-      if (!mediaRef.current) return;
-      const val = typeof newValue === 'number' ? newValue : newValue[0];
-      mediaRef.current.currentTime = (val / 100) * mediaRef.current.duration;
-      setProgress(val);
-    },
-    [mediaRef],
-  );
+  const handleSeek = useCallback((_: Event, newValue: number | number[]) => {
+    if (!mediaRef.current) return;
+    const val = typeof newValue === 'number' ? newValue : newValue[0];
+    mediaRef.current.currentTime = (val / 100) * mediaRef.current.duration;
+    setProgress(val);
+  }, []);
+
+  const handleEndSeek = useCallback(() => {
+    if (preSlidePlayState.current) {
+      setPlaying(true);
+      mediaRef.current?.play().catch();
+    }
+  }, []);
 
   const resetHideTimer = useCallback(() => {
     setShowControls(true);
@@ -138,10 +137,6 @@ function VideoPlayer(
       mediaRef.current?.pause();
       setPlaying(false);
     },
-    toggleFullscreen: toggleFullscreen,
-    togglePip: () => {},
-    toggleMute: toggleMute,
-    togglePlay: togglePlay,
     playing: playing,
   }));
 
@@ -207,66 +202,73 @@ function VideoPlayer(
           </IconButton>
         </Box>
       )}
-      {started && (!fullscreen || showControls) && (
-        <Box sx={styles.controlContainer}>
-          <Box sx={styles.progressBarContainer}>
-            <Slider
-              value={progress}
-              onChange={handleSeek}
-              sx={{
-                flexGrow: 1,
-                height: 5,
-                '& .MuiSlider-thumb': {
-                  width: 16,
-                  height: 16,
-                  border: '2px solid',
-                },
-              }}
-              valueLabelDisplay="auto"
-            />
-          </Box>
-          <Box sx={styles.controlActionContainer}>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Tooltip title={playing ? 'Pause' : 'Play'} placement="top" arrow>
-                <IconButton sx={{ ...styles.button }} onClick={togglePlay}>
-                  {playing ? <PauseIcon /> : <PlayArrowIcon />}
-                </IconButton>
-              </Tooltip>
-              <Tooltip title={muted ? 'Unmute' : 'Mute'} placement="top" arrow>
-                <IconButton sx={{ ...styles.button }} onClick={toggleMute}>
-                  {muted ? <VolumeOffIcon /> : <VolumeUpIcon />}
-                </IconButton>
-              </Tooltip>
-              <Typography variant="caption" sx={{ pt: 0.25 }}>
-                {formatDuration(
-                  Math.round((progress / 100) * (mediaRef.current?.duration || 0)),
-                )}
-                {' / '}
-                {formatDuration(Math.round(mediaRef.current?.duration || 0))}
-              </Typography>
+      {started && (
+        <Fade
+          in={showControls || !fullscreen || !playing}
+          timeout={300}
+          mountOnEnter
+          unmountOnExit
+        >
+          <Box sx={styles.controlContainer}>
+            <Box sx={styles.progressBarContainer}>
+              <Slider
+                value={progress}
+                onChange={handleSeek}
+                onMouseDown={handleStartSeek}
+                onChangeCommitted={handleEndSeek}
+                sx={{
+                  flexGrow: 1,
+                  height: 5,
+                  '& .MuiSlider-thumb': {
+                    width: 16,
+                    height: 16,
+                    border: '2px solid',
+                  },
+                }}
+                valueLabelDisplay="auto"
+              />
             </Box>
-            <Box>
-              <Tooltip
-                title={PiP ? 'Exit Picture-in-Picture' : 'Enter Picture-in-Picture'}
-                placement="top"
-                arrow
-              >
-                <IconButton sx={{ ...styles.button }} onClick={togglePiP}>
-                  {PiP ? <ExitToAppIcon /> : <PictureInPictureAltIcon />}
-                </IconButton>
-              </Tooltip>
-              <Tooltip
-                title={fullscreen ? 'Exit fullscreen' : 'Fullscreen'}
-                placement="top"
-                arrow
-              >
-                <IconButton sx={{ ...styles.button }} onClick={toggleFullscreen}>
-                  {fullscreen ? <FullscreenExitIcon /> : <FullscreenIcon />}
-                </IconButton>
-              </Tooltip>
+            <Box sx={styles.controlActionContainer}>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Tooltip title={playing ? 'Pause' : 'Play'} placement="top" arrow>
+                  <IconButton sx={{ ...styles.button }} onClick={togglePlay}>
+                    {playing ? <PauseIcon /> : <PlayArrowIcon />}
+                  </IconButton>
+                </Tooltip>
+                <Volume mediaRef={mediaRef} />
+                <Typography variant="caption" sx={{ pt: 0.25 }}>
+                  {formatDuration(
+                    Math.round((progress / 100) * (mediaRef.current?.duration || 0)),
+                  )}
+                  {' / '}
+                  {formatDuration(Math.round(mediaRef.current?.duration || 0))}
+                </Typography>
+              </Box>
+              <Box>
+                <Tooltip
+                  title={
+                    PiP ? 'Exit Picture-in-Picture' : 'Enter Picture-in-Picture'
+                  }
+                  placement="top"
+                  arrow
+                >
+                  <IconButton sx={{ ...styles.button }} onClick={togglePiP}>
+                    {PiP ? <ExitToAppIcon /> : <PictureInPictureAltIcon />}
+                  </IconButton>
+                </Tooltip>
+                <Tooltip
+                  title={fullscreen ? 'Exit fullscreen' : 'Fullscreen'}
+                  placement="top"
+                  arrow
+                >
+                  <IconButton sx={{ ...styles.button }} onClick={toggleFullscreen}>
+                    {fullscreen ? <FullscreenExitIcon /> : <FullscreenIcon />}
+                  </IconButton>
+                </Tooltip>
+              </Box>
             </Box>
           </Box>
-        </Box>
+        </Fade>
       )}
     </Box>
   );
