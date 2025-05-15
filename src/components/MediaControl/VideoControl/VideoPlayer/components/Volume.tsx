@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import VolumeDownIcon from '@mui/icons-material/VolumeDown';
 import VolumeOffIcon from '@mui/icons-material/VolumeOff';
+import { useAppSetting } from '../../../../../hooks';
 
 interface VolumePropsType {
   mediaRef: React.MutableRefObject<HTMLVideoElement | null>;
@@ -12,6 +13,8 @@ export default function Volume({ mediaRef }: VolumePropsType) {
   const [volume, setVolume] = useState<number>(1);
   const [showVolumeSlider, setShowVolumeSlider] = useState<boolean>(false);
   const [muted, setMuted] = useState<boolean>(false);
+
+  const { setting, changeVolume } = useAppSetting();
 
   const toggleMute = useCallback(() => {
     if (!mediaRef.current) return;
@@ -28,6 +31,19 @@ export default function Volume({ mediaRef }: VolumePropsType) {
     const val = typeof newValue === 'number' ? newValue : newValue[0];
     setVolume(val / 100);
   };
+
+  const handleVolumnChangeEnd = (
+    _: Event | React.SyntheticEvent,
+    newValue: number | number[],
+  ) => {
+    const val = typeof newValue === 'number' ? newValue : newValue[0];
+    changeVolume(val / 100);
+  };
+
+  useEffect(() => {
+    if (setting?.media_volumn)
+      setVolume(setting.media_volumn > 1 ? 1 : setting.media_volumn);
+  }, [setting.media_volumn]);
 
   useEffect(() => {
     if (mediaRef.current) {
@@ -76,6 +92,7 @@ export default function Volume({ mediaRef }: VolumePropsType) {
           <Slider
             value={muted ? 0 : volume * 100}
             onChange={handleVolumeChange}
+            onChangeCommitted={handleVolumnChangeEnd}
             sx={{
               '& .MuiSlider-thumb': {
                 width: 12,

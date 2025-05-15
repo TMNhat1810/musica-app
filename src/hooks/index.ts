@@ -1,4 +1,5 @@
 import useAuth from './useAuth';
 import useTheme from './useTheme';
+import useAppSetting from './useAppSetting';
 
-export { useAuth, useTheme };
+export { useAuth, useTheme, useAppSetting };
