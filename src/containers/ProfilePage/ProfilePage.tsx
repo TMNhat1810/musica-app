@@ -11,22 +11,24 @@ import MediaPannel from './MediaPannel';
 import MediaTable from './MediaTable';
 import ForumPostTable from './ForumPostTable';
 import ForumPostPannel from './ForumPostPannel';
+import UserMediaStats from '../../components/UserMediaStats';
+import StatsContainer from './StatsContainer';
 
 export default function ProfilePage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const { id } = useParams<{ id: string }>();
 
   const [profile, setProfile] = useState<User | null>(null);
-  const [tab, setTab] = useState<number>(searchParams.get('tab') === 'post' ? 1 : 0);
+  const [tab, setTab] = useState<string>(searchParams.get('tab') || 'media');
 
   const { user } = useAuth();
   const editable: boolean = user?.id === id;
 
-  const handleChange = (_: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (_: React.SyntheticEvent, newValue: string) => {
     setTab(newValue);
     setSearchParams(
       (params) => {
-        params.set('tab', newValue === 1 ? 'post' : 'media');
+        params.set('tab', newValue);
         return params;
       },
       { replace: true },
@@ -72,12 +74,14 @@ export default function ProfilePage() {
       )}
       <Container maxWidth="xl">
         <Tabs value={tab} onChange={handleChange}>
-          <Tab label="Media" sx={styles.tabLabel} />
-          <Tab label="Post" sx={styles.tabLabel} />
+          <Tab value="media" label="Media" sx={styles.tabLabel} />
+          <Tab value="post" label="Post" sx={styles.tabLabel} />
+          {editable && <Tab value="stats" label="Statistics" sx={styles.tabLabel} />}
         </Tabs>
         <Box sx={styles.tabContent}>
-          {tab === 0 && (editable ? <MediaTable /> : <MediaPannel />)}
-          {tab === 1 && (editable ? <ForumPostTable /> : <ForumPostPannel />)}
+          {tab === 'media' && (editable ? <MediaTable /> : <MediaPannel />)}
+          {tab === 'post' && (editable ? <ForumPostTable /> : <ForumPostPannel />)}
+          {tab === 'stats' && editable && <StatsContainer />}
         </Box>
       </Container>
     </Box>

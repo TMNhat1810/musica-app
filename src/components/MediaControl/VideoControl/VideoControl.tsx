@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { LogServices } from '../../../services';
 import { useParams } from 'react-router-dom';
-import { useAuth } from '../../../hooks';
+import { useAuth, useOnPageLeave } from '../../../hooks';
 import { styles } from './style';
 import VideoPlayer, { VideoPlayerRef } from './VideoPlayer';
 import { DEFAULT_THUMBNAIL_URL } from '../../../constants';
@@ -42,19 +42,31 @@ export default function VideoControl({
 
   useEffect(() => {
     if (!playing || !isAuthenticated) return;
-    if (logged) return;
 
     const interval = setInterval(() => {
       playtimeRef.current += 1;
-      if (playtimeRef.current >= 10) {
-        handleLogUserView();
-      }
+      if (!logged)
+        if (playtimeRef.current >= 10) {
+          handleLogUserView();
+        }
     }, 1000);
 
     return () => {
       clearInterval(interval);
     };
   }, [logged, handleLogUserView, isAuthenticated, playing]);
+
+  useEffect(() => {
+    return () => {
+      if (id && playtimeRef.current >= 10)
+        LogServices.logMediaViewDetail(id, playtimeRef.current);
+    };
+  }, [id]);
+
+  useOnPageLeave(() => {
+    if (id && playtimeRef.current >= 10)
+      LogServices.logMediaViewDetail(id, playtimeRef.current);
+  });
 
   return (
     <Box sx={styles.container}>
