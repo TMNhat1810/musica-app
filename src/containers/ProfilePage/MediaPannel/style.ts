@@ -10,7 +10,7 @@ export const styles: MediaPannelStyle = {
   mediaPannel: {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-    gap: 1,
+    gap: 2,
     pt: 1,
     justifyContent: 'space-around',
   },

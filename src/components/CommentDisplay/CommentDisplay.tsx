@@ -21,6 +21,8 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import DoneIcon from '@mui/icons-material/Done';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import CloseIcon from '@mui/icons-material/Close';
+import ReplyIcon from '@mui/icons-material/Reply';
 
 interface CommentDisplayPropsType {
   data: Comment;
@@ -139,16 +141,23 @@ export default function CommentDisplay({
           </Box>
           <Box>
             {!replying && (
-              <Button
-                variant="text"
+              <IconButton
                 onClick={() => setReplying(true)}
-                sx={{ textTransform: 'none', padding: 0, minWidth: 0 }}
+                sx={{ padding: 0, minWidth: 0 }}
                 disabled={!user}
               >
-                Reply
-              </Button>
+                <ReplyIcon />
+                <Typography>Reply</Typography>
+              </IconButton>
             )}
-            {replying && <CommentInput submit={uploadReply} mode="reply" />}
+            {replying && (
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <CommentInput submit={uploadReply} mode="reply" />
+                <IconButton onClick={() => setReplying(false)}>
+                  <CloseIcon />
+                </IconButton>
+              </Box>
+            )}
           </Box>
         </Box>
         <Box sx={{ justifySelf: 'flex-end', pt: 0, pr: 0.5 }}>

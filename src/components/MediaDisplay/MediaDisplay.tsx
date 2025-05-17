@@ -104,7 +104,7 @@ export default function MediaDisplay({ media, horizontal }: MediaDisplayPropsTyp
               }}
               onClick={toOwnerProfile}
             >
-              <Typography variant="caption">@{media.user.username}</Typography>
+              <Typography variant="caption">@{media.user.display_name}</Typography>
             </Button>
           </Link>
           <Box>

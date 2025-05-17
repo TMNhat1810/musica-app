@@ -1,31 +1,40 @@
-import { Box, Button, IconButton } from '@mui/material';
+import { Box, Button, IconButton, Typography } from '@mui/material';
 import { styles } from './style';
 import { useAuth } from '../../../hooks';
 import { Link } from 'react-router-dom';
 import UserAvatar from './UserAvatar';
-import FileUploadIcon from '@mui/icons-material/FileUpload';
+import AddIcon from '@mui/icons-material/Add';
 
-export default function AuthControl() {
+interface AuthControlPropsType {
+  forumMode?: boolean;
+}
+
+export default function AuthControl({ forumMode = false }: AuthControlPropsType) {
   const { user } = useAuth();
 
   return (
     <Box sx={styles.container}>
       {user ? (
         <Box sx={styles.authContainer}>
-          <Link to="/upload">
+          <Link to={forumMode ? '/forum/new' : '/upload'}>
             <IconButton
               sx={{
-                border: '2px solid white',
-                padding: '5px',
+                py: 0.5,
+                pl: 1,
+                pr: 1.5,
+                borderRadius: 5,
+                backgroundColor: 'background.paper',
               }}
             >
-              <FileUploadIcon
+              <AddIcon
                 sx={{
                   color: 'white',
                   width: '28px',
                   height: '28px',
+                  mr: 0.5,
                 }}
               />
+              <Typography>Create</Typography>
             </IconButton>
           </Link>
           <UserAvatar user={user} />

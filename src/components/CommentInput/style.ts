@@ -6,7 +6,9 @@ interface CommentInputStyle {
 }
 
 export const styles: CommentInputStyle = {
-  container: {},
+  container: {
+    width: '100%',
+  },
   inputContainer: {
     display: 'flex',
     flexDirection: 'row',

@@ -4,3 +4,4 @@ export * as MediaServices from './media.services';
 export * as CommentServices from './comment.services';
 export * as ForumServices from './forum.services';
 export * as LogServices from './log.services';
+export * as StatisticsServices from './statistics.services';

@@ -14,13 +14,13 @@ export default function Header({ forumMode }: HeaderPropsType) {
     <AppBar sx={styles.container}>
       <Box sx={styles.leftSideContainer}>
         <DrawerControl />
-        <Link to="/" style={{ textDecoration: 'none' }}>
+        <Link to={forumMode ? '/forum' : '/'} style={{ textDecoration: 'none' }}>
           <Typography sx={{ fontWeight: 'bold' }}>MUSICA</Typography>
         </Link>
-        {forumMode && <Typography>Forum</Typography>}
+        {forumMode && <Typography sx={{ color: 'text.primary' }}>Forum</Typography>}
       </Box>
       {!forumMode && <SearchBar />}
-      <AuthControl />
+      <AuthControl forumMode={forumMode} />
     </AppBar>
   );
 }
