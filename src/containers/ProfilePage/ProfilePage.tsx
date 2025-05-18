@@ -11,7 +11,6 @@ import MediaPannel from './MediaPannel';
 import MediaTable from './MediaTable';
 import ForumPostTable from './ForumPostTable';
 import ForumPostPannel from './ForumPostPannel';
-import UserMediaStats from '../../components/UserMediaStats';
 import StatsContainer from './StatsContainer';
 
 export default function ProfilePage() {

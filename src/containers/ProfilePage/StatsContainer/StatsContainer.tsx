@@ -1,12 +1,12 @@
 import { Box } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { Statistics } from '../../../common/interfaces/stats.interface';
-import UserMediaStats from '../../../components/UserMediaStats';
+import { Statistics } from '../../../common/types/stats.type';
+import { UserStats } from '../../../components/Statistics';
 import { StatisticsServices } from '../../../services';
 import { useAuth } from '../../../hooks';
 
 export default function StatsContainer() {
-  const [stats, setStats] = useState<Statistics | null>(null);
+  const [stats, setStats] = useState<Statistics['User'] | null>(null);
 
   const { user } = useAuth();
 
@@ -17,5 +17,5 @@ export default function StatsContainer() {
         .catch();
   }, [user]);
 
-  return <Box>{stats && <UserMediaStats stats={stats} />}</Box>;
+  return <Box>{stats && <UserStats stats={stats} />}</Box>;
 }

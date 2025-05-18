@@ -1,34 +1,16 @@
 import { Box, Typography, Paper, Stack } from '@mui/material';
-import {
-  PieChart,
-  Pie,
-  Cell,
-  ResponsiveContainer,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-} from 'recharts';
-import { Statistics } from '../../common/interfaces/stats.interface';
+import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip } from 'recharts';
+import { Statistics } from '../../common/types/stats.type';
 
-interface UserMediaStatsPropsType {
-  stats: Statistics;
+interface MediaStatsPropsType {
+  stats: Statistics['Media'];
 }
 
-const COLORS = ['#1976d2', '#66bb6a', '#ff7043'];
-
-export default function UserMediaStats({ stats }: UserMediaStatsPropsType) {
-  const pieData = [
-    { name: 'Watch Time (hrs)', value: stats.total_watch_hours },
-    { name: 'Media Count', value: stats.media_count },
-    { name: 'Views', value: stats.total_view_count / 100 },
-  ];
-
+export default function UserMediaStats({ stats }: MediaStatsPropsType) {
   const barData = [
     {
       label: 'Stats',
-      Views: stats.total_view_count,
+      Views: stats.view_count,
       WatchTime: stats.total_watch_seconds,
     },
   ];
@@ -43,12 +25,10 @@ export default function UserMediaStats({ stats }: UserMediaStatsPropsType) {
         mb={4}
       >
         {[
-          { label: 'Media Count', value: stats.media_count },
-          { label: 'Total Views', value: stats.total_view_count },
           { label: 'Watch Time (hrs)', value: stats.total_watch_hours },
           {
-            label: 'Avg. Watch/Media (sec)',
-            value: stats.average_watch_time_per_media,
+            label: 'Avg. Watch/View (sec)',
+            value: stats.average_watch_time,
           },
         ].map((stat, index) => (
           <Paper
@@ -73,29 +53,6 @@ export default function UserMediaStats({ stats }: UserMediaStatsPropsType) {
         spacing={4}
         alignItems="stretch"
       >
-        <Box flex={1}>
-          <Typography variant="subtitle1" gutterBottom>
-            Visual Breakdown
-          </Typography>
-          <ResponsiveContainer width="100%" height={250}>
-            <PieChart>
-              <Pie
-                data={pieData}
-                dataKey="value"
-                nameKey="name"
-                cx="50%"
-                cy="50%"
-                outerRadius={80}
-                label
-              >
-                {pieData.map((_, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                ))}
-              </Pie>
-            </PieChart>
-          </ResponsiveContainer>
-        </Box>
-
         <Box flex={1}>
           <Typography variant="subtitle1" gutterBottom>
             Views vs Watch Time

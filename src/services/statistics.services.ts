@@ -8,7 +8,7 @@ export const getUserStats = async (user_id: string) => {
 };
 
 export const getMediaStats = async (media_id: string) => {
-  const response = await AxiosInstance.get('/statistics/user', {
+  const response = await AxiosInstance.get('/statistics/media', {
     params: { id: media_id },
   });
   return response.data;

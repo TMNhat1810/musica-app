@@ -4,6 +4,7 @@ import {
   Divider,
   IconButton,
   ListItemIcon,
+  ListItemText,
   Menu,
   MenuItem,
   Tooltip,
@@ -67,6 +68,7 @@ export default function UserAvatar({ user }: UserAvatarPropsType) {
             sx: {
               overflow: 'visible',
               filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+              minWidth: '200px',
               mt: 1.5,
               '& .MuiAvatar-root': {
                 width: 32,
@@ -104,14 +106,14 @@ export default function UserAvatar({ user }: UserAvatarPropsType) {
           <ListItemIcon>
             <HistoryIcon sx={{ color: 'text.primary' }} />
           </ListItemIcon>
-          History
+          <ListItemText>History</ListItemText>
         </MenuItem>
         <Divider sx={{ m: 0 }} />
         <MenuItem onClick={handlerSignout}>
           <ListItemIcon>
             <LogoutIcon fontSize="small" sx={{ color: 'text.primary' }} />
           </ListItemIcon>
-          Sign Out
+          <ListItemText>Sign Out</ListItemText>
         </MenuItem>
       </Menu>
     </Box>
