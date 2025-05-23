@@ -12,6 +12,7 @@ interface AuthProviderPropType {
 export default function AuthProvider({ children }: AuthProviderPropType) {
   const [user, setUser] = useState<IUser | null>(null);
   const [isAuthenticated, setAuthenticated] = useState<boolean>(false);
+  const [ready, setReady] = useState<boolean>(false);
 
   const getUserProfile = async () => {
     const user = await AuthServices.getUserProfile();
@@ -23,7 +24,11 @@ export default function AuthProvider({ children }: AuthProviderPropType) {
     const token = TokenUtils.getAccessToken();
     if (token) {
       setAuthHeader(token);
-      getUserProfile().catch(() => TokenUtils.clearTokens());
+      getUserProfile()
+        .catch(() => TokenUtils.clearTokens())
+        .finally(() => setReady(true));
+    } else {
+      setReady(true);
     }
   }, []);
 
@@ -55,7 +60,7 @@ export default function AuthProvider({ children }: AuthProviderPropType) {
         isAuthenticated,
       }}
     >
-      {children}
+      {ready && children}
     </AuthContext.Provider>
   );
 }

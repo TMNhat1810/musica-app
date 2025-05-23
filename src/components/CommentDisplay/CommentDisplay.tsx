@@ -143,7 +143,14 @@ export default function CommentDisplay({
             {!replying && (
               <IconButton
                 onClick={() => setReplying(true)}
-                sx={{ padding: 0, minWidth: 0 }}
+                sx={{
+                  padding: 0,
+                  minWidth: 0,
+                  '&:focus, &:active, &:hover': {
+                    outline: 'none',
+                    border: 'none',
+                  },
+                }}
                 disabled={!user}
               >
                 <ReplyIcon />
@@ -153,7 +160,15 @@ export default function CommentDisplay({
             {replying && (
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <CommentInput submit={uploadReply} mode="reply" />
-                <IconButton onClick={() => setReplying(false)}>
+                <IconButton
+                  onClick={() => setReplying(false)}
+                  sx={{
+                    '&:focus, &:active, &:hover': {
+                      outline: 'none',
+                      border: 'none',
+                    },
+                  }}
+                >
                   <CloseIcon />
                 </IconButton>
               </Box>

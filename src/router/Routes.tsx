@@ -17,6 +17,8 @@ import PostWritingPage from '../containers/Forum/PostWritingPage';
 import PostEditPage from '../containers/Forum/PostEditPage';
 import NotFoundPage from '../containers/NotFoundPage';
 import HistoryPage from '../containers/HistoryPage';
+import AdminPage from '../containers/AdminPage';
+import AdminLayout from '../layouts/admin';
 
 export default function MusicaRoutes() {
   return (
@@ -71,6 +73,16 @@ export default function MusicaRoutes() {
         <Route index path="sign-in" element={<SignInForm />} />
         <Route path="sign-up" element={<SignUpForm />} />
         <Route path="*" element={<NotFoundPage />} />
+      </Route>
+      <Route
+        path="admin"
+        element={
+          <AuthProtectedRoute protectAdmin>
+            <AdminLayout />
+          </AuthProtectedRoute>
+        }
+      >
+        <Route index path="" element={<AdminPage />} />
       </Route>
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
