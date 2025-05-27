@@ -30,7 +30,7 @@ export default function AdminPage() {
         <Tab value="dashboard" label="Dashboard" sx={styles.tabLabel} />
         <Tab value="user" label="Users" sx={styles.tabLabel} />
         <Tab value="media" label="Media" sx={styles.tabLabel} />
-        <Tab value="pending" label="Pending Media" sx={styles.tabLabel} />
+        <Tab value="pending" label="Pending" sx={styles.tabLabel} />
       </Tabs>
       <Box sx={styles.dataContainer}>
         {tab === 'dashboard' && <Dashboard />}
