@@ -5,6 +5,8 @@ interface MediaDescriptionStyle {
   titleContainer: SxProps<Theme>;
   ownerInfoContainer: SxProps<Theme>;
   descriptionContainer: SxProps<Theme>;
+  actionContainer: SxProps<Theme>;
+  iconbutton: SxProps<Theme>;
 }
 
 export const styles: MediaDescriptionStyle = {
@@ -23,5 +25,20 @@ export const styles: MediaDescriptionStyle = {
     p: 2,
     backgroundColor: 'background.paper',
     borderRadius: 5,
+  },
+  actionContainer: {
+    display: 'flex',
+    gap: 1,
+  },
+  iconbutton: {
+    '&:focus, &:active, &:hover': {
+      outline: 'none',
+      border: 'none',
+    },
+    px: 2,
+    borderRadius: 5,
+    display: 'flex',
+    gap: 1,
+    bgcolor: 'background.paper',
   },
 };

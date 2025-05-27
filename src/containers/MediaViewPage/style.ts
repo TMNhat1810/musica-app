@@ -8,9 +8,13 @@ interface MediaViewPageStyle {
 export const styles: MediaViewPageStyle = {
   container: {
     display: 'flex',
+    flexDirection: {
+      xs: 'column',
+      md: 'row',
+    },
     flex: 1,
     gap: 5,
-    pl: 5,
+    px: 3,
   },
   contentContainer: {},
 };

@@ -68,3 +68,18 @@ export const deleteMedia = async (id: string) => {
   const response = await AxiosInstance.delete(`/media/${id}`);
   return response.data;
 };
+
+export const likeMedia = async (id: string) => {
+  const response = await AxiosInstance.post(`/media/${id}/like`);
+  return response.data;
+};
+
+export const unlikeMedia = async (id: string) => {
+  const response = await AxiosInstance.delete(`/media/${id}/like`);
+  return response.data;
+};
+
+export const checkUserLiked = async (id: string) => {
+  const response = await AxiosInstance.get(`/media/${id}/like`);
+  return response.data;
+};

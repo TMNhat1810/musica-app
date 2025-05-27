@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { styles } from './style';
 import CommentDisplay from '../CommentDisplay';
 import { Comment } from '../../common/interfaces';
@@ -7,6 +7,8 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import CommentInput from '../CommentInput';
 import { socket } from '../../socket';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 
 interface CommentSectionPropsType {
   mediaOwnerId: string;
@@ -15,6 +17,7 @@ interface CommentSectionPropsType {
 export default function CommentSection({ mediaOwnerId }: CommentSectionPropsType) {
   const { id } = useParams<{ id: string }>();
   const [comments, setComments] = useState<Comment[]>([]);
+  const [showComments, setShowComments] = useState<boolean>(true);
 
   const uploadComment = async (content: string) => {
     if (!id || !content) return;
@@ -94,28 +97,48 @@ export default function CommentSection({ mediaOwnerId }: CommentSectionPropsType
   return (
     <Box sx={styles.container}>
       <CommentInput submit={uploadComment} />
-      <Typography
-        variant="h5"
-        sx={{ fontWeight: 'bold' }}
-      >{`${comments.length} comment${comments.length > 1 ? 's' : ''}`}</Typography>
-      <Box sx={styles.commentPannel}>
-        {comments.map((comment) => (
-          <CommentDisplay
-            key={comment.id}
-            data={comment}
-            isOwner={mediaOwnerId === comment.user_id}
-            replyCallback={async (content: string) =>
-              CommentServices.uploadReply(comment.id, content)
-            }
-            editCallback={async (content: string) =>
-              CommentServices.editMediaComment(comment.id, content)
-            }
-            deleteCallback={async () =>
-              CommentServices.deleteMediaComment(comment.id)
-            }
-          />
-        ))}
-      </Box>
+      <Button
+        variant="text"
+        onClick={() => setShowComments((state) => !state)}
+        sx={{
+          textTransform: 'none',
+          color: 'inherit',
+          '&:active, &:focus': {
+            outline: 'none',
+            border: 'none',
+          },
+        }}
+        disabled={comments.length === 0}
+      >
+        {showComments ? (
+          <ExpandLessIcon fontSize="large" />
+        ) : (
+          <ExpandMoreIcon fontSize="large" />
+        )}
+        <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
+          {comments.length} Comments
+        </Typography>
+      </Button>
+      {showComments && (
+        <Box sx={styles.commentPannel}>
+          {comments.map((comment) => (
+            <CommentDisplay
+              key={comment.id}
+              data={comment}
+              isOwner={mediaOwnerId === comment.user_id}
+              replyCallback={async (content: string) =>
+                CommentServices.uploadReply(comment.id, content)
+              }
+              editCallback={async (content: string) =>
+                CommentServices.editMediaComment(comment.id, content)
+              }
+              deleteCallback={async () =>
+                CommentServices.deleteMediaComment(comment.id)
+              }
+            />
+          ))}
+        </Box>
+      )}
     </Box>
   );
 }
