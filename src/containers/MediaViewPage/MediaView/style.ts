@@ -9,5 +9,6 @@ export const styles: MediaViewStyle = {
     flex: 2,
     display: 'flex',
     flexDirection: 'column',
+    gap: 2,
   },
 };

@@ -15,6 +15,7 @@ export const styles: MediaViewPageStyle = {
     flex: 1,
     gap: 5,
     px: 3,
+    pt: 2,
   },
   contentContainer: {},
 };

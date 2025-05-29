@@ -44,4 +44,17 @@ export const components:
       },
     },
   },
+  MuiSnackbar: {
+    styleOverrides: {
+      root: {
+        '& .MuiSnackbarContent-root': {
+          backgroundColor: '#252728',
+          color: '#42a5f5',
+          borderRadius: 5,
+          boxShadow: 5,
+          fontWeight: 'bold',
+        },
+      },
+    },
+  },
 };
