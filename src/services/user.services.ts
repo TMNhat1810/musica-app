@@ -76,7 +76,13 @@ export const getUserForumPost = async (
   return response.data;
 };
 
-export const getUserLogs = async (page: number = 1, limit: number = 10) => {
-  const response = await AxiosInstance.get('/history', { params: { page, limit } });
+export const getUserLogs = async (
+  action: string = 'all',
+  page: number = 1,
+  limit: number = 10,
+) => {
+  const response = await AxiosInstance.get('/history', {
+    params: { action, page, limit },
+  });
   return response.data;
 };
