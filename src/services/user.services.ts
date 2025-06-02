@@ -50,6 +50,21 @@ export const updateCurrentUserPassword = async (
   return response.data;
 };
 
+export const getCurrentUserFollowees = async () => {
+  const response = await AxiosInstance.get('/user/c/followee');
+  return response.data;
+};
+
+export const getCurrentUserFolloweesMedias = async (
+  page: number = 1,
+  limit: number = 10,
+) => {
+  const response = await AxiosInstance.get('/user/c/followee/media', {
+    params: { page, limit },
+  });
+  return response.data;
+};
+
 export const getUserMedia = async (
   id: string,
   query?: string,
@@ -84,5 +99,20 @@ export const getUserLogs = async (
   const response = await AxiosInstance.get('/history', {
     params: { action, page, limit },
   });
+  return response.data;
+};
+
+export const checkUserFollow = async (followee_id: string) => {
+  const response = await AxiosInstance.get(`/user/${followee_id}/follow`);
+  return response.data;
+};
+
+export const followUser = async (followee_id: string) => {
+  const response = await AxiosInstance.post(`/user/${followee_id}/follow`);
+  return response.data;
+};
+
+export const unfollowUser = async (followee_id: string) => {
+  const response = await AxiosInstance.delete(`/user/${followee_id}/follow`);
   return response.data;
 };

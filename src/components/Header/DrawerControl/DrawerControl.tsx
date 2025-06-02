@@ -12,6 +12,7 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 import ForumIcon from '@mui/icons-material/Forum';
+import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -54,6 +55,15 @@ export default function DrawerControl() {
                   <ForumIcon />
                 </ListItemIcon>
                 <ListItemText>Forum</ListItemText>
+              </ListItemButton>
+            </ListItem>
+            <Divider />
+            <ListItem>
+              <ListItemButton onClick={() => navigate('/follow')}>
+                <ListItemIcon>
+                  <SubscriptionsIcon />
+                </ListItemIcon>
+                <ListItemText>Your followings</ListItemText>
               </ListItemButton>
             </ListItem>
             <Divider />

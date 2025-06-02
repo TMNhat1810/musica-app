@@ -19,6 +19,7 @@ import NotFoundPage from '../containers/NotFoundPage';
 import HistoryPage from '../containers/HistoryPage';
 import AdminPage from '../containers/AdminPage';
 import AdminLayout from '../layouts/admin';
+import FollowingPage from '../containers/FollowingPage';
 
 export default function MusicaRoutes() {
   return (
@@ -44,6 +45,17 @@ export default function MusicaRoutes() {
             </AuthProtectedRoute>
           }
         />
+        <Route path="follow">
+          <Route
+            index
+            path=""
+            element={
+              <AuthProtectedRoute>
+                <FollowingPage />
+              </AuthProtectedRoute>
+            }
+          />
+        </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Route>
       <Route path="forum" element={<ForumLayout />}>
@@ -62,8 +74,9 @@ export default function MusicaRoutes() {
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Route>
+
       <Route
-        path="/auth"
+        path="auth"
         element={
           <UnauthProtectedRoute>
             <AuthPageLayout />
