@@ -36,6 +36,18 @@ export default function PendingMediaPanel() {
       .catch();
   };
 
+  const onApproved = () => {
+    setLoading(true);
+    AdminServices.getPendingMedias(query)
+      .then((data) => {
+        setPage(1);
+        setTotalPages(data.totalPages);
+        setMedias(data.medias);
+        setLoading(false);
+      })
+      .catch();
+  };
+
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === 'Enter') handleSearch();
   };
@@ -101,7 +113,7 @@ export default function PendingMediaPanel() {
               </TableCell>
             </TableRow>
             {medias.map((media) => (
-              <MediaRow key={media.id} media={media} />
+              <MediaRow key={media.id} media={media} approveCallback={onApproved} />
             ))}
           </TableHead>
         </Table>

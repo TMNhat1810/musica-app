@@ -34,3 +34,8 @@ export const getPendingMedias = async (
   const response = await AxiosInstance.get('/media/pending', { params });
   return response.data;
 };
+
+export const approveMedia = async (media_id: string) => {
+  const response = await AxiosInstance.patch(`/media/${media_id}/approve`);
+  return response.data;
+};
