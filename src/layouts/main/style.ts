@@ -32,5 +32,6 @@ export const styles: MainLayoutStyle = {
   },
   contentContainer: {
     flex: 1,
+    display: 'flex',
   },
 };

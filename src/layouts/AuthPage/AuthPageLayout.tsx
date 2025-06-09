@@ -1,7 +1,6 @@
 import { Box } from '@mui/material';
 import { styles } from './style';
 import { Outlet } from 'react-router-dom';
-// import landingLogo from '../../assets/logo-large.png';
 
 export default function AuthPageLayout() {
   return (

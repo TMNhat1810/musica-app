@@ -1,19 +1,30 @@
-import { AppBar, Box, Typography } from '@mui/material';
+import { AppBar, Box, IconButton, Typography } from '@mui/material';
 import { styles } from './style';
 import AuthControl from './AuthControl';
 import { Link } from 'react-router-dom';
-import DrawerControl from './DrawerControl';
 import SearchBar from '../SearchBar';
+import MenuIcon from '@mui/icons-material/Menu';
 
 interface HeaderPropsType {
   forumMode?: boolean;
+  onMenuClick: () => void;
 }
 
-export default function Header({ forumMode }: HeaderPropsType) {
+export default function Header({ forumMode, onMenuClick }: HeaderPropsType) {
   return (
     <AppBar sx={styles.container}>
       <Box sx={styles.leftSideContainer}>
-        <DrawerControl />
+        <IconButton
+          onClick={onMenuClick}
+          sx={{
+            '&:focus, &:active, &:hover': {
+              outline: 'none',
+              border: 'none',
+            },
+          }}
+        >
+          <MenuIcon />
+        </IconButton>
         <Link to={forumMode ? '/forum' : '/'} style={{ textDecoration: 'none' }}>
           <Typography sx={{ fontWeight: 'bold' }}>MUSICA</Typography>
         </Link>
