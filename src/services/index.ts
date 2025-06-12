@@ -6,3 +6,4 @@ export * as ForumServices from './forum.services';
 export * as LogServices from './log.services';
 export * as StatisticsServices from './statistics.services';
 export * as AdminServices from './admin.services';
+export * as NotificationServices from './notification.services';

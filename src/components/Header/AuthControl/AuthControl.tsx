@@ -4,6 +4,7 @@ import { useAuth } from '../../../hooks';
 import { Link } from 'react-router-dom';
 import UserAvatar from './UserAvatar';
 import AddIcon from '@mui/icons-material/Add';
+import NotificationControl from '../NotificationControl';
 
 interface AuthControlPropsType {
   forumMode?: boolean;
@@ -37,6 +38,7 @@ export default function AuthControl({ forumMode = false }: AuthControlPropsType)
               <Typography>Create</Typography>
             </IconButton>
           </Link>
+          <NotificationControl />
           <UserAvatar user={user} />
         </Box>
       ) : (
