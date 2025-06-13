@@ -17,6 +17,7 @@ import { MediaServices } from '../../../services';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MediaStatsContainer from './MediaStatsContainer';
+import StatusChip from '../../../components/StatusChip';
 
 interface MediaRowPropsType {
   media: Media;
@@ -58,7 +59,9 @@ export default function MediaRow({ media }: MediaRowPropsType) {
       </TableCell>
       <TableCell>{media.title}</TableCell>
       <TableCell>{formatDuration(media.duration)}</TableCell>
-      <TableCell></TableCell>
+      <TableCell>
+        <StatusChip status={media.status} />
+      </TableCell>
       <TableCell align="right">
         <Tooltip title="View statistics">
           <IconButton

@@ -9,6 +9,7 @@ export interface Media {
   thumbnail_url?: string;
   type: 'video' | 'audio';
   duration: number;
+  status: 'active' | 'pending' | 'inactive';
   created_at: Date;
   user: User;
 }

@@ -100,7 +100,7 @@ export default function MediaTable() {
               <TableCell sx={{ fontWeight: 'bold' }}>Media</TableCell>
               <TableCell sx={{ fontWeight: 'bold' }}>Title</TableCell>
               <TableCell sx={{ fontWeight: 'bold' }}>Duration</TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}></TableCell>
+              <TableCell sx={{ fontWeight: 'bold' }}>Status</TableCell>
               <TableCell sx={{ fontWeight: 'bold' }} align="right">
                 Action
               </TableCell>

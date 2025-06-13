@@ -9,6 +9,7 @@ export default function SearchBar() {
   const navigate = useNavigate();
 
   const handleSearch = () => {
+    if (!query) return;
     navigate('/r?query=' + encodeURIComponent(query));
   };
 
