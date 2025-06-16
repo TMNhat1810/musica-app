@@ -40,23 +40,22 @@ export default function ForumPostTableRow({ post }: ForumPostTableRowPropsType) 
         },
       }}
     >
-      <TableCell></TableCell>
       <TableCell sx={{ maxWidth: '200px' }}>
-        <Link to={`/forum/post/${post.id}`}>
+        <Link to={`/forum/post/${post.id}`} style={{ color: 'inherit' }}>
           <Typography
             sx={{
               whiteSpace: 'nowrap',
               WebkitLineClamp: 1,
               textOverflow: 'ellipsis',
               overflow: 'hidden',
+              fontWeight: 'bold',
             }}
           >
             {post.title}
           </Typography>
         </Link>
       </TableCell>
-      <TableCell></TableCell>
-      <TableCell></TableCell>
+      <TableCell>{post.type}</TableCell>
       <TableCell align="right">
         <Tooltip title="Edit">
           <Link to={`/forum/post/${post.id}/edit`}>

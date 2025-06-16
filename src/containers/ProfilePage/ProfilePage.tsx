@@ -12,6 +12,7 @@ import MediaTable from './MediaTable';
 import ForumPostTable from './ForumPostTable';
 import ForumPostPannel from './ForumPostPannel';
 import StatsContainer from './StatsContainer';
+import FollowButton from '../../components/FollowButton';
 
 export default function ProfilePage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -62,6 +63,12 @@ export default function ProfilePage() {
                 <Typography variant="body2">@{profile.username}</Typography>
               </Box>
               <Typography variant="body1">{profile.email}</Typography>
+              <Typography variant="caption">
+                {profile._count?.followers || 0} followers
+              </Typography>
+              <Box mt={2}>
+                {user && !editable && id && <FollowButton target_id={id} />}
+              </Box>
             </Box>
           </Box>
           {editable && (

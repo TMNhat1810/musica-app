@@ -11,7 +11,7 @@ import { styles } from './style';
 import HomeIcon from '@mui/icons-material/Home';
 import ForumIcon from '@mui/icons-material/Forum';
 import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 interface SideMenuPropsType {
   expand: boolean;
@@ -19,6 +19,7 @@ interface SideMenuPropsType {
 
 export default function SideMenu({ expand = true }: SideMenuPropsType) {
   const navigate = useNavigate();
+  const location = useLocation();
 
   return (
     <Box sx={styles.container}>
@@ -37,13 +38,28 @@ export default function SideMenu({ expand = true }: SideMenuPropsType) {
           >
             {expand ? (
               <>
-                <ListItemIcon>
+                <ListItemIcon
+                  sx={{
+                    ...(location.pathname === '/' && { color: 'primary.main' }),
+                  }}
+                >
                   <HomeIcon />
                 </ListItemIcon>
-                <ListItemText>Home</ListItemText>
+                <ListItemText
+                  sx={{
+                    ...(location.pathname === '/' && { color: 'primary.main' }),
+                  }}
+                >
+                  Home
+                </ListItemText>
               </>
             ) : (
-              <Box sx={styles.collapseButton}>
+              <Box
+                sx={{
+                  ...styles.collapseButton,
+                  ...(location.pathname === '/' && { color: 'primary.main' }),
+                }}
+              >
                 <HomeIcon fontSize="large" />
                 <Typography variant="caption">Home</Typography>
               </Box>
@@ -57,13 +73,28 @@ export default function SideMenu({ expand = true }: SideMenuPropsType) {
           >
             {expand ? (
               <>
-                <ListItemIcon>
+                <ListItemIcon
+                  sx={{
+                    ...(location.pathname === '/forum' && { color: 'primary.main' }),
+                  }}
+                >
                   <ForumIcon />
                 </ListItemIcon>
-                <ListItemText>Forum</ListItemText>
+                <ListItemText
+                  sx={{
+                    ...(location.pathname === '/forum' && { color: 'primary.main' }),
+                  }}
+                >
+                  Forum
+                </ListItemText>
               </>
             ) : (
-              <Box sx={styles.collapseButton}>
+              <Box
+                sx={{
+                  ...styles.collapseButton,
+                  ...(location.pathname === '/forum' && { color: 'primary.main' }),
+                }}
+              >
                 <ForumIcon fontSize="large" />
                 <Typography variant="caption">Forum</Typography>
               </Box>
@@ -77,13 +108,32 @@ export default function SideMenu({ expand = true }: SideMenuPropsType) {
           >
             {expand ? (
               <>
-                <ListItemIcon>
+                <ListItemIcon
+                  sx={{
+                    ...(location.pathname === '/follow' && {
+                      color: 'primary.main',
+                    }),
+                  }}
+                >
                   <SubscriptionsIcon />
                 </ListItemIcon>
-                <ListItemText>Followings</ListItemText>
+                <ListItemText
+                  sx={{
+                    ...(location.pathname === '/follow' && {
+                      color: 'primary.main',
+                    }),
+                  }}
+                >
+                  Followings
+                </ListItemText>
               </>
             ) : (
-              <Box sx={styles.collapseButton}>
+              <Box
+                sx={{
+                  ...styles.collapseButton,
+                  ...(location.pathname === '/follow' && { color: 'primary.main' }),
+                }}
+              >
                 <SubscriptionsIcon fontSize="large" />
                 <Typography variant="caption">Followings</Typography>
               </Box>

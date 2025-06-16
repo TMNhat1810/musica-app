@@ -97,10 +97,8 @@ export default function ForumPostTable() {
         <Table size="small">
           <TableHead>
             <TableRow>
-              <TableCell sx={{ fontWeight: 'bold' }}>Post</TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}>Title</TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}></TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}></TableCell>
+              <TableCell sx={{ fontWeight: 'bold' }}>Post Title</TableCell>
+              <TableCell sx={{ fontWeight: 'bold' }}>Tag</TableCell>
               <TableCell sx={{ fontWeight: 'bold' }} align="right">
                 Action
               </TableCell>

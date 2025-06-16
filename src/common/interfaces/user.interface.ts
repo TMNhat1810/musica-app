@@ -5,4 +5,7 @@ export interface User {
   photo_url: string;
   email?: string;
   role?: string;
+  _count?: {
+    followers: number;
+  };
 }

@@ -6,9 +6,8 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ShareIcon from '@mui/icons-material/Share';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../../../hooks';
-import { MediaServices, UserServices } from '../../../../services';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { MediaServices } from '../../../../services';
+import FollowButton from '../../../../components/FollowButton';
 
 interface MediaDescriptionPropsType {
   owner: User;
@@ -25,9 +24,7 @@ export default function MediaDescription({
 
   const [copied, setCopied] = useState<boolean>(false);
   const [liked, setLiked] = useState<boolean>(false);
-  const [userFollowed, setUserFollowed] = useState<boolean>(false);
   const [likeLoading, setLikeLoading] = useState<boolean>(false);
-  const [followLoading, setFollowLoading] = useState<boolean>(false);
 
   const { user } = useAuth();
 
@@ -55,24 +52,6 @@ export default function MediaDescription({
       .finally(() => setLikeLoading(false));
   };
 
-  const followUser = () => {
-    if (!owner.id || !user) return;
-    setFollowLoading(true);
-    UserServices.followUser(owner.id)
-      .then(() => setUserFollowed(true))
-      .catch()
-      .finally(() => setFollowLoading(false));
-  };
-
-  const unfollowUser = () => {
-    if (!owner.id || !user) return;
-    setFollowLoading(true);
-    UserServices.unfollowUser(owner.id)
-      .then(() => setUserFollowed(false))
-      .catch()
-      .finally(() => setFollowLoading(false));
-  };
-
   useEffect(() => {
     if (!user || !id) return;
     setLikeLoading(true);
@@ -80,12 +59,6 @@ export default function MediaDescription({
       .then((res) => setLiked(res.data))
       .catch()
       .finally(() => setLikeLoading(false));
-
-    setFollowLoading(true);
-    UserServices.checkUserFollow(owner.id)
-      .then((res) => setUserFollowed(res.data))
-      .catch()
-      .finally(() => setFollowLoading(false));
   }, [id, owner.id, user]);
 
   return (
@@ -112,25 +85,7 @@ export default function MediaDescription({
               </Link>
             </Box>
           </Box>
-          {user?.id !== owner.id && (
-            <IconButton
-              sx={{
-                '&:active, &:focus': {
-                  outline: 'none',
-                  border: 'none',
-                },
-                gap: 1,
-                bgcolor: userFollowed ? 'primary.dark' : 'background.paper',
-                borderRadius: 5,
-                px: 2,
-              }}
-              onClick={userFollowed ? unfollowUser : followUser}
-              disabled={followLoading}
-            >
-              {userFollowed ? <VisibilityOffIcon /> : <VisibilityIcon />}
-              <Typography>{userFollowed ? 'Followed' : 'Follow'}</Typography>
-            </IconButton>
-          )}
+          {user && user?.id !== owner.id && <FollowButton target_id={owner.id} />}
         </Box>
         <Box sx={styles.actionContainer}>
           <IconButton

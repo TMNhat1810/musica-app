@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Box,
   Card,
   CardActions,
@@ -50,6 +51,12 @@ export default function Forum() {
                     <Typography variant="h5" component="div" sx={styles.titleText}>
                       {post.title}
                     </Typography>
+                  </Link>
+                  <Link to={`/p/${post.user.id}`} style={{ color: 'inherit' }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <Avatar src={post.user.photo_url} />
+                      <Typography>{post.user.display_name}</Typography>
+                    </Box>
                   </Link>
                   <Tooltip
                     title={
