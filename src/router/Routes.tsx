@@ -20,6 +20,7 @@ import HistoryPage from '../containers/HistoryPage';
 import AdminPage from '../containers/AdminPage';
 import AdminLayout from '../layouts/admin';
 import FollowingPage from '../containers/FollowingPage';
+import LikedMediaPage from '../containers/LikedMediaPage/LikedMediaPage';
 
 export default function MusicaRoutes() {
   return (
@@ -56,6 +57,14 @@ export default function MusicaRoutes() {
             }
           />
         </Route>
+        <Route
+          path="liked"
+          element={
+            <AuthProtectedRoute>
+              <LikedMediaPage />
+            </AuthProtectedRoute>
+          }
+        />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
       <Route path="forum" element={<ForumLayout />}>

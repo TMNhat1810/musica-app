@@ -109,7 +109,10 @@ export default function MediaDisplay({ media, horizontal }: MediaDisplayPropsTyp
           </Link>
           <Box>
             <Typography variant="caption" color="lightgray">
-              {dayjs(media.created_at).fromNow()}
+              {media.MediaStatistics?.view_count || '0'} Views •{' '}
+              <Typography variant="caption" sx={{ textTransform: 'capitalize' }}>
+                {dayjs(media.created_at).fromNow()}
+              </Typography>
             </Typography>
           </Box>
         </Box>

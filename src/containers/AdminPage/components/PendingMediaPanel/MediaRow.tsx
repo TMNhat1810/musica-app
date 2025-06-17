@@ -1,21 +1,23 @@
 import {
+  Box,
   Button,
   Dialog,
   DialogActions,
   DialogTitle,
   IconButton,
+  Modal,
   TableCell,
   TableRow,
   Tooltip,
 } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 import { DEFAULT_THUMBNAIL_URL } from '../../../../constants';
 import { formatDuration } from '../../../../utils/datetime';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FactCheckIcon from '@mui/icons-material/FactCheck';
 import { useState } from 'react';
 import { Media } from '../../../../common/interfaces';
-import { AdminServices } from '../../../../services';
+import { AdminServices, MediaServices } from '../../../../services';
+import VideoPlayer from '../../../../components/MediaControl/VideoControl/VideoPlayer';
 
 interface MediaRowPropsType {
   media: Media;
@@ -24,10 +26,17 @@ interface MediaRowPropsType {
 }
 
 export default function MediaRow({ media, approveCallback }: MediaRowPropsType) {
+  const [mediaPreviewModalOpen, setMediaPreviewModalOpen] = useState<boolean>(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState<boolean>(false);
   const [approveDialogOpen, setApproveDialogOpen] = useState<boolean>(false);
 
-  const handleDelete = () => {};
+  const handleDelete = () => {
+    MediaServices.deleteMedia(media.id)
+      .then(() => {
+        window.location.reload();
+      })
+      .catch();
+  };
 
   const handleAprrove = () => {
     AdminServices.approveMedia(media.id)
@@ -36,8 +45,6 @@ export default function MediaRow({ media, approveCallback }: MediaRowPropsType) 
       })
       .catch();
   };
-
-  const navigate = useNavigate();
 
   return (
     <TableRow
@@ -48,7 +55,7 @@ export default function MediaRow({ media, approveCallback }: MediaRowPropsType) 
       }}
     >
       <TableCell>
-        <Button sx={{ p: 1 }} onClick={() => navigate(`/w/${media.id}`)}>
+        <Button sx={{ p: 1 }} onClick={() => setMediaPreviewModalOpen(true)}>
           <img
             src={media.thumbnail_url || DEFAULT_THUMBNAIL_URL}
             style={{
@@ -91,6 +98,31 @@ export default function MediaRow({ media, approveCallback }: MediaRowPropsType) 
           </IconButton>
         </Tooltip>
       </TableCell>
+      <Modal
+        open={mediaPreviewModalOpen}
+        onClose={() => setMediaPreviewModalOpen(false)}
+      >
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            bgcolor: 'background.paper',
+            width: 400,
+            borderRadius: 2,
+            boxShadow: 24,
+            p: 4,
+          }}
+        >
+          {mediaPreviewModalOpen && (
+            <VideoPlayer
+              src={media.media_url}
+              poster={media.thumbnail_url || DEFAULT_THUMBNAIL_URL}
+            />
+          )}
+        </Box>
+      </Modal>
       <Dialog open={approveDialogOpen} onClose={() => setApproveDialogOpen(false)}>
         <DialogTitle>Approve this media?</DialogTitle>
         <DialogActions>

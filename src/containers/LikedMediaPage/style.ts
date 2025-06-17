@@ -1,0 +1,15 @@
+import { SxProps, Theme } from '@mui/material';
+
+export const styles: Record<string, SxProps<Theme>> = {
+  container: {
+    display: 'flex',
+    flex: 1,
+  },
+  mediaPannel: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+    gap: 2,
+    pt: 1,
+    justifyContent: 'space-around',
+  },
+};

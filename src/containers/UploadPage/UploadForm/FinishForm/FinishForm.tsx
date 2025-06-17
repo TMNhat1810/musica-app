@@ -9,6 +9,7 @@ import {
 } from '../../../../common/mimetypes';
 import { useRef, useState } from 'react';
 import { MediaServices } from '../../../../services';
+import { useAuth } from '../../../../hooks';
 
 interface FinishFormPropsType {
   title: string;
@@ -29,6 +30,7 @@ export default function FinishForm({
   const [ready, setReady] = useState<boolean>(false);
   const navigate = useNavigate();
   const ref = useRef<HTMLMediaElement | null>(null);
+  const { user } = useAuth();
 
   const handleUpload = async () => {
     setUploading(true);
@@ -41,7 +43,7 @@ export default function FinishForm({
         ref.current.duration,
         thumbnail,
       );
-      navigate('/');
+      navigate(`/p/${user?.id}`);
     } finally {
       setUploading(false);
     }

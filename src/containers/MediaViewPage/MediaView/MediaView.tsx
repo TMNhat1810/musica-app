@@ -32,6 +32,8 @@ export default function MediaView() {
             owner={media.user}
             title={media.title}
             description={media.description || ''}
+            view_count={media.MediaStatistics?.view_count || 0}
+            created_at={media.created_at}
           />
           <CommentSection mediaOwnerId={media.user_id} />
         </Fragment>

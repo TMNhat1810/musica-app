@@ -12,4 +12,5 @@ export interface Media {
   status: 'active' | 'pending' | 'inactive';
   created_at: Date;
   user: User;
+  MediaStatistics?: { view_count: number };
 }

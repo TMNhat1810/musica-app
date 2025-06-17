@@ -8,17 +8,22 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '../../../../hooks';
 import { MediaServices } from '../../../../services';
 import FollowButton from '../../../../components/FollowButton';
+import dayjs from 'dayjs';
 
 interface MediaDescriptionPropsType {
   owner: User;
   title: string;
   description: string;
+  view_count: number;
+  created_at: Date;
 }
 
 export default function MediaDescription({
   owner,
   title,
   description,
+  view_count,
+  created_at,
 }: MediaDescriptionPropsType) {
   const { id } = useParams();
 
@@ -102,7 +107,12 @@ export default function MediaDescription({
           </IconButton>
         </Box>
       </Box>
-      <Box sx={styles.descriptionContainer}>{description}</Box>
+      <Box sx={styles.descriptionContainer}>
+        <Typography>
+          {view_count} Views • {dayjs(created_at).fromNow()}
+        </Typography>
+        <Typography>{description}</Typography>
+      </Box>
       <Snackbar
         open={copied}
         autoHideDuration={1500}

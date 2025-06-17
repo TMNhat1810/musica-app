@@ -13,6 +13,7 @@ export const styles: SideMenuStyle = {
     pl: 1,
     position: 'fixed',
     top: 64,
+    height: '100%',
   },
   collapseButton: {
     display: 'flex',

@@ -116,3 +116,10 @@ export const unfollowUser = async (followee_id: string) => {
   const response = await AxiosInstance.delete(`/user/${followee_id}/follow`);
   return response.data;
 };
+
+export const getUserLikedMedias = async (page: number = 1, limit: number = 10) => {
+  const response = await AxiosInstance.get('/user/c/liked', {
+    params: { page, limit },
+  });
+  return response.data;
+};
