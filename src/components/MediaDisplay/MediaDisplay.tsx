@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { DEFAULT_THUMBNAIL_URL } from '../../constants';
 import { formatDuration } from '../../utils/datetime';
+import { useTranslation } from 'react-i18next';
 
 interface MediaDisplayPropsType {
   media: Media;
@@ -14,6 +15,7 @@ interface MediaDisplayPropsType {
 
 export default function MediaDisplay({ media, horizontal }: MediaDisplayPropsType) {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const openMedia = () => {
     navigate('/w/' + media.id, { replace: true });
@@ -109,10 +111,8 @@ export default function MediaDisplay({ media, horizontal }: MediaDisplayPropsTyp
           </Link>
           <Box>
             <Typography variant="caption" color="lightgray">
-              {media.MediaStatistics?.view_count || '0'} Views •{' '}
-              <Typography variant="caption" sx={{ textTransform: 'capitalize' }}>
-                {dayjs(media.created_at).fromNow()}
-              </Typography>
+              {media.MediaStatistics?.view_count || '0'} {t('views')} •{' '}
+              {dayjs(media.created_at).fromNow()}
             </Typography>
           </Box>
         </Box>

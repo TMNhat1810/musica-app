@@ -4,6 +4,7 @@ import { DropzoneArea } from 'mui-file-dropzone';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { AudioMimetypes, VideoMimetypes } from '../../../../common/mimetypes';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 interface MediaUploadPropsType {
   media: File | null;
@@ -17,6 +18,7 @@ export default function MediaUpload({
   setStep,
 }: MediaUploadPropsType) {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <Box sx={styles.container}>
@@ -31,7 +33,7 @@ export default function MediaUpload({
           acceptedFiles={[...VideoMimetypes, ...AudioMimetypes]}
           filesLimit={1}
           dropzoneClass="mui-dropzone-container"
-          dropzoneText="Upload your media file here"
+          dropzoneText={t('txt-upload-here-message')}
           clearOnUnmount={false}
           dropzoneProps={{ disabled: !!media }}
         />
@@ -94,7 +96,7 @@ export default function MediaUpload({
             color: 'text.primary',
           }}
         >
-          Cancel
+          {t('cancel')}
         </Button>
         <Button
           onClick={() => setStep(1)}
@@ -105,7 +107,7 @@ export default function MediaUpload({
             },
           }}
         >
-          Next
+          {t('next')}
         </Button>
       </Box>
     </Box>

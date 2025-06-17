@@ -9,6 +9,7 @@ import { useAuth } from '../../../../hooks';
 import { MediaServices } from '../../../../services';
 import FollowButton from '../../../../components/FollowButton';
 import dayjs from 'dayjs';
+import { useTranslation } from 'react-i18next';
 
 interface MediaDescriptionPropsType {
   owner: User;
@@ -32,6 +33,7 @@ export default function MediaDescription({
   const [likeLoading, setLikeLoading] = useState<boolean>(false);
 
   const { user } = useAuth();
+  const { t } = useTranslation();
 
   const handleCopyURL = () => {
     navigator.clipboard.writeText(window.location.href).then(() => {
@@ -99,17 +101,17 @@ export default function MediaDescription({
             disabled={likeLoading}
           >
             <ThumbUpIcon />
-            <Typography>Like</Typography>
+            <Typography>{t('like')}</Typography>
           </IconButton>
           <IconButton sx={{ ...styles.iconbutton }} onClick={handleCopyURL}>
             <ShareIcon />
-            <Typography>Share</Typography>
+            <Typography>{t('share')}</Typography>
           </IconButton>
         </Box>
       </Box>
       <Box sx={styles.descriptionContainer}>
         <Typography>
-          {view_count} Views • {dayjs(created_at).fromNow()}
+          {view_count} {t('views')} • {dayjs(created_at).fromNow()}
         </Typography>
         <Typography>{description}</Typography>
       </Box>

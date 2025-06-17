@@ -2,6 +2,7 @@ import { Box, Button, TextField } from '@mui/material';
 import { styles } from './style';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface DescriptionFormPropsType {
   titleCallback: (title: string) => void;
@@ -17,6 +18,7 @@ export default function DescriptionForm({
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleNextStep = () => {
     titleCallback(title);
@@ -28,7 +30,7 @@ export default function DescriptionForm({
     <Box sx={styles.container}>
       <Box sx={styles.formContainer}>
         <TextField
-          label="Title"
+          label={t('title')}
           variant="outlined"
           autoComplete="off"
           slotProps={{ inputLabel: { sx: { color: 'gray' } } }}
@@ -44,7 +46,7 @@ export default function DescriptionForm({
           onChange={(event) => setTitle(event.target.value)}
         />
         <TextField
-          label="Description"
+          label={t('description')}
           variant="outlined"
           autoComplete="off"
           multiline
@@ -69,7 +71,7 @@ export default function DescriptionForm({
             color: 'text.primary',
           }}
         >
-          Cancel
+          {t('cancel')}
         </Button>
         <Button
           onClick={handleNextStep}
@@ -80,7 +82,7 @@ export default function DescriptionForm({
             },
           }}
         >
-          Next
+          {t('next')}
         </Button>
       </Box>
     </Box>

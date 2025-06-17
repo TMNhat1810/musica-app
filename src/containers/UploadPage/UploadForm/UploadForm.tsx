@@ -13,6 +13,7 @@ import { styles } from './style';
 import MediaUpload from './MediaUpload';
 import DescriptionForm from './DescriptionForm';
 import FinishForm from './FinishForm';
+import { useTranslation } from 'react-i18next';
 
 const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -100,7 +101,7 @@ function ColorlibStepIcon(props: StepIconProps) {
   );
 }
 
-const steps = ['Upload media', 'Add description', 'Finish'];
+const steps = ['txt-upload-media', 'txt-add-description', 'txt-finish'];
 
 export default function UploadForm() {
   const [step, setStep] = useState<number>(0);
@@ -109,6 +110,8 @@ export default function UploadForm() {
   const [thumbnail, setThumbnail] = useState<File | null>(null);
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
+
+  const { t } = useTranslation();
 
   function StepComponent() {
     switch (step) {
@@ -149,7 +152,7 @@ export default function UploadForm() {
                   fontSize: '16px',
                 }}
               >
-                {label}
+                {t(label)}
               </Typography>
             </StepLabel>
           </Step>

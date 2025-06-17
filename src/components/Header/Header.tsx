@@ -4,6 +4,7 @@ import AuthControl from './AuthControl';
 import { Link } from 'react-router-dom';
 import SearchBar from '../SearchBar';
 import MenuIcon from '@mui/icons-material/Menu';
+import { useTranslation } from 'react-i18next';
 
 interface HeaderPropsType {
   forumMode?: boolean;
@@ -11,6 +12,8 @@ interface HeaderPropsType {
 }
 
 export default function Header({ forumMode, onMenuClick }: HeaderPropsType) {
+  const { t } = useTranslation();
+
   return (
     <AppBar sx={styles.container}>
       <Box sx={styles.leftSideContainer}>
@@ -28,7 +31,9 @@ export default function Header({ forumMode, onMenuClick }: HeaderPropsType) {
         <Link to={forumMode ? '/forum' : '/'} style={{ textDecoration: 'none' }}>
           <Typography sx={{ fontWeight: 'bold' }}>MUSICA</Typography>
         </Link>
-        {forumMode && <Typography sx={{ color: 'text.primary' }}>Forum</Typography>}
+        {forumMode && (
+          <Typography sx={{ color: 'text.primary' }}>{t('forum')}</Typography>
+        )}
       </Box>
       {!forumMode && <SearchBar />}
       <AuthControl forumMode={forumMode} />

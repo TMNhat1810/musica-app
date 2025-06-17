@@ -15,6 +15,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { ForumServices } from '../../../services';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 interface ForumPostTableRowPropsType {
   post: ForumPost;
@@ -22,6 +23,8 @@ interface ForumPostTableRowPropsType {
 
 export default function ForumPostTableRow({ post }: ForumPostTableRowPropsType) {
   const [open, setOpen] = useState<boolean>(false);
+
+  const { t } = useTranslation();
 
   const handleDelete = async () => {
     ForumServices.deletePost(post.id)
@@ -57,7 +60,7 @@ export default function ForumPostTableRow({ post }: ForumPostTableRowPropsType) 
       </TableCell>
       <TableCell>{post.type}</TableCell>
       <TableCell align="right">
-        <Tooltip title="Edit">
+        <Tooltip title={t('edit')}>
           <Link to={`/forum/post/${post.id}/edit`}>
             <IconButton
               sx={{
@@ -71,7 +74,7 @@ export default function ForumPostTableRow({ post }: ForumPostTableRowPropsType) 
             </IconButton>
           </Link>
         </Tooltip>
-        <Tooltip title="Delete">
+        <Tooltip title={t('delete')}>
           <IconButton
             sx={{
               backgroundColor: 'red',
@@ -87,11 +90,11 @@ export default function ForumPostTableRow({ post }: ForumPostTableRowPropsType) 
         </Tooltip>
       </TableCell>
       <Dialog open={open} onClose={() => setOpen(false)}>
-        <DialogTitle>Are you sure?</DialogTitle>
+        <DialogTitle>{t('txt-delete-confirm-message')}</DialogTitle>
         <DialogActions>
-          <Button onClick={() => setOpen(false)}>Cancel</Button>
+          <Button onClick={() => setOpen(false)}>{t('cancel')}</Button>
           <Button onClick={handleDelete} color="error">
-            Confirm
+            {t('delete')}
           </Button>
         </DialogActions>
       </Dialog>

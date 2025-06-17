@@ -5,6 +5,7 @@ import { UserServices } from '../../services';
 import { HistoryMediaViewItem } from './HistoryViewItem';
 import { groupLogsByDate, sectionOrder } from './section';
 import { HistoryMediaLikeItem } from './HistoryLikeItem';
+import { useTranslation } from 'react-i18next';
 
 const tags: { label: string; action: string }[] = [
   { label: 'all', action: 'all' },
@@ -19,6 +20,7 @@ export default function HistoryPage() {
   const [tag, setTag] = useState<{ label: string; action: string }>(tags[0]);
 
   const endRef = useRef<HTMLDivElement | null>(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!endRef.current || theEnd) return;
@@ -58,7 +60,7 @@ export default function HistoryPage() {
           >
             <Chip
               key={item.label}
-              label={item.label}
+              label={t(item.label)}
               sx={{
                 border: '2px solid',
                 ...(tag.label === item.label && {
@@ -76,7 +78,7 @@ export default function HistoryPage() {
             groups[section].length > 0 && (
               <Box key={section} sx={{ mb: 3 }}>
                 <Typography variant="subtitle1" sx={{ mb: 1 }}>
-                  {section}
+                  {t(section)}
                 </Typography>
                 {groups[section].map((log) => {
                   if (log.action === 'view_media')

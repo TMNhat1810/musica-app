@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import UserAvatar from './UserAvatar';
 import AddIcon from '@mui/icons-material/Add';
 import NotificationControl from '../NotificationControl';
+import { useTranslation } from 'react-i18next';
 
 interface AuthControlPropsType {
   forumMode?: boolean;
@@ -12,6 +13,7 @@ interface AuthControlPropsType {
 
 export default function AuthControl({ forumMode = false }: AuthControlPropsType) {
   const { user } = useAuth();
+  const { t } = useTranslation();
 
   return (
     <Box sx={styles.container}>
@@ -35,7 +37,7 @@ export default function AuthControl({ forumMode = false }: AuthControlPropsType)
                   mr: 0.5,
                 }}
               />
-              <Typography>Create</Typography>
+              <Typography>{t('create')}</Typography>
             </IconButton>
           </Link>
           <NotificationControl />
@@ -45,7 +47,7 @@ export default function AuthControl({ forumMode = false }: AuthControlPropsType)
         <Box sx={styles.buttonContainer}>
           <Link to="/auth/sign-up">
             <Button sx={{ textTransform: 'none', fontWeight: 'bold', py: 0.5 }}>
-              Sign up
+              {t('signup')}
             </Button>
           </Link>
           <Link to="/auth/sign-in">
@@ -60,7 +62,7 @@ export default function AuthControl({ forumMode = false }: AuthControlPropsType)
                 borderRadius: 5,
               }}
             >
-              Log in
+              {t('signin')}
             </Button>
           </Link>
         </Box>

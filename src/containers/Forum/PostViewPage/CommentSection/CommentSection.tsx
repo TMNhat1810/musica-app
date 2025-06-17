@@ -6,10 +6,13 @@ import { CommentServices, ForumServices } from '../../../../services';
 import { useParams } from 'react-router-dom';
 import CommentDisplay from '../../../../components/CommentDisplay';
 import { socket } from '../../../../socket';
+import { useTranslation } from 'react-i18next';
 
 export default function CommentSection() {
   const { id } = useParams();
   const [comments, setComments] = useState<ForumComment[]>([]);
+
+  const { t } = useTranslation();
 
   const handleSubmit = (content: string) => {
     if (content.trim() && id)
@@ -88,7 +91,7 @@ export default function CommentSection() {
 
   return (
     <Box sx={{ mt: 4 }}>
-      <Typography variant="h6">Comments</Typography>
+      <Typography variant="h6">{t('comment')}</Typography>
       <CommentInput submit={handleSubmit} />
       {comments.length > 0 ? (
         <Stack spacing={2} sx={{ mt: 2 }}>
@@ -111,7 +114,7 @@ export default function CommentSection() {
         </Stack>
       ) : (
         <Typography variant="body2" color="text.secondary">
-          No comments yet.
+          {t('txt-no-comments')}
         </Typography>
       )}
     </Box>

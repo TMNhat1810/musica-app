@@ -9,6 +9,7 @@ import CommentInput from '../CommentInput';
 import { socket } from '../../socket';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import { useTranslation } from 'react-i18next';
 
 interface CommentSectionPropsType {
   mediaOwnerId: string;
@@ -18,6 +19,8 @@ export default function CommentSection({ mediaOwnerId }: CommentSectionPropsType
   const { id } = useParams<{ id: string }>();
   const [comments, setComments] = useState<Comment[]>([]);
   const [showComments, setShowComments] = useState<boolean>(true);
+
+  const { t } = useTranslation();
 
   const uploadComment = async (content: string) => {
     if (!id || !content) return;
@@ -116,7 +119,7 @@ export default function CommentSection({ mediaOwnerId }: CommentSectionPropsType
           <ExpandMoreIcon fontSize="large" />
         )}
         <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
-          {comments.length} Comments
+          {comments.length} {t('comment')}
         </Typography>
       </Button>
       {showComments && (

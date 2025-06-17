@@ -3,6 +3,7 @@ import { styles } from './style';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useAuth } from '../../hooks';
+import { useTranslation } from 'react-i18next';
 
 export default function SignInForm() {
   const [username, setUsername] = useState<string>('');
@@ -11,19 +12,20 @@ export default function SignInForm() {
   const [loading, setLoading] = useState<boolean>(false);
 
   const { signinUser } = useAuth();
+  const { t } = useTranslation();
 
   const handleSignIn = async () => {
     if (!username) {
-      setError('Empty username!');
+      setError('empty-username-error');
       return;
     }
     if (!password) {
-      setError('Empty password!');
+      setError('empty-password-error');
       return;
     }
     setLoading(true);
     signinUser(username, password)
-      .catch(() => setError('Username or password incorrect!'))
+      .catch(() => setError('wrong-username-password-error'))
       .finally(() => setLoading(false));
   };
 
@@ -43,7 +45,7 @@ export default function SignInForm() {
         MUSICA
       </Typography>
       <TextField
-        label="username"
+        label={t('username')}
         variant="outlined"
         onChange={(event) => {
           setUsername(event.target.value);
@@ -51,7 +53,7 @@ export default function SignInForm() {
         }}
       />
       <TextField
-        label="password"
+        label={t('password')}
         variant="outlined"
         type="password"
         onChange={(event) => {
@@ -60,7 +62,7 @@ export default function SignInForm() {
         }}
       />
       <Typography sx={{ fontSize: '13px' }} color="error">
-        {error}
+        {t(error)}
       </Typography>
       <Box sx={styles.buttonContainer}>
         <Button
@@ -69,11 +71,11 @@ export default function SignInForm() {
           onClick={handleSignIn}
           disabled={loading}
         >
-          Sign In
+          {t('signin')}
         </Button>
       </Box>
       <Typography sx={styles.bottomText}>
-        Don't have account? <Link to="/auth/sign-up">Sign up</Link>{' '}
+        {t('no-account-message')} <Link to="/auth/sign-up">{t('signup')}</Link>
       </Typography>
     </Box>
   );

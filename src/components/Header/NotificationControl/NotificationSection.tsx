@@ -4,6 +4,7 @@ import { NotificationServices } from '../../../services';
 import { Notification } from '../../../common/interfaces';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 interface NotificationSectionPropsType {
   filter: 'ALL' | 'UNREAD';
@@ -13,6 +14,8 @@ export default function NotificationSection({
   filter,
 }: NotificationSectionPropsType) {
   const [notifications, setNotifications] = useState<Notification[]>([]);
+
+  const { t } = useTranslation();
 
   const handleRead = (id: string) => {
     NotificationServices.readNotification(id)
@@ -66,7 +69,7 @@ export default function NotificationSection({
                 </Link>
                 <Box>
                   <Box>
-                    <Typography>Your follower has posted new media</Typography>
+                    <Typography>{t('txt-followee-upload-new')}</Typography>
                     <Typography variant="caption">
                       {dayjs(notification.created_at).fromNow()}
                     </Typography>
@@ -85,7 +88,7 @@ export default function NotificationSection({
                         }}
                         onClick={() => handleRead(notification.id)}
                       >
-                        <Typography>Read</Typography>
+                        <Typography>{t('read')}</Typography>
                       </Button>
                     )}
                     <Button
@@ -100,7 +103,7 @@ export default function NotificationSection({
                       }}
                       onClick={() => handleDelete(notification.id)}
                     >
-                      <Typography>Delete</Typography>
+                      <Typography>{t('delete')}</Typography>
                     </Button>
                   </Box>
                 </Box>
@@ -119,7 +122,7 @@ export default function NotificationSection({
                 </Link>
                 <Box>
                   <Box>
-                    <Typography>Someone has commented on your media</Typography>
+                    <Typography>{t('txt-user-comment-media')}</Typography>
                     <Typography variant="caption">
                       {dayjs(notification.created_at).fromNow()}
                     </Typography>
@@ -138,7 +141,7 @@ export default function NotificationSection({
                         }}
                         onClick={() => handleRead(notification.id)}
                       >
-                        <Typography>Read</Typography>
+                        <Typography>{t('read')}</Typography>
                       </Button>
                     )}
                     <Button
@@ -153,7 +156,7 @@ export default function NotificationSection({
                       }}
                       onClick={() => handleDelete(notification.id)}
                     >
-                      <Typography>Delete</Typography>
+                      <Typography>{t('delete')}</Typography>
                     </Button>
                   </Box>
                 </Box>

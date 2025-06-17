@@ -3,10 +3,12 @@ import { styles } from './style';
 import { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export default function SearchBar() {
   const [query, setQuery] = useState<string>('');
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleSearch = () => {
     if (!query) return;
@@ -20,7 +22,7 @@ export default function SearchBar() {
   return (
     <Box sx={styles.container}>
       <TextField
-        placeholder="Search"
+        placeholder={t('search')}
         fullWidth
         value={query}
         size="small"

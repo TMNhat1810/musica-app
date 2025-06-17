@@ -6,6 +6,12 @@ import { UserServices } from '../../services';
 import { useAuth } from '../../hooks';
 import { setAuthHeader } from '../../utils/axios';
 import { TokenUtils } from '../../utils/token';
+import { useTranslation } from 'react-i18next';
+
+function isValidEmail(email: string): boolean {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
 
 export default function SignUpForm() {
   const [username, setUsername] = useState<string>('');
@@ -16,22 +22,31 @@ export default function SignUpForm() {
   const [loading, setLoading] = useState<boolean>(false);
 
   const { getUserProfile } = useAuth();
+  const { t } = useTranslation();
 
   const handleSignUp = async () => {
     if (!username) {
-      setError('Empty username!');
+      setError('empty-username-error');
       return;
     }
     if (!password) {
-      setError('Empty password!');
+      setError('empty-password-error');
+      return;
+    }
+    if (!email) {
+      setError('empty-email-error');
+      return;
+    }
+    if (!isValidEmail(email)) {
+      setError('invalid-email-error');
       return;
     }
     if (!confirmPassword) {
-      setError('Confirm password empty!');
+      setError('empty-confirm-password-error');
       return;
     }
     if (password !== confirmPassword) {
-      setError('Confirm password not matched!');
+      setError('confirm-password-notmatched-error');
       return;
     }
     try {
@@ -49,7 +64,7 @@ export default function SignUpForm() {
       TokenUtils.setRefreshToken(refresh_token);
       getUserProfile();
     } catch {
-      setError('Invalid username or email!');
+      setError('user-or-email-existed-error');
     } finally {
       setLoading(false);
     }
@@ -71,7 +86,7 @@ export default function SignUpForm() {
         MUSICA
       </Typography>
       <TextField
-        label="username"
+        label={t('username')}
         variant="outlined"
         onChange={(event) => {
           setError('');
@@ -79,7 +94,7 @@ export default function SignUpForm() {
         }}
       />
       <TextField
-        label="email"
+        label="Email"
         variant="outlined"
         onChange={(event) => {
           setError('');
@@ -87,7 +102,7 @@ export default function SignUpForm() {
         }}
       />
       <TextField
-        label="password"
+        label={t('password')}
         variant="outlined"
         type="password"
         onChange={(event) => {
@@ -96,7 +111,7 @@ export default function SignUpForm() {
         }}
       />
       <TextField
-        label="confirm password"
+        label={t('confirmed-password')}
         variant="outlined"
         type="password"
         onChange={(event) => {
@@ -105,7 +120,7 @@ export default function SignUpForm() {
         }}
       />
       <Typography sx={{ fontSize: '13px' }} color="error">
-        {error}
+        {t(error)}
       </Typography>
       <Box sx={styles.buttonContainer}>
         <Button
@@ -114,11 +129,11 @@ export default function SignUpForm() {
           onClick={handleSignUp}
           disabled={loading}
         >
-          Sign Up
+          {t('signup')}
         </Button>
       </Box>
       <Typography sx={styles.bottomText}>
-        Already had account? <Link to="/auth/sign-in">Sign in</Link>{' '}
+        {t('had-account-message')} <Link to="/auth/sign-in">{t('signin')}</Link>
       </Typography>
     </Box>
   );

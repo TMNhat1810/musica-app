@@ -2,6 +2,7 @@ import { Avatar, Box, Typography } from '@mui/material';
 import { ViewLog } from '../../../common/interfaces';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
+import { useTranslation } from 'react-i18next';
 
 interface HistoryMediaViewItemPropsType {
   log: ViewLog;
@@ -11,6 +12,8 @@ export default function HistoryMediaViewItem({
   log,
 }: HistoryMediaViewItemPropsType) {
   const media = log.media;
+
+  const { t } = useTranslation();
 
   return (
     <Link
@@ -42,7 +45,7 @@ export default function HistoryMediaViewItem({
 
         <Box sx={{ flex: 1, minWidth: 0 }}>
           <Typography variant="body2" noWrap>
-            You viewed: {media?.title}
+            {t('txt-you-viewed')}: {media?.title}
           </Typography>
           <Box display="flex" alignItems="center" gap={1} mt={0.5}>
             <Avatar src={media?.user.photo_url} sx={{ width: 20, height: 20 }} />

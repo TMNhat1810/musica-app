@@ -18,6 +18,7 @@ import { Media } from '../../../common/interfaces';
 import { UserServices } from '../../../services';
 import { useParams } from 'react-router-dom';
 import MediaRow from './MediaRow';
+import { t } from 'i18next';
 
 export default function MediaTable() {
   const { id } = useParams();
@@ -74,7 +75,7 @@ export default function MediaTable() {
     <Box sx={styles.container}>
       <Box sx={{ px: 2, py: 1, backgroundColor: 'background.paper' }}>
         <TextField
-          placeholder="Search by ID or Title"
+          placeholder={t('search-by-id-or-name-message')}
           fullWidth
           value={query}
           size="small"
@@ -98,11 +99,11 @@ export default function MediaTable() {
           <TableHead>
             <TableRow>
               <TableCell sx={{ fontWeight: 'bold' }}>Media</TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}>Title</TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}>Duration</TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}>Status</TableCell>
+              <TableCell sx={{ fontWeight: 'bold' }}>{t('title')}</TableCell>
+              <TableCell sx={{ fontWeight: 'bold' }}>{t('duration')}</TableCell>
+              <TableCell sx={{ fontWeight: 'bold' }}>{t('status')}</TableCell>
               <TableCell sx={{ fontWeight: 'bold' }} align="right">
-                Action
+                {t('action')}
               </TableCell>
             </TableRow>
             {medias.map((media) => (

@@ -10,6 +10,7 @@ import {
 import { useRef, useState } from 'react';
 import { MediaServices } from '../../../../services';
 import { useAuth } from '../../../../hooks';
+import { useTranslation } from 'react-i18next';
 
 interface FinishFormPropsType {
   title: string;
@@ -31,6 +32,7 @@ export default function FinishForm({
   const navigate = useNavigate();
   const ref = useRef<HTMLMediaElement | null>(null);
   const { user } = useAuth();
+  const { t } = useTranslation();
 
   const handleUpload = async () => {
     setUploading(true);
@@ -82,7 +84,7 @@ export default function FinishForm({
               acceptedFiles={ImageMimetypes}
               filesLimit={1}
               dropzoneClass="mui-dropzone-container"
-              dropzoneText="Upload thumbnail image (optional)"
+              dropzoneText={t('txt-upload-thumbnail')}
               clearOnUnmount={false}
               dropzoneProps={{ disabled: !!thumbnail }}
             />
@@ -108,7 +110,7 @@ export default function FinishForm({
             color: 'text.primary',
           }}
         >
-          Cancel
+          {t('cancel')}
         </Button>
         {!uploading && (
           <Button
@@ -120,7 +122,7 @@ export default function FinishForm({
               },
             }}
           >
-            Upload
+            {t('upload')}
           </Button>
         )}
         {uploading && <CircularProgress size="30px" />}

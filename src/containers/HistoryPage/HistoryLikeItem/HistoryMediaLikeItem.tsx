@@ -2,6 +2,7 @@ import { Avatar, Box, Typography } from '@mui/material';
 import { LikeLog } from '../../../common/interfaces';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
+import { useTranslation } from 'react-i18next';
 
 interface HistoryMediaLikeItemPropsType {
   log: LikeLog;
@@ -11,6 +12,7 @@ export default function HistoryMediaLikeItem({
   log,
 }: HistoryMediaLikeItemPropsType) {
   const media = log.media;
+  const { t } = useTranslation();
 
   return (
     <Link
@@ -42,7 +44,7 @@ export default function HistoryMediaLikeItem({
 
         <Box sx={{ flex: 1, minWidth: 0 }}>
           <Typography variant="body2" noWrap>
-            You liked: {media?.title}
+            {t('txt-you-viewed')}: {media?.title}
           </Typography>
           <Box display="flex" alignItems="center" gap={1} mt={0.5}>
             <Avatar src={media?.user.photo_url} sx={{ width: 20, height: 20 }} />

@@ -1,4 +1,4 @@
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import { styles } from './style';
 import { useEffect, useRef, useState } from 'react';
 import { Media } from '../../common/interfaces';
@@ -41,9 +41,6 @@ export default function HomePage() {
           ))}
         </Box>
         {!theEnd && <Box ref={endRef} sx={{ height: '1px' }} />}
-        <Box sx={{ display: theEnd ? 'block' : 'none', justifySelf: 'center' }}>
-          <Typography>There's no more media for you now! x_x</Typography>
-        </Box>
       </Container>
     </Box>
   );

@@ -15,6 +15,7 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks';
+import { useTranslation } from 'react-i18next';
 
 interface SideMenuPropsType {
   expand: boolean;
@@ -25,9 +26,10 @@ export default function SideMenu({ expand = true }: SideMenuPropsType) {
   const location = useLocation();
 
   const { user, isAuthenticated } = useAuth();
+  const { t } = useTranslation();
 
   return (
-    <Box sx={styles.container}>
+    <Box sx={{ ...styles.container, pl: expand ? 1 : 0 }}>
       {expand && (
         <img
           src="/musica-logo.png"
@@ -38,7 +40,7 @@ export default function SideMenu({ expand = true }: SideMenuPropsType) {
       <List>
         <ListItem sx={{ p: 0 }}>
           <ListItemButton
-            sx={{ display: 'flex', justifyContent: 'center' }}
+            sx={{ display: 'flex', justifyContent: 'center', p: '8px' }}
             onClick={() => navigate('/')}
           >
             {expand ? (
@@ -55,7 +57,7 @@ export default function SideMenu({ expand = true }: SideMenuPropsType) {
                     ...(location.pathname === '/' && { color: 'primary.main' }),
                   }}
                 >
-                  Home
+                  {t('home')}
                 </ListItemText>
               </>
             ) : (
@@ -66,14 +68,14 @@ export default function SideMenu({ expand = true }: SideMenuPropsType) {
                 }}
               >
                 <HomeIcon fontSize="large" />
-                <Typography variant="caption">Home</Typography>
+                <Typography variant="caption">{t('home')}</Typography>
               </Box>
             )}
           </ListItemButton>
         </ListItem>
         <ListItem sx={{ p: 0 }}>
           <ListItemButton
-            sx={{ display: 'flex', justifyContent: 'center' }}
+            sx={{ display: 'flex', justifyContent: 'center', p: '8px' }}
             onClick={() => navigate('/forum')}
           >
             {expand ? (
@@ -90,7 +92,7 @@ export default function SideMenu({ expand = true }: SideMenuPropsType) {
                     ...(location.pathname === '/forum' && { color: 'primary.main' }),
                   }}
                 >
-                  Forum
+                  {t('forum')}
                 </ListItemText>
               </>
             ) : (
@@ -101,14 +103,14 @@ export default function SideMenu({ expand = true }: SideMenuPropsType) {
                 }}
               >
                 <ForumIcon fontSize="large" />
-                <Typography variant="caption">Forum</Typography>
+                <Typography variant="caption">{t('forum')}</Typography>
               </Box>
             )}
           </ListItemButton>
         </ListItem>
         <ListItem sx={{ p: 0 }}>
           <ListItemButton
-            sx={{ display: 'flex', justifyContent: 'center' }}
+            sx={{ display: 'flex', justifyContent: 'center', p: '8px' }}
             onClick={() => navigate('/follow')}
           >
             {isAuthenticated &&
@@ -130,7 +132,7 @@ export default function SideMenu({ expand = true }: SideMenuPropsType) {
                       }),
                     }}
                   >
-                    Followings
+                    {t('following')}
                   </ListItemText>
                 </>
               ) : (
@@ -143,7 +145,7 @@ export default function SideMenu({ expand = true }: SideMenuPropsType) {
                   }}
                 >
                   <SubscriptionsIcon fontSize="large" />
-                  <Typography variant="caption">Followings</Typography>
+                  <Typography variant="caption">{t('following')}</Typography>
                 </Box>
               ))}
           </ListItemButton>
@@ -151,7 +153,7 @@ export default function SideMenu({ expand = true }: SideMenuPropsType) {
         {isAuthenticated && (
           <ListItem sx={{ p: 0 }}>
             <ListItemButton
-              sx={{ display: 'flex', justifyContent: 'center' }}
+              sx={{ display: 'flex', justifyContent: 'center', p: '8px' }}
               onClick={() => navigate('/liked')}
             >
               {expand ? (
@@ -172,7 +174,7 @@ export default function SideMenu({ expand = true }: SideMenuPropsType) {
                       }),
                     }}
                   >
-                    Liked
+                    {t('liked')}
                   </ListItemText>
                 </>
               ) : (
@@ -185,7 +187,7 @@ export default function SideMenu({ expand = true }: SideMenuPropsType) {
                   }}
                 >
                   <ThumbUpIcon fontSize="large" />
-                  <Typography variant="caption">Liked</Typography>
+                  <Typography variant="caption">{t('liked')}</Typography>
                 </Box>
               )}
             </ListItemButton>

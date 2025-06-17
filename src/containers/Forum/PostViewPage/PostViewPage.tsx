@@ -27,6 +27,7 @@ import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import { useTranslation } from 'react-i18next';
 
 export default function PostViewPage() {
   const { id } = useParams();
@@ -37,6 +38,7 @@ export default function PostViewPage() {
 
   const { user } = useAuth();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleImageClick = (index: number) => {
     setSelectedIndex(index);
@@ -104,11 +106,13 @@ export default function PostViewPage() {
               open={deleteConfirmOpen}
               onClose={() => setDeleteConfirmOpen(false)}
             >
-              <DialogTitle>Are you sure?</DialogTitle>
+              <DialogTitle>{t('txt-delete-confirm-message')}</DialogTitle>
               <DialogActions>
-                <Button onClick={() => setDeleteConfirmOpen(false)}>Cancel</Button>
+                <Button onClick={() => setDeleteConfirmOpen(false)}>
+                  {t('cancel')}
+                </Button>
                 <Button onClick={handleDelete} color="error">
-                  Confirm
+                  {t('delete')}
                 </Button>
               </DialogActions>
             </Dialog>

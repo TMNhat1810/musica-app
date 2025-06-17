@@ -4,11 +4,14 @@ import { useEffect, useState } from 'react';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import { NotificationServices } from '../../../services';
 import NotificationSection from './NotificationSection';
+import { useTranslation } from 'react-i18next';
 
 export default function NotificationControl() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [badgeCount, setBadgeCount] = useState<number>(0);
   const [section, setSection] = useState<'ALL' | 'UNREAD'>('ALL');
+
+  const { t } = useTranslation();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
@@ -47,7 +50,7 @@ export default function NotificationControl() {
       >
         <Box sx={styles.popupContainer}>
           <Typography variant="h6" gutterBottom>
-            Notifications
+            {t('notifications')}
           </Typography>
           <Box sx={{ display: 'flex', gap: 1 }}>
             <IconButton
@@ -60,7 +63,7 @@ export default function NotificationControl() {
               }}
               onClick={() => setSection('ALL')}
             >
-              <Typography>All</Typography>
+              <Typography>{t('all')}</Typography>
             </IconButton>
             <IconButton
               sx={{
@@ -72,7 +75,7 @@ export default function NotificationControl() {
               }}
               onClick={() => setSection('UNREAD')}
             >
-              <Typography>Unread</Typography>
+              <Typography>{t('unread')}</Typography>
             </IconButton>
           </Box>
           <Box mt={2}>

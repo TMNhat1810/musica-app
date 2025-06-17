@@ -23,6 +23,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import CloseIcon from '@mui/icons-material/Close';
 import ReplyIcon from '@mui/icons-material/Reply';
+import { useTranslation } from 'react-i18next';
 
 interface CommentDisplayPropsType {
   data: Comment;
@@ -50,6 +51,7 @@ export default function CommentDisplay({
   const [deleting, setDeleting] = useState<boolean>(false);
 
   const { user } = useAuth();
+  const { t } = useTranslation();
 
   const handleOpenMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -154,7 +156,7 @@ export default function CommentDisplay({
                 disabled={!user}
               >
                 <ReplyIcon />
-                <Typography>Reply</Typography>
+                <Typography>{t('reply')}</Typography>
               </IconButton>
             )}
             {replying && (
@@ -226,7 +228,7 @@ export default function CommentDisplay({
               disabled={data.user_id !== user?.id}
               onClick={() => setEditing(true)}
             >
-              Edit comment
+              {t('edit')} {t('comment').toLowerCase()}
             </MenuItem>
             <Divider />
             <MenuItem
@@ -234,7 +236,7 @@ export default function CommentDisplay({
               onClick={handleDelete}
               sx={{ color: 'red' }}
             >
-              Delete comment
+              {t('delete')} {t('comment').toLowerCase()}
             </MenuItem>
           </Menu>
         </Box>
@@ -247,7 +249,8 @@ export default function CommentDisplay({
             sx={{ textTransform: 'none' }}
           >
             {showReplies ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-            {showReplies ? 'Hide' : 'Show ' + data.replies.length} replies
+            {showReplies ? t('hide') : t('show') + ' ' + data.replies.length}{' '}
+            {t('replies').toLowerCase()}
           </Button>
         )}
         {showReplies && (

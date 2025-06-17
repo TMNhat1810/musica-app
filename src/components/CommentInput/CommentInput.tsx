@@ -2,6 +2,7 @@ import { Avatar, Box, Button, TextField, Typography } from '@mui/material';
 import { styles } from './style';
 import { useAuth } from '../../hooks';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface CommentInputPropsType {
   submit: (content: string) => void;
@@ -11,6 +12,8 @@ interface CommentInputPropsType {
 export default function CommentInput({ submit, mode }: CommentInputPropsType) {
   const { user } = useAuth();
   const [content, setContent] = useState<string>('');
+
+  const { t } = useTranslation();
 
   return (
     <Box sx={styles.container}>
@@ -26,7 +29,7 @@ export default function CommentInput({ submit, mode }: CommentInputPropsType) {
               autoComplete="off"
               fullWidth
               multiline
-              placeholder="Write something"
+              placeholder={t('write-something-message')}
               slotProps={{
                 inputLabel: { sx: { color: 'lightgray' } },
               }}
@@ -65,13 +68,13 @@ export default function CommentInput({ submit, mode }: CommentInputPropsType) {
                 }}
                 disabled={!content}
               >
-                {mode === 'reply' ? 'Reply' : 'Comment'}
+                {mode === 'reply' ? t('replies') : t('comment')}
               </Button>
             </Box>
           </Box>
         </Box>
       ) : (
-        <Typography>Sign in to write comment</Typography>
+        <Typography>{t('txt-login-to-comment')}</Typography>
       )}
     </Box>
   );

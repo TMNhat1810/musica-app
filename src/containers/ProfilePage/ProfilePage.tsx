@@ -13,6 +13,7 @@ import ForumPostTable from './ForumPostTable';
 import ForumPostPannel from './ForumPostPannel';
 import StatsContainer from './StatsContainer';
 import FollowButton from '../../components/FollowButton';
+import { useTranslation } from 'react-i18next';
 
 export default function ProfilePage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -22,6 +23,7 @@ export default function ProfilePage() {
   const [tab, setTab] = useState<string>(searchParams.get('tab') || 'media');
 
   const { user } = useAuth();
+  const { t } = useTranslation();
   const editable: boolean = user?.id === id;
 
   const handleChange = (_: React.SyntheticEvent, newValue: string) => {
@@ -64,7 +66,7 @@ export default function ProfilePage() {
               </Box>
               <Typography variant="body1">{profile.email}</Typography>
               <Typography variant="caption">
-                {profile._count?.followers || 0} followers
+                {profile._count?.followers || 0} {t('followers')}
               </Typography>
               <Box mt={2}>
                 {user && !editable && id && <FollowButton target_id={id} />}
@@ -81,8 +83,10 @@ export default function ProfilePage() {
       <Container maxWidth="xl">
         <Tabs value={tab} onChange={handleChange}>
           <Tab value="media" label="Media" sx={styles.tabLabel} />
-          <Tab value="post" label="Post" sx={styles.tabLabel} />
-          {editable && <Tab value="stats" label="Statistics" sx={styles.tabLabel} />}
+          <Tab value="post" label={t('posts')} sx={styles.tabLabel} />
+          {editable && (
+            <Tab value="stats" label={t('statistics')} sx={styles.tabLabel} />
+          )}
         </Tabs>
         <Box sx={styles.tabContent}>
           {tab === 'media' && (editable ? <MediaTable /> : <MediaPannel />)}

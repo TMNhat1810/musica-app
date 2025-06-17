@@ -10,7 +10,6 @@ export const styles: SideMenuStyle = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    pl: 1,
     position: 'fixed',
     top: 64,
     height: '100%',
@@ -19,5 +18,7 @@ export const styles: SideMenuStyle = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    maxWidth: '80%',
+    textAlign: 'center',
   },
 };

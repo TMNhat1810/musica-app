@@ -18,6 +18,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MediaStatsContainer from './MediaStatsContainer';
 import StatusChip from '../../../components/StatusChip';
+import { useTranslation } from 'react-i18next';
 
 interface MediaRowPropsType {
   media: Media;
@@ -28,6 +29,7 @@ export default function MediaRow({ media }: MediaRowPropsType) {
   const [statsDialogOpen, setStatsDialogOpen] = useState<boolean>(false);
 
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleDelete = async () => {
     MediaServices.deleteMedia(media.id)
@@ -63,7 +65,7 @@ export default function MediaRow({ media }: MediaRowPropsType) {
         <StatusChip status={media.status} />
       </TableCell>
       <TableCell align="right">
-        <Tooltip title="View statistics">
+        <Tooltip title={t('view-statistics')}>
           <IconButton
             sx={{
               backgroundColor: 'primary.main',
@@ -76,7 +78,7 @@ export default function MediaRow({ media }: MediaRowPropsType) {
             <AnalyticsOutlinedIcon />
           </IconButton>
         </Tooltip>
-        <Tooltip title="Delete">
+        <Tooltip title={t('delete')}>
           <IconButton
             sx={{
               backgroundColor: 'red',
@@ -92,11 +94,11 @@ export default function MediaRow({ media }: MediaRowPropsType) {
         </Tooltip>
       </TableCell>
       <Dialog open={deleteDialogOpen} onClose={() => setDeleteDialogOpen(false)}>
-        <DialogTitle>Are you sure?</DialogTitle>
+        <DialogTitle>{t('txt-delete-confirm-message')}</DialogTitle>
         <DialogActions>
-          <Button onClick={() => setDeleteDialogOpen(false)}>Cancel</Button>
+          <Button onClick={() => setDeleteDialogOpen(false)}>{t('cancel')}</Button>
           <Button onClick={handleDelete} color="error">
-            Confirm
+            {t('delete')}
           </Button>
         </DialogActions>
       </Dialog>

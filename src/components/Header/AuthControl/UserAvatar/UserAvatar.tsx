@@ -16,6 +16,7 @@ import { IUser } from '../../../../contexts/auth/auth';
 import { MouseEvent, useState } from 'react';
 import { useAuth } from '../../../../hooks';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 interface UserAvatarPropsType {
   user: IUser;
@@ -27,6 +28,7 @@ export default function UserAvatar({ user }: UserAvatarPropsType) {
   const { signoutUser } = useAuth();
 
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handlerSignout = async () => {
     signoutUser();
@@ -106,14 +108,14 @@ export default function UserAvatar({ user }: UserAvatarPropsType) {
           <ListItemIcon>
             <HistoryIcon sx={{ color: 'text.primary' }} />
           </ListItemIcon>
-          <ListItemText>History</ListItemText>
+          <ListItemText>{t('history')}</ListItemText>
         </MenuItem>
         <Divider sx={{ m: 0 }} />
         <MenuItem onClick={handlerSignout}>
           <ListItemIcon>
             <LogoutIcon fontSize="small" sx={{ color: 'text.primary' }} />
           </ListItemIcon>
-          <ListItemText>Sign Out</ListItemText>
+          <ListItemText>{t('signout')}</ListItemText>
         </MenuItem>
       </Menu>
     </Box>

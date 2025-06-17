@@ -17,6 +17,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import DoneIcon from '@mui/icons-material/Done';
 import { useAuth } from '../../../hooks';
 import { CommentServices } from '../../../services';
+import { useTranslation } from 'react-i18next';
 
 interface ReplyDisplayPropsType {
   data: Comment;
@@ -29,6 +30,8 @@ export default function ReplyDisplay({ data, forum }: ReplyDisplayPropsType) {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [deleting, setDeleting] = useState<boolean>(false);
   const menuOpen = Boolean(anchorEl);
+
+  const { t } = useTranslation();
 
   const handleOpenMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -154,7 +157,7 @@ export default function ReplyDisplay({ data, forum }: ReplyDisplayPropsType) {
             disabled={data.user_id !== user?.id}
             onClick={() => setEditing(true)}
           >
-            Edit Reply
+            {t('edit')} {t('replies').toLowerCase()}
           </MenuItem>
           <Divider />
           <MenuItem
@@ -162,7 +165,7 @@ export default function ReplyDisplay({ data, forum }: ReplyDisplayPropsType) {
             onClick={handleDelete}
             sx={{ color: 'red' }}
           >
-            Delete Reply
+            {t('delete')} {t('replies').toLowerCase()}
           </MenuItem>
         </Menu>
       </Box>

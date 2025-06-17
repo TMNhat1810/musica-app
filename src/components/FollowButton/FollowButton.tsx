@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { UserServices } from '../../services';
 import { useAuth } from '../../hooks';
 import { styles } from './style';
+import { useTranslation } from 'react-i18next';
 
 interface FollowButtonPropsType {
   target_id: string;
@@ -15,6 +16,7 @@ export default function FollowButton({ target_id }: FollowButtonPropsType) {
   const [followLoading, setFollowLoading] = useState<boolean>(false);
 
   const { user } = useAuth();
+  const { t } = useTranslation();
 
   const followUser = () => {
     if (!user) return;
@@ -53,7 +55,7 @@ export default function FollowButton({ target_id }: FollowButtonPropsType) {
       disabled={followLoading}
     >
       {userFollowed ? <VisibilityOffIcon /> : <VisibilityIcon />}
-      <Typography>{userFollowed ? 'Followed' : 'Follow'}</Typography>
+      <Typography>{userFollowed ? t('followed') : t('follow')}</Typography>
     </IconButton>
   );
 }

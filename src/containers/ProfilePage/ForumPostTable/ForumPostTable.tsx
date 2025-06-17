@@ -19,6 +19,7 @@ import { ForumPost } from '../../../common/interfaces';
 import { UserServices } from '../../../services';
 import { useParams } from 'react-router-dom';
 import ForumPostTableRow from './ForumPostTableRow';
+import { useTranslation } from 'react-i18next';
 
 export default function ForumPostTable() {
   const { id } = useParams();
@@ -27,6 +28,8 @@ export default function ForumPostTable() {
   const [page, setPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
+
+  const { t } = useTranslation();
 
   const handleSearch = () => {
     if (!id) return;
@@ -74,7 +77,7 @@ export default function ForumPostTable() {
     <Box sx={styles.container}>
       <Box sx={{ px: 2, py: 1, backgroundColor: 'background.paper' }}>
         <TextField
-          placeholder="Search by ID or Title"
+          placeholder={t('search-by-id-or-name-message')}
           fullWidth
           value={query}
           size="small"
@@ -97,10 +100,10 @@ export default function ForumPostTable() {
         <Table size="small">
           <TableHead>
             <TableRow>
-              <TableCell sx={{ fontWeight: 'bold' }}>Post Title</TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}>Tag</TableCell>
+              <TableCell sx={{ fontWeight: 'bold' }}>{t('post-title')}</TableCell>
+              <TableCell sx={{ fontWeight: 'bold' }}>{t('tag')}</TableCell>
               <TableCell sx={{ fontWeight: 'bold' }} align="right">
-                Action
+                {t('action')}
               </TableCell>
             </TableRow>
           </TableHead>

@@ -4,6 +4,7 @@ import { Media } from '../../common/interfaces';
 import { UserServices } from '../../services';
 import MediaDisplay from '../../components/MediaDisplay';
 import { styles } from './style';
+import { useTranslation } from 'react-i18next';
 
 export default function LikedMediaPage() {
   const [medias, setMedias] = useState<Media[]>([]);
@@ -11,6 +12,8 @@ export default function LikedMediaPage() {
   const [theEnd, setTheEnd] = useState<boolean>(false);
 
   const endRef = useRef<HTMLDivElement | null>(null);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!endRef.current || theEnd) return;
@@ -37,7 +40,7 @@ export default function LikedMediaPage() {
   return (
     <Box sx={styles.container}>
       <Container maxWidth="xl">
-        <Typography variant="h5">Your liked media</Typography>
+        <Typography variant="h5">{t('Nội dung bạn đã thích')}</Typography>
         <Box sx={styles.mediaPannel}>
           {medias.map((media) => (
             <MediaDisplay key={media.id} media={media} />
