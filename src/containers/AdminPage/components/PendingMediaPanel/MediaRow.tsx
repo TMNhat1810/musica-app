@@ -18,6 +18,7 @@ import { useState } from 'react';
 import { Media } from '../../../../common/interfaces';
 import { AdminServices, MediaServices } from '../../../../services';
 import VideoPlayer from '../../../../components/MediaControl/VideoControl/VideoPlayer';
+import { useTranslation } from 'react-i18next';
 
 interface MediaRowPropsType {
   media: Media;
@@ -29,6 +30,8 @@ export default function MediaRow({ media, approveCallback }: MediaRowPropsType) 
   const [mediaPreviewModalOpen, setMediaPreviewModalOpen] = useState<boolean>(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState<boolean>(false);
   const [approveDialogOpen, setApproveDialogOpen] = useState<boolean>(false);
+
+  const { t } = useTranslation();
 
   const handleDelete = () => {
     MediaServices.deleteMedia(media.id)
@@ -69,7 +72,7 @@ export default function MediaRow({ media, approveCallback }: MediaRowPropsType) 
       <TableCell>{formatDuration(media.duration)}</TableCell>
       <TableCell></TableCell>
       <TableCell align="right">
-        <Tooltip title="Approve">
+        <Tooltip title={t('approve')}>
           <IconButton
             sx={{
               backgroundColor: 'primary.main',
@@ -83,7 +86,7 @@ export default function MediaRow({ media, approveCallback }: MediaRowPropsType) 
             <FactCheckIcon />
           </IconButton>
         </Tooltip>
-        <Tooltip title="Delete">
+        <Tooltip title={t('delete')}>
           <IconButton
             sx={{
               backgroundColor: 'red',
@@ -124,20 +127,20 @@ export default function MediaRow({ media, approveCallback }: MediaRowPropsType) 
         </Box>
       </Modal>
       <Dialog open={approveDialogOpen} onClose={() => setApproveDialogOpen(false)}>
-        <DialogTitle>Approve this media?</DialogTitle>
+        <DialogTitle>{t('txt-approve-media-message')}</DialogTitle>
         <DialogActions>
-          <Button onClick={() => setApproveDialogOpen(false)}>Cancel</Button>
+          <Button onClick={() => setApproveDialogOpen(false)}>{t('cancel')}</Button>
           <Button onClick={handleAprrove} color="success">
-            Confirm
+            {t('confirm')}
           </Button>
         </DialogActions>
       </Dialog>
       <Dialog open={deleteDialogOpen} onClose={() => setDeleteDialogOpen(false)}>
-        <DialogTitle>Are you sure?</DialogTitle>
+        <DialogTitle>{t('txt-delete-confirm-message')}</DialogTitle>
         <DialogActions>
-          <Button onClick={() => setDeleteDialogOpen(false)}>Cancel</Button>
+          <Button onClick={() => setDeleteDialogOpen(false)}>{t('cancel')}</Button>
           <Button onClick={handleDelete} color="error">
-            Confirm
+            {t('delete')}
           </Button>
         </DialogActions>
       </Dialog>

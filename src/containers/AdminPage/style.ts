@@ -11,6 +11,7 @@ export const styles: AdminPageStyle = {
     flex: 1,
     display: 'flex',
     gap: 2,
+    pt: 2,
   },
   tabLabel: {
     '&:focus, &:active, &:hover': {

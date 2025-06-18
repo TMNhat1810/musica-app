@@ -16,6 +16,7 @@ import { useEffect, useState } from 'react';
 import UserRow from './UserRow';
 import { User } from '../../../../common/interfaces';
 import { AdminServices } from '../../../../services';
+import { useTranslation } from 'react-i18next';
 
 export default function UserPanel() {
   const [users, setUsers] = useState<User[]>([]);
@@ -23,6 +24,8 @@ export default function UserPanel() {
   const [page, setPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
+
+  const { t } = useTranslation();
 
   const handleSearch = () => {
     setLoading(true);
@@ -45,7 +48,7 @@ export default function UserPanel() {
     if (value > totalPages || value < 0) return;
     setLoading(true);
     setPage(value);
-    AdminServices.getUsers()
+    AdminServices.getUsers(query, value)
       .then((data) => {
         setUsers(data.users);
         setLoading(false);
@@ -69,7 +72,7 @@ export default function UserPanel() {
     <Box sx={{}}>
       <Box sx={{ px: 2, py: 1, backgroundColor: 'background.paper' }}>
         <TextField
-          placeholder="Search by ID or user's name"
+          placeholder={t('search-by-id-or-name-message')}
           fullWidth
           value={query}
           size="small"
@@ -92,12 +95,12 @@ export default function UserPanel() {
         <Table size="small">
           <TableHead>
             <TableRow>
-              <TableCell sx={{ fontWeight: 'bold' }}>User</TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}>Name</TableCell>
+              <TableCell sx={{ fontWeight: 'bold' }}>{t('user')}</TableCell>
+              <TableCell sx={{ fontWeight: 'bold' }}>{t('name')}</TableCell>
               <TableCell sx={{ fontWeight: 'bold' }}></TableCell>
               <TableCell sx={{ fontWeight: 'bold' }}></TableCell>
               <TableCell sx={{ fontWeight: 'bold' }} align="right">
-                Action
+                {t('action')}
               </TableCell>
             </TableRow>
             {users.map((user) => (

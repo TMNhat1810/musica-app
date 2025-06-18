@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import HistoryIcon from '@mui/icons-material/History';
+import SettingsIcon from '@mui/icons-material/Settings';
 import { IUser } from '../../../../contexts/auth/auth';
 import { MouseEvent, useState } from 'react';
 import { useAuth } from '../../../../hooks';
@@ -109,6 +110,13 @@ export default function UserAvatar({ user }: UserAvatarPropsType) {
             <HistoryIcon sx={{ color: 'text.primary' }} />
           </ListItemIcon>
           <ListItemText>{t('history')}</ListItemText>
+        </MenuItem>
+        <Divider sx={{ m: 0 }} />
+        <MenuItem onClick={() => navigate('/setting')} sx={{ textAlign: 'left' }}>
+          <ListItemIcon>
+            <SettingsIcon sx={{ color: 'text.primary' }} />
+          </ListItemIcon>
+          <ListItemText>{t('setting')}</ListItemText>
         </MenuItem>
         <Divider sx={{ m: 0 }} />
         <MenuItem onClick={handlerSignout}>

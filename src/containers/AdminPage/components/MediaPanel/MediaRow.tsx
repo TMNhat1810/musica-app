@@ -16,6 +16,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useState } from 'react';
 import { Media } from '../../../../common/interfaces';
 import MediaStatsContainer from './MediaStatsContainer';
+import { useTranslation } from 'react-i18next';
 
 interface MediaRowPropsType {
   media: Media;
@@ -28,6 +29,7 @@ export default function MediaRow({ media }: MediaRowPropsType) {
   const handleDelete = () => {};
 
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <TableRow
@@ -52,7 +54,7 @@ export default function MediaRow({ media }: MediaRowPropsType) {
       <TableCell>{formatDuration(media.duration)}</TableCell>
       <TableCell></TableCell>
       <TableCell align="right">
-        <Tooltip title="View statistics">
+        <Tooltip title={t('statistics')}>
           <IconButton
             sx={{
               backgroundColor: 'primary.main',
@@ -65,7 +67,7 @@ export default function MediaRow({ media }: MediaRowPropsType) {
             <AnalyticsOutlinedIcon />
           </IconButton>
         </Tooltip>
-        <Tooltip title="Delete">
+        <Tooltip title={t('delete')}>
           <IconButton
             sx={{
               backgroundColor: 'red',
@@ -81,11 +83,11 @@ export default function MediaRow({ media }: MediaRowPropsType) {
         </Tooltip>
       </TableCell>
       <Dialog open={deleteDialogOpen} onClose={() => setDeleteDialogOpen(false)}>
-        <DialogTitle>Are you sure?</DialogTitle>
+        <DialogTitle>{t('txt-delete-confirm-message')}</DialogTitle>
         <DialogActions>
-          <Button onClick={() => setDeleteDialogOpen(false)}>Cancel</Button>
+          <Button onClick={() => setDeleteDialogOpen(false)}>{t('cancel')}</Button>
           <Button onClick={handleDelete} color="error">
-            Confirm
+            {t('confirm')}
           </Button>
         </DialogActions>
       </Dialog>

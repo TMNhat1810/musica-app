@@ -18,6 +18,7 @@
     "@mui/styled-engine-sc": "^6.3.0",
     "axios": "^1.7.9",
     "dayjs": "^1.11.13",
+    "flag-icons": "^7.5.0",
     "i18next": "^25.2.1",
     "i18next-browser-languagedetector": "^8.2.0",
     "mui-file-dropzone": "^4.0.2",

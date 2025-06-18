@@ -1,7 +1,7 @@
 import { AppBar, Box, Typography } from '@mui/material';
 import { styles } from './style';
-import AuthControl from './AuthControl';
 import { Link } from 'react-router-dom';
+import AuthControl from '../../../../components/Header/AuthControl';
 
 export default function Header() {
   return (
@@ -12,7 +12,7 @@ export default function Header() {
         </Link>
         <Typography sx={{ color: 'text.primary' }}>Admin</Typography>
       </Box>
-      <AuthControl />
+      <AuthControl showCreateButton={false} showNotification={false} />
     </AppBar>
   );
 }

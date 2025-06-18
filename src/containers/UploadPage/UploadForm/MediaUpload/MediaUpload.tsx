@@ -2,7 +2,7 @@ import { Box, Button, Chip, Divider, IconButton, Typography } from '@mui/materia
 import { styles } from './style';
 import { DropzoneArea } from 'mui-file-dropzone';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { AudioMimetypes, VideoMimetypes } from '../../../../common/mimetypes';
+import { VideoMimetypes } from '../../../../common/mimetypes';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -30,12 +30,21 @@ export default function MediaUpload({
             if (files.length > 0) callback(files[0]);
           }}
           maxFileSize={1024 * 1024 * 1024}
-          acceptedFiles={[...VideoMimetypes, ...AudioMimetypes]}
+          acceptedFiles={VideoMimetypes}
           filesLimit={1}
           dropzoneClass="mui-dropzone-container"
           dropzoneText={t('txt-upload-here-message')}
           clearOnUnmount={false}
           dropzoneProps={{ disabled: !!media }}
+          getFileLimitExceedMessage={() => t('txt-file-limit-exceed-message')}
+          getDropRejectMessage={(rejectedFile) => {
+            if (rejectedFile.size > 1024 * 1024 * 1024) {
+              return rejectedFile.name + ': ' + t('txt-file-exceed-limit-message');
+            }
+            return (
+              rejectedFile.name + ': ' + t('txt-file-type-not-supported-message')
+            );
+          }}
         />
       )}
       {media && (

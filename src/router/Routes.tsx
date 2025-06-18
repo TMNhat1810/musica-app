@@ -21,6 +21,7 @@ import AdminPage from '../containers/AdminPage';
 import AdminLayout from '../layouts/admin';
 import FollowingPage from '../containers/FollowingPage';
 import LikedMediaPage from '../containers/LikedMediaPage/LikedMediaPage';
+import SettingPage from '../containers/SettingPage';
 
 export default function MusicaRoutes() {
   return (
@@ -65,6 +66,7 @@ export default function MusicaRoutes() {
             </AuthProtectedRoute>
           }
         />
+        <Route path="setting" element={<SettingPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
       <Route path="forum" element={<ForumLayout />}>

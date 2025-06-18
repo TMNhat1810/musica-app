@@ -12,8 +12,8 @@ export const getMedias = async (
 
 export const getUsers = async (
   query?: string,
-  limit: number = 10,
   page: number = 1,
+  limit: number = 10,
 ) => {
   const params = query ? { page, limit, query } : { page, limit };
   const response = await AxiosInstance.get('/user/search', { params });

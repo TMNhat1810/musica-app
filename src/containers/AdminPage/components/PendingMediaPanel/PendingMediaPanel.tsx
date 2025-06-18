@@ -16,6 +16,7 @@ import { useEffect, useState } from 'react';
 import { Media } from '../../../../common/interfaces';
 import SearchIcon from '@mui/icons-material/Search';
 import MediaRow from './MediaRow';
+import { useTranslation } from 'react-i18next';
 
 export default function PendingMediaPanel() {
   const [medias, setMedias] = useState<Media[]>([]);
@@ -23,6 +24,8 @@ export default function PendingMediaPanel() {
   const [page, setPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
+
+  const { t } = useTranslation();
 
   const handleSearch = () => {
     setLoading(true);
@@ -81,7 +84,7 @@ export default function PendingMediaPanel() {
     <Box sx={{}}>
       <Box sx={{ px: 2, py: 1, backgroundColor: 'background.paper' }}>
         <TextField
-          placeholder="Search by ID or Title"
+          placeholder={t('search-by-id-or-name-message')}
           fullWidth
           value={query}
           size="small"
@@ -105,11 +108,11 @@ export default function PendingMediaPanel() {
           <TableHead>
             <TableRow>
               <TableCell sx={{ fontWeight: 'bold' }}>Media</TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}>Title</TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}>Duration</TableCell>
+              <TableCell sx={{ fontWeight: 'bold' }}>{t('title')}</TableCell>
+              <TableCell sx={{ fontWeight: 'bold' }}>{t('duration')}</TableCell>
               <TableCell sx={{ fontWeight: 'bold' }}></TableCell>
               <TableCell sx={{ fontWeight: 'bold' }} align="right">
-                Action
+                {t('action')}
               </TableCell>
             </TableRow>
             {medias.map((media) => (

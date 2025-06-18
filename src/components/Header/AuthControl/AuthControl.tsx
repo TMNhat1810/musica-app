@@ -9,9 +9,15 @@ import { useTranslation } from 'react-i18next';
 
 interface AuthControlPropsType {
   forumMode?: boolean;
+  showNotification?: boolean;
+  showCreateButton?: boolean;
 }
 
-export default function AuthControl({ forumMode = false }: AuthControlPropsType) {
+export default function AuthControl({
+  forumMode = false,
+  showNotification = true,
+  showCreateButton = true,
+}: AuthControlPropsType) {
   const { user } = useAuth();
   const { t } = useTranslation();
 
@@ -19,28 +25,30 @@ export default function AuthControl({ forumMode = false }: AuthControlPropsType)
     <Box sx={styles.container}>
       {user ? (
         <Box sx={styles.authContainer}>
-          <Link to={forumMode ? '/forum/new' : '/upload'}>
-            <IconButton
-              sx={{
-                py: 0.5,
-                pl: 1,
-                pr: 1.5,
-                borderRadius: 5,
-                backgroundColor: 'background.paper',
-              }}
-            >
-              <AddIcon
+          {showCreateButton && (
+            <Link to={forumMode ? '/forum/new' : '/upload'}>
+              <IconButton
                 sx={{
-                  color: 'white',
-                  width: '28px',
-                  height: '28px',
-                  mr: 0.5,
+                  py: 0.5,
+                  pl: 1,
+                  pr: 1.5,
+                  borderRadius: 5,
+                  backgroundColor: 'background.paper',
                 }}
-              />
-              <Typography>{t('create')}</Typography>
-            </IconButton>
-          </Link>
-          <NotificationControl />
+              >
+                <AddIcon
+                  sx={{
+                    color: 'white',
+                    width: '28px',
+                    height: '28px',
+                    mr: 0.5,
+                  }}
+                />
+                <Typography>{t('create')}</Typography>
+              </IconButton>
+            </Link>
+          )}
+          {showNotification && <NotificationControl />}
           <UserAvatar user={user} />
         </Box>
       ) : (

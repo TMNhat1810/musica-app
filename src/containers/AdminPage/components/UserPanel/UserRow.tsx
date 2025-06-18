@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 import AnalyticsOutlinedIcon from '@mui/icons-material/AnalyticsOutlined';
 import { useState } from 'react';
 import UserStatsContainer from './UserStatsContainer';
+import { useTranslation } from 'react-i18next';
 
 interface UserRowPropsType {
   user: User;
@@ -20,6 +21,8 @@ interface UserRowPropsType {
 
 export default function UserRow({ user }: UserRowPropsType) {
   const [statsDialogOpen, setStatsDialogOpen] = useState<boolean>(false);
+
+  const { t } = useTranslation();
 
   return (
     <TableRow
@@ -41,7 +44,7 @@ export default function UserRow({ user }: UserRowPropsType) {
       <TableCell></TableCell>
       <TableCell></TableCell>
       <TableCell align="right">
-        <Tooltip title="View statistics">
+        <Tooltip title={t('statistics')}>
           <IconButton
             sx={{
               backgroundColor: 'primary.main',
