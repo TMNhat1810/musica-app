@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 import { UserServices } from '../../../../services';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface PreviewModalPropsType {
   data: File;
@@ -19,6 +20,8 @@ export default function PreviewModal({ data, onClose }: PreviewModalPropsType) {
   const open = Boolean(data);
 
   const [loading, setLoading] = useState<boolean>(false);
+
+  const { t } = useTranslation();
 
   const handleUpload = () => {
     setLoading(true);
@@ -33,7 +36,7 @@ export default function PreviewModal({ data, onClose }: PreviewModalPropsType) {
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Confirm avatar changing:</DialogTitle>
+      <DialogTitle>{t('txt-confirm-avatar-change')}</DialogTitle>
       <DialogContent sx={{ display: 'flex', justifyContent: 'center' }}>
         {data && (
           <Avatar src={URL.createObjectURL(data)} sx={{ width: 150, height: 150 }} />
@@ -41,11 +44,11 @@ export default function PreviewModal({ data, onClose }: PreviewModalPropsType) {
       </DialogContent>
       <DialogActions sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Button onClick={onClose} color="error">
-          Cancel
+          {t('cancel-button-text')}
         </Button>
         {!loading && (
           <Button onClick={handleUpload} color="primary">
-            Confirm
+            {t('confirm-button-text')}
           </Button>
         )}
         {loading && <CircularProgress />}

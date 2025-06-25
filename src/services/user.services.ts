@@ -123,3 +123,14 @@ export const getUserLikedMedias = async (page: number = 1, limit: number = 10) =
   });
   return response.data;
 };
+
+export const searchUsers = async (
+  query: string,
+  limit: number = 10,
+  page: number = 1,
+) => {
+  const response = await AxiosInstance.get('/user/search', {
+    params: { query, page, limit },
+  });
+  return response.data;
+};

@@ -10,7 +10,7 @@ interface LocaleProviderPropType {
 
 export default function LocaleProvider({ children }: LocaleProviderPropType) {
   const [locale, setLocale] = useState<LocaleType>(
-    (localStorage.getItem('locale') as LocaleType) || 'vi',
+    (localStorage.getItem('i18nextLng') as LocaleType) || 'vi',
   );
 
   const changeLocale = (locale: LocaleType) => setLocale(locale);

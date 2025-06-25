@@ -80,7 +80,7 @@ export default function FinishForm({
               onChange={(files) => {
                 if (files.length > 0) callback(files[0]);
               }}
-              maxFileSize={5 * 1024 * 1024}
+              maxFileSize={10 * 1024 * 1024}
               acceptedFiles={ImageMimetypes}
               filesLimit={1}
               dropzoneClass="mui-dropzone-container"

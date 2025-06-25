@@ -6,6 +6,7 @@ export const instances = axios.create({
   baseURL: API.ENDPOINT,
   headers: {
     'ngrok-skip-browser-warning': true,
+    'bypass-tunnel-reminder': true,
   },
   timeout: 30000,
 });

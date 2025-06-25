@@ -3,6 +3,9 @@ import { SxProps, Theme } from '@mui/material';
 interface SearchResultPageStyle {
   container: SxProps<Theme>;
   mediaPannel: SxProps<Theme>;
+  chipContainer: SxProps<Theme>;
+  chip: SxProps<Theme>;
+  selectedChip: SxProps<Theme>;
 }
 
 export const styles: SearchResultPageStyle = {
@@ -17,4 +20,15 @@ export const styles: SearchResultPageStyle = {
     pt: 1,
     justifyContent: 'space-around',
   },
+  chipContainer: {
+    pl: 2,
+    pt: 1,
+    display: 'flex',
+    gap: 1,
+  },
+  chip: {
+    border: '2px solid',
+    borderColor: 'text.primary',
+  },
+  selectedChip: {},
 };

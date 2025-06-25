@@ -13,6 +13,7 @@ export const styles: SideMenuStyle = {
     position: 'fixed',
     top: 64,
     height: '100%',
+    minWidth: '100px',
   },
   collapseButton: {
     display: 'flex',
@@ -20,5 +21,6 @@ export const styles: SideMenuStyle = {
     alignItems: 'center',
     maxWidth: '80%',
     textAlign: 'center',
+    minWidth: '60px',
   },
 };

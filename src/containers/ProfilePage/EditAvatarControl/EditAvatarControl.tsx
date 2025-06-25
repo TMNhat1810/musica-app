@@ -2,6 +2,7 @@ import { Avatar, Box, IconButton, Menu, MenuItem } from '@mui/material';
 import { styles } from './style';
 import { MouseEvent, useRef, useState } from 'react';
 import PreviewModal from './PreviewModal';
+import { useTranslation } from 'react-i18next';
 
 interface EditAvatarControlPropsType {
   src: string;
@@ -16,6 +17,8 @@ export default function EditAvatarControl({
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const open = Boolean(anchorEl);
+
+  const { t } = useTranslation();
 
   const handleOpenMenu = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -44,7 +47,7 @@ export default function EditAvatarControl({
       {editable && (
         <Menu anchorEl={anchorEl} open={open} onClose={handleCloseMenu}>
           <MenuItem onClick={handleEditingAvatar}>
-            Edit Avatar
+            {t('txt-edit-avatar')}
             <input
               type="file"
               hidden

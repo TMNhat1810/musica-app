@@ -92,5 +92,13 @@
   "general-setting": "Cài đặt chung",
   "language": "Ngôn ngữ",
 
-  "approve": "Duyệt"
+  "approve": "Duyệt",
+
+  "txt-matching-results": "Kết quả trùng khớp",
+  "txt-maybe-you-are-searching": "Có thể bạn đang tìm kiếm",
+
+  "txt-edit-avatar": "Đổi ảnh đại diện",
+  "txt-change-display-name": "Đổi tên hiển thị",
+  "txt-change-password": "Đổi mật khẩu",
+  "txt-confirm-avatar-change": "Xác nhận đổi ảnh đại diện"
 }

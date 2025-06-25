@@ -12,6 +12,7 @@ import BadgeIcon from '@mui/icons-material/Badge';
 import { MouseEvent, useState } from 'react';
 import ChangeDisplayNameModal from './ChangeDisplayNameModal';
 import ChangePasswordModal from './ChangePasswordModal';
+import { useTranslation } from 'react-i18next';
 
 export default function ProfileSettingMenu() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -24,6 +25,8 @@ export default function ProfileSettingMenu() {
   const handleOpenMenu = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
+  const { t } = useTranslation();
 
   const handleCloseMenu = () => {
     setAnchorEl(null);
@@ -68,7 +71,7 @@ export default function ProfileSettingMenu() {
           <ListItemIcon>
             <BadgeIcon />
           </ListItemIcon>
-          <ListItemText>Change display name</ListItemText>
+          <ListItemText>{t('txt-change-display-name')}</ListItemText>
         </MenuItem>
         <MenuItem
           onClick={() => {
@@ -79,7 +82,7 @@ export default function ProfileSettingMenu() {
           <ListItemIcon>
             <LockIcon />
           </ListItemIcon>
-          <ListItemText>Change password</ListItemText>
+          <ListItemText>{t('txt-change-password')}</ListItemText>
         </MenuItem>
       </Menu>
       <ChangeDisplayNameModal

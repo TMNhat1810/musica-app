@@ -1,51 +1,71 @@
-import { Box, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { Media } from '../../common/interfaces';
-import { MediaServices } from '../../services';
+import { Box, Chip, IconButton } from '@mui/material';
+import { Navigate, useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import MediaResults from './MediaResults';
 import { styles } from './style';
-import MediaDisplay from '../../components/MediaDisplay';
+import { useCallback, useState } from 'react';
+import UserResults from './UserResults';
 
 export default function SearchResultPage() {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query');
 
-  const [results, setResults] = useState<Media[]>([]);
-  const [resultsFromRecommender, setResultsFromRecommender] = useState<Media[]>([]);
+  const [selectedSection, setSelectedSection] = useState<string>(
+    searchParams.get('tab') || 'media',
+  );
 
-  useEffect(() => {
-    if (!query) return;
+  const handleChangeTab = useCallback(
+    (newTab: string) => {
+      const newParams = new URLSearchParams(searchParams);
+      newParams.set('tab', newTab);
+      setSearchParams(newParams);
+      setSelectedSection(newTab);
+    },
+    [searchParams, setSearchParams],
+  );
 
-    MediaServices.searchMedia(query)
-      .then((res) => {
-        setResults(res.data);
-        if (res.from_recommender) setResultsFromRecommender(res.from_recommender);
-      })
-      .catch();
-  }, [query]);
+  const { t } = useTranslation();
+
+  if (!query) return <Navigate to="/" />;
 
   return (
     <Box sx={styles.container}>
-      {results.length > 0 && (
-        <Box>
-          <Typography>Matching Results</Typography>
-          <Box sx={styles.mediaPannel}>
-            {results.map((media) => (
-              <MediaDisplay key={media.id} media={media} />
-            ))}
-          </Box>
-        </Box>
-      )}
-      {resultsFromRecommender.length > 0 && (
-        <Box>
-          <Typography>Maybe you are searching</Typography>
-          <Box sx={styles.mediaPannel}>
-            {resultsFromRecommender.map((media) => (
-              <MediaDisplay key={media.id} media={media} />
-            ))}
-          </Box>
-        </Box>
-      )}
+      <Box sx={styles.chipContainer}>
+        <IconButton
+          sx={{
+            '&:focus, &:active': {
+              border: 'none',
+              outline: 'none',
+            },
+            p: 0,
+          }}
+          onClick={() => handleChangeTab('media')}
+        >
+          <Chip
+            label="Media"
+            sx={{ ...styles.chip, ...(selectedSection === 'media' && {}) }}
+          />
+        </IconButton>
+        <IconButton
+          sx={{
+            '&:focus, &:active': {
+              border: 'none',
+              outline: 'none',
+            },
+            p: 0,
+          }}
+          onClick={() => handleChangeTab('user')}
+        >
+          <Chip
+            label={t('user')}
+            sx={{ ...styles.chip, ...(selectedSection === 'user' && {}) }}
+          />
+        </IconButton>
+      </Box>
+      <Box sx={{ flex: 1, pt: 1 }}>
+        {selectedSection === 'media' && query && <MediaResults query={query} />}
+        {selectedSection === 'user' && query && <UserResults query={query} />}
+      </Box>
     </Box>
   );
 }
