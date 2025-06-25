@@ -43,7 +43,13 @@ export default function SearchResultPage() {
         >
           <Chip
             label="Media"
-            sx={{ ...styles.chip, ...(selectedSection === 'media' && {}) }}
+            sx={{
+              ...styles.chip,
+              ...(selectedSection === 'media' && {
+                borderColor: 'primary.main',
+                color: 'primary.main',
+              }),
+            }}
           />
         </IconButton>
         <IconButton
@@ -58,7 +64,13 @@ export default function SearchResultPage() {
         >
           <Chip
             label={t('user')}
-            sx={{ ...styles.chip, ...(selectedSection === 'user' && {}) }}
+            sx={{
+              ...styles.chip,
+              ...(selectedSection === 'user' && {
+                borderColor: 'primary.main',
+                color: 'primary.main',
+              }),
+            }}
           />
         </IconButton>
       </Box>
