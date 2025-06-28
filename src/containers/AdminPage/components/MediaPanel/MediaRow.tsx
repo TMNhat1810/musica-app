@@ -17,6 +17,7 @@ import { useState } from 'react';
 import { Media } from '../../../../common/interfaces';
 import MediaStatsContainer from './MediaStatsContainer';
 import { useTranslation } from 'react-i18next';
+import { MediaServices } from '../../../../services';
 
 interface MediaRowPropsType {
   media: Media;
@@ -26,7 +27,13 @@ export default function MediaRow({ media }: MediaRowPropsType) {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState<boolean>(false);
   const [statsDialogOpen, setStatsDialogOpen] = useState<boolean>(false);
 
-  const handleDelete = () => {};
+  const handleDelete = () => {
+    MediaServices.deleteMedia(media.id)
+      .then(() => {
+        window.location.reload();
+      })
+      .catch();
+  };
 
   const navigate = useNavigate();
   const { t } = useTranslation();

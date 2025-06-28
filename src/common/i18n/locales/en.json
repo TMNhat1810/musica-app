@@ -100,5 +100,6 @@
   "txt-edit-avatar": "Edit Avatar",
   "txt-change-display-name": "Change display name",
   "txt-change-password": "Change password",
-  "txt-confirm-avatar-change": "Confirm your avatar changing"
+  "txt-confirm-avatar-change": "Confirm your avatar changing",
+  "txt-approve-media-message": "Approve this Media ?"
 }

@@ -6,6 +6,7 @@ import { styles } from './style';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import FollowButton from '../../../components/FollowButton';
+import { useAuth } from '../../../hooks';
 
 interface UserResultsPropsType {
   query: string;
@@ -15,6 +16,8 @@ export default function UserResults({ query }: UserResultsPropsType) {
   const [users, setUsers] = useState<User[]>([]);
 
   const { t } = useTranslation();
+
+  const { user } = useAuth();
 
   useEffect(() => {
     UserServices.searchUsers(query, 10)
@@ -28,29 +31,31 @@ export default function UserResults({ query }: UserResultsPropsType) {
         maxWidth="lg"
         sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
       >
-        {users.map((user) => (
-          <Box key={user.id} sx={{ display: 'flex', gap: 1 }}>
-            <Link to={`/p/${user.id}`}>
+        {users.map((_user) => (
+          <Box key={_user.id} sx={{ display: 'flex', gap: 1 }}>
+            <Link to={`/p/${_user.id}`}>
               <Box>
-                <Avatar src={user.photo_url} sx={{ width: 64, height: 64 }} />
+                <Avatar src={_user.photo_url} sx={{ width: 64, height: 64 }} />
               </Box>
             </Link>
             <Box>
-              <Link to={`/p/${user.id}`} style={{ color: 'inherit' }}>
+              <Link to={`/p/${_user.id}`} style={{ color: 'inherit' }}>
                 <Typography variant="h5" fontWeight="bold">
-                  {user.display_name}
+                  {_user.display_name}
                 </Typography>
               </Link>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <Typography>@{user.username}</Typography>
+                <Typography>@{_user.username}</Typography>
                 <Typography>•</Typography>
                 <Typography variant="caption">
-                  {user._count?.followers} {t('follower')}
+                  {_user._count?.followers} {t('followers')}
                 </Typography>
               </Box>
-            </Box>
-            <Box>
-              <FollowButton target_id={user.id} />
+              <Box>
+                {(!user || user.id !== _user.id) && (
+                  <FollowButton target_id={_user.id} />
+                )}
+              </Box>
             </Box>
           </Box>
         ))}

@@ -18,7 +18,7 @@ import { Media } from '../../../common/interfaces';
 import { UserServices } from '../../../services';
 import { useParams } from 'react-router-dom';
 import MediaRow from './MediaRow';
-import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
 
 export default function MediaTable() {
   const { id } = useParams();
@@ -28,10 +28,12 @@ export default function MediaTable() {
   const [totalPages, setTotalPages] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
 
+  const { t } = useTranslation();
+
   const handleSearch = () => {
     if (!id) return;
     setLoading(true);
-    UserServices.getUserMedia(id, query)
+    UserServices.getAllUserMedia(id, query)
       .then((data) => {
         setPage(1);
         setTotalPages(data.totalPages);
@@ -51,7 +53,7 @@ export default function MediaTable() {
     if (value > totalPages || value < 0) return;
     setLoading(true);
     setPage(value);
-    UserServices.getUserMedia(id, undefined, value)
+    UserServices.getAllUserMedia(id, undefined, value)
       .then((data) => {
         setLoading(false);
         setMedias(data.medias);
@@ -62,7 +64,7 @@ export default function MediaTable() {
   useEffect(() => {
     if (!id) return;
     setLoading(true);
-    UserServices.getUserMedia(id)
+    UserServices.getAllUserMedia(id)
       .then((data) => {
         setTotalPages(data.totalPages);
         setMedias(data.medias);

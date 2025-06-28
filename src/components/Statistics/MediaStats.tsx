@@ -62,8 +62,8 @@ export default function UserMediaStats({ stats }: MediaStatsPropsType) {
               <XAxis dataKey="label" />
               <YAxis />
               <Tooltip />
-              <Bar dataKey="Views" fill="#1976d2" />
-              <Bar dataKey="WatchTime" fill="#ff7043" />
+              <Bar dataKey="Views" fill="#1976d2" activeBar={false} />
+              <Bar dataKey="WatchTime" fill="#ff7043" activeBar={false} />
             </BarChart>
           </ResponsiveContainer>
         </Box>

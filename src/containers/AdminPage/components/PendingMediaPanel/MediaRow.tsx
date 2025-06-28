@@ -12,7 +12,6 @@ import {
 } from '@mui/material';
 import { DEFAULT_THUMBNAIL_URL } from '../../../../constants';
 import { formatDuration } from '../../../../utils/datetime';
-import DeleteIcon from '@mui/icons-material/Delete';
 import FactCheckIcon from '@mui/icons-material/FactCheck';
 import { useState } from 'react';
 import { Media } from '../../../../common/interfaces';
@@ -84,20 +83,6 @@ export default function MediaRow({ media, approveCallback }: MediaRowPropsType) 
             onClick={() => setApproveDialogOpen(true)}
           >
             <FactCheckIcon />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title={t('delete')}>
-          <IconButton
-            sx={{
-              backgroundColor: 'red',
-              borderRadius: 2,
-              px: 1,
-              py: 0.5,
-              ml: 1,
-            }}
-            onClick={() => setDeleteDialogOpen(true)}
-          >
-            <DeleteIcon />
           </IconButton>
         </Tooltip>
       </TableCell>
